@@ -42,7 +42,7 @@ class Player {
     }
 
     shoot({ Pointer, elapsedFrames }) {
-        if (this.activeWeapon) {
+        if (this.activeWeapon && this.activeWeapon.ammo) {
             const bullet = this.activeWeapon.shoot({
                 Pointer,
                 player: this,

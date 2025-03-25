@@ -13,6 +13,7 @@ import handlePhysics from "./js/handle/handlePhysics.js";
 import activate from "./js/helpers/keys/activate.js";
 import deactivate from "./js/helpers/keys/deactivate.js";
 import onPointerMove from "./js/onAction/onPointerMove.js";
+import updateAmmoUi from "./js/ui/updateAmmoUi.js";
 import updateCashUi from "./js/ui/updateCashUi.js";
 import updateHealthUi from "./js/ui/updateHealtUi.js";
 import updateScoreUi from "./js/ui/updateScoreUi.js";
@@ -130,6 +131,7 @@ function init() {
     updateHealthUi(player);
     updateScoreUi(player);
     updateCashUi(player);
+    updateAmmoUi(player);
 
     gameLoop();
 }
