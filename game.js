@@ -71,7 +71,7 @@ function init() {
 
     window.addEventListener(
         "keydown",
-        (e) => activate({ e, Keys, player }),
+        (e) => activate({ e, Keys, player, Game }),
         false
     );
     window.addEventListener("keyup", (e) => deactivate({ e, Keys }), false);
@@ -82,8 +82,9 @@ function init() {
     );
     window.addEventListener(
         "mousedown",
-        () =>
+        (e) =>
             handleClick({
+                e,
                 Pointer,
                 player,
                 elapsedFrames: Game.meta.elapsedFrames,
@@ -161,7 +162,7 @@ const gameLoop = () => {
     drawEnemies({ enemies: Game.enemies, context: Game.context });
 
     handleKeyPresses({ Keys, player });
-    player.update();
+    player.update({ Game });
     for (let enemy of Game.enemies) {
         enemy.update({ player });
     }

@@ -11,6 +11,12 @@ class Glock {
         // frames
         this.fireDelay = 60;
         this.lastShotAt = 0;
+        this.reloadTime = 60;
+        this.lastReloaded = 0;
+
+        this.state = {
+            isReloading: false,
+        };
 
         this.bullet = {
             health: 2,

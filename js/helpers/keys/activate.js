@@ -1,4 +1,4 @@
-const activate = ({ e, Keys, player }) => {
+const activate = ({ e, Keys, player, Game }) => {
     const key = e.key;
 
     if (
@@ -22,6 +22,9 @@ const activate = ({ e, Keys, player }) => {
     }
     if (key === "d") {
         Keys.moveRight = true;
+    }
+    if (key === "r") {
+        player.reloadWeapon(Game.meta);
     }
 
     if (key === " ") {

@@ -1,3 +1,5 @@
+import updateAmmoUi from "../ui/updateAmmoUi.js";
+
 class Player {
     constructor() {
         this.x = null;
@@ -24,9 +26,21 @@ class Player {
         this.weapons = [];
     }
 
-    update() {
+    update({ Game }) {
+        const { elapsedFrames } = Game.meta;
+
         this.x += this.dx;
         this.y += this.dy;
+
+        const weapon = this.activeWeapon;
+        if (
+            weapon.state.isReloading &&
+            elapsedFrames - weapon.lastReloaded > weapon.reloadTime
+        ) {
+            weapon.state.isReloading = false;
+            weapon.ammo = weapon.maxAmmo;
+            updateAmmoUi(this);
+        }
     }
 
     changeWeapon({ weapon }) {
@@ -51,8 +65,14 @@ class Player {
 
             return bullet;
         }
-        console.error("Failed to shoot");
         console.log(this.activeWeapon);
+    }
+
+    reloadWeapon({ elapsedFrames }) {
+        const weapon = this.activeWeapon;
+        if (weapon.state.isReloading) return;
+        weapon.state.isReloading = true;
+        weapon.lastReloaded = elapsedFrames;
     }
 
     dash({ Keys }) {

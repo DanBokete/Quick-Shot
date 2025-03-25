@@ -1,6 +1,6 @@
 import updateAmmoUi from "../ui/updateAmmoUi.js";
 
-const handleClick = ({ Pointer, player, elapsedFrames, Game }) => {
+const handleClick = ({ e, Pointer, player, elapsedFrames, Game }) => {
     const bullet = player.shoot({ Pointer, elapsedFrames });
 
     if (bullet) {
