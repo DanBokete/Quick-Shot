@@ -29,7 +29,7 @@ const handleCollisions = ({ player, Game }) => {
         player.score++;
         player.cash += enemy.cash;
         updateScoreUi(player);
-        updateCashUi(player);
+        updateCashUi({ player });
     });
 };
 

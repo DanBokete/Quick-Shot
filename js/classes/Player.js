@@ -41,20 +41,20 @@ class Player {
         ) {
             weapon.state.isReloading = false;
             weapon.ammo = weapon.maxAmmo;
-            updateAmmoUi(this);
+            updateAmmoUi({ player: this, Game });
         }
     }
 
-    changeWeapon({ weapon }) {
+    changeWeapon({ weapon, Game }) {
         this.activeWeapon = weapon;
         updateWeaponUi(weapon);
-        updateAmmoUi({ activeWeapon: weapon });
+        updateAmmoUi({ player: this, Game });
     }
 
-    addWeapon({ weapon }) {
+    addWeapon({ weapon, Game }) {
         if (!this.weapons.includes(weapon)) {
             this.weapons.push(weapon);
-            this.changeWeapon({ weapon });
+            this.changeWeapon({ weapon, Game });
             console.log("added", weapon);
         } else console.error("Weapon has already been added");
     }
@@ -72,11 +72,14 @@ class Player {
         console.log(this.activeWeapon);
     }
 
-    reloadWeapon({ elapsedFrames }) {
+    reloadWeapon({ Game }) {
+        const { elapsedFrames } = Game.meta;
         const weapon = this.activeWeapon;
+        if (weapon.maxAmmo === weapon.ammo) return;
         if (weapon.state.isReloading) return;
         weapon.state.isReloading = true;
         weapon.lastReloaded = elapsedFrames;
+        updateAmmoUi({ player: this, Game });
     }
 
     dash({ Keys }) {

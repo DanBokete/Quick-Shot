@@ -1,6 +1,7 @@
 import AK47 from "../classes/Ak47.js";
 import Glock from "../classes/Glock.js";
 import updateAmmoUi from "../ui/updateAmmoUi.js";
+import updateCashUi from "../ui/updateCashUi.js";
 import upgradeMenuUi from "../ui/upgradeMenuUi.js";
 
 const handleClick = ({ e, Pointer, player, elapsedFrames, Game }) => {
@@ -33,17 +34,21 @@ const handleClick = ({ e, Pointer, player, elapsedFrames, Game }) => {
                     console.log(weaponId);
 
                     if (1 === weaponId) {
-                        player.addWeapon({ weapon: new Glock() });
+                        player.addWeapon({ weapon: new Glock(), Game });
                         Game.purchasedWeaponsId.push(weaponId);
 
                         weaponBtn.disabled = true;
-                        return;
+
+                        player.cash -= price;
                     } else if (2 === weaponId) {
-                        player.addWeapon({ weapon: new AK47() });
+                        player.addWeapon({ weapon: new AK47(), Game });
                         Game.purchasedWeaponsId.push(weaponId);
 
                         weaponBtn.disabled = true;
+
+                        player.cash -= price;
                     }
+                    updateCashUi({ player });
                 }
             }
         });
@@ -55,9 +60,9 @@ const handleClick = ({ e, Pointer, player, elapsedFrames, Game }) => {
 
     if (bullet) {
         player.activeWeapon.ammo--;
-        updateAmmoUi(player);
+        updateAmmoUi({ player, Game });
         Game.bullets.push(bullet);
-        updateAmmoUi(player);
+        updateAmmoUi({ player, Game });
     }
 };
 

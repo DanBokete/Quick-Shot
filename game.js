@@ -141,8 +141,8 @@ function init() {
 
     updateHealthUi(player);
     updateScoreUi(player);
-    updateCashUi(player);
-    updateAmmoUi(player);
+    updateCashUi({ player });
+    updateAmmoUi({ player, Game });
     updateRoundUpdateTimerUi(Game);
 
     gameLoop();
@@ -161,6 +161,9 @@ const gameLoop = () => {
         return;
     }
     updateRoundUpdateTimerUi(Game);
+    if (player.activeWeapon && player.activeWeapon.state.isReloading) {
+        updateAmmoUi({ player, Game });
+    }
 
     Game.meta.then =
         Game.meta.now - (Game.meta.elapsed % Game.meta.fpsInterval);

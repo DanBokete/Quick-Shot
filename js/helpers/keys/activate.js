@@ -24,7 +24,7 @@ const activate = ({ e, Keys, player, Game }) => {
         Keys.moveRight = true;
     }
     if (key === "r") {
-        player.reloadWeapon(Game.meta);
+        player.reloadWeapon({ Game });
     }
 
     if (key === " ") {
