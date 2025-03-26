@@ -9,6 +9,37 @@
     </head>
     <body>
         <div id="gameContainer">
+            <div id="upgradeMenuContainer" class="upgrade-menu-container hide">
+                <button id="close">Close</button>
+                <section id="purchaseWeapons" class="weapon-store">
+                    <figure>
+                        <img src="" alt="" />
+                        <figcaption></figcaption>
+                    </figure>
+                    <figure>
+                        <img src="" alt="" />
+                        <figcaption></figcaption>
+                    </figure>
+                    <figure>
+                        <img src="" alt="" />
+                        <figcaption></figcaption>
+                    </figure>
+                </section>
+                <section id="upgrades" class="upgrades">
+                    <figure>
+                        <img src="" alt="" />
+                        <figcaption></figcaption>
+                    </figure>
+                    <figure>
+                        <img src="" alt="" />
+                        <figcaption></figcaption>
+                    </figure>
+                    <figure>
+                        <img src="" alt="" />
+                        <figcaption></figcaption>
+                    </figure>
+                </section>
+            </div>
             <div id="top">
                 <div id="stats">
                     <div id="score">Score: 10</div>
@@ -19,13 +50,17 @@
                     <div id="health">1/1</div>
                 </div>
                 <div id="options">
-                    <button>u</button>
+                    <button id="upgradeMenu">u</button>
                     <button>s</button>
                 </div>
             </div>
             <div id="bottom">
-                <div id="ammo">50/50</div>
-                <div>02:00</div>
+                <div>
+                    <div id="activeWeapon">Gun</div>
+                    <div id="ammo">50/50</div>
+                </div>
+
+                <div id="roundTimer">02:00</div>
             </div>
             <canvas width="1024" height="640"></canvas>
         </div>

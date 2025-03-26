@@ -1,4 +1,5 @@
 import updateAmmoUi from "../ui/updateAmmoUi.js";
+import updateWeaponUi from "../ui/updateWeaponUi.js";
 
 class Player {
     constructor() {
@@ -45,6 +46,7 @@ class Player {
 
     changeWeapon({ weapon }) {
         this.activeWeapon = weapon;
+        updateWeaponUi(weapon);
     }
 
     addWeapon({ weapon }) {

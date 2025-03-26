@@ -16,6 +16,7 @@ import onPointerMove from "./js/onAction/onPointerMove.js";
 import updateAmmoUi from "./js/ui/updateAmmoUi.js";
 import updateCashUi from "./js/ui/updateCashUi.js";
 import updateHealthUi from "./js/ui/updateHealtUi.js";
+import updateRoundUpdateTimerUi from "./js/ui/updateRoundTimerUi.js";
 import updateScoreUi from "./js/ui/updateScoreUi.js";
 import updateBullets from "./js/update/updateBullets.js";
 import randomInt from "./js/utils/randomInt.js";
@@ -26,7 +27,11 @@ const Game = {
     canvas: null,
     context: null,
     requestId: null,
-    round: 1,
+    round: {
+        number: 1,
+        startTime: 0,
+        timeLimit: 100,
+    },
     bullets: [],
     enemies: [],
     meta: {
@@ -40,6 +45,10 @@ const Game = {
     endLine: {
         width: 100,
         colour: "#828282",
+    },
+    state: {
+        isPaused: false,
+        onUpgradeMenu: true,
     },
 };
 
@@ -75,11 +84,13 @@ function init() {
         false
     );
     window.addEventListener("keyup", (e) => deactivate({ e, Keys }), false);
+
     window.addEventListener(
         "pointermove",
         (e) => onPointerMove({ e, Pointer, player }),
         false
     );
+
     window.addEventListener(
         "mousedown",
         (e) =>
@@ -133,6 +144,7 @@ function init() {
     updateScoreUi(player);
     updateCashUi(player);
     updateAmmoUi(player);
+    updateRoundUpdateTimerUi(Game);
 
     gameLoop();
 }
@@ -146,6 +158,10 @@ const gameLoop = () => {
     if (Game.meta.elapsed <= Game.meta.fpsInterval) {
         return;
     }
+    if (Game.state.isPaused && Game.state.onUpgradeMenu) {
+        return;
+    }
+    updateRoundUpdateTimerUi(Game);
 
     Game.meta.then =
         Game.meta.now - (Game.meta.elapsed % Game.meta.fpsInterval);
