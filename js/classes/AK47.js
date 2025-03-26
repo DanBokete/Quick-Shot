@@ -1,18 +1,28 @@
+import normaliseVector from "../utils/normaliseVector.js";
+
 class AK47 {
     constructor() {
         this.name = "AK47";
-        this.ammo = 1;
-        this.maxAmmo = 1;
+        this.ammo = 5;
+        this.maxAmmo = 5;
         this.key = "2";
         this.speed = 8;
         this.damage = 1;
 
         // frames
-        this.fireDelay = 60;
+
+        this.fireDelay = 40;
         this.lastShotAt = 0;
+        this.reloadTime = 60;
+        this.lastReloaded = 0;
+
+        this.state = {
+            isReloading: false,
+        };
 
         this.bullet = {
             health: 2,
+            speed: 8,
         };
     }
 
@@ -35,6 +45,7 @@ class AK47 {
     }
 
     shoot({ Pointer, elapsedFrames, player }) {
+        if (this.state.isReloading) return;
         if (
             elapsedFrames > this.lastShotAt + this.fireDelay ||
             this.lastShotAt === 0
@@ -45,3 +56,5 @@ class AK47 {
         return null;
     }
 }
+
+export default AK47;

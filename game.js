@@ -50,6 +50,7 @@ const Game = {
         isPaused: false,
         onUpgradeMenu: true,
     },
+    purchasedWeaponsId: [],
 };
 
 const Keys = {
@@ -74,9 +75,6 @@ function init() {
 
     player.x = 10;
     player.y = 10;
-
-    const glock = new Glock();
-    player.addWeapon({ weapon: glock });
 
     window.addEventListener(
         "keydown",
@@ -136,6 +134,7 @@ function init() {
             new Enemy({
                 x: randomInt(Game.canvas.width / 2, Game.canvas.width),
                 y: randomInt(0, Game.canvas.height),
+                speed: Math.random() + 0.5,
             })
         );
     }

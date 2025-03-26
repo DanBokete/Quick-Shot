@@ -33,6 +33,7 @@ class Player {
         this.x += this.dx;
         this.y += this.dy;
 
+        if (!this.activeWeapon) return;
         const weapon = this.activeWeapon;
         if (
             weapon.state.isReloading &&
@@ -47,6 +48,7 @@ class Player {
     changeWeapon({ weapon }) {
         this.activeWeapon = weapon;
         updateWeaponUi(weapon);
+        updateAmmoUi({ activeWeapon: weapon });
     }
 
     addWeapon({ weapon }) {

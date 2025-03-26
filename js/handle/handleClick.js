@@ -1,3 +1,5 @@
+import AK47 from "../classes/Ak47.js";
+import Glock from "../classes/Glock.js";
 import updateAmmoUi from "../ui/updateAmmoUi.js";
 import upgradeMenuUi from "../ui/upgradeMenuUi.js";
 
@@ -8,18 +10,46 @@ const handleClick = ({ e, Pointer, player, elapsedFrames, Game }) => {
     if (e.target === upgradeMenuBtn) {
         Game.state.isPaused = true;
         Game.state.onUpgradeMenu = true;
-        upgradeMenuUi(Game.state);
+        upgradeMenuUi(Game);
         return;
     }
 
     if (e.target === closeBtn) {
         Game.state.isPaused = false;
         Game.state.onUpgradeMenu = false;
-        upgradeMenuUi(Game.state);
+        upgradeMenuUi(Game);
         return;
     }
 
-    if (Game.state.isPaused && Game.state.onUpgradeMenu) return;
+    // handle purchases
+    if (Game.state.isPaused && Game.state.onUpgradeMenu) {
+        const weaponsOnSale = document.querySelectorAll("[data-weapon-id]");
+
+        weaponsOnSale.forEach((weaponBtn) => {
+            if (e.target === weaponBtn) {
+                const price = weaponBtn.dataset.price;
+                const weaponId = Number(weaponBtn.dataset.weaponId);
+                if (player.cash >= price) {
+                    console.log(weaponId);
+
+                    if (1 === weaponId) {
+                        player.addWeapon({ weapon: new Glock() });
+                        Game.purchasedWeaponsId.push(weaponId);
+
+                        weaponBtn.disabled = true;
+                        return;
+                    } else if (2 === weaponId) {
+                        player.addWeapon({ weapon: new AK47() });
+                        Game.purchasedWeaponsId.push(weaponId);
+
+                        weaponBtn.disabled = true;
+                    }
+                }
+            }
+        });
+
+        return;
+    }
 
     const bullet = player.shoot({ Pointer, elapsedFrames });
 
