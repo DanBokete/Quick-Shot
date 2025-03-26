@@ -19,6 +19,8 @@ const handleClick = ({ e, Pointer, player, elapsedFrames, Game }) => {
         return;
     }
 
+    if (Game.state.isPaused && Game.state.onUpgradeMenu) return;
+
     const bullet = player.shoot({ Pointer, elapsedFrames });
 
     if (bullet) {
