@@ -10,6 +10,7 @@ import handleCollisions from "./js/handle/handleCollisions.js";
 import handleKeyPresses from "./js/handle/handleKeyPresses.js";
 import handleOutOfCanvas from "./js/handle/handleOutOfCanvas.js";
 import handlePhysics from "./js/handle/handlePhysics.js";
+import increaseRound from "./js/handle/increasRound.js";
 import activate from "./js/helpers/keys/activate.js";
 import deactivate from "./js/helpers/keys/deactivate.js";
 import onMouseUp from "./js/onAction/onMouseUp.js";
@@ -18,6 +19,7 @@ import updateAmmoUi from "./js/ui/updateAmmoUi.js";
 import updateCashUi from "./js/ui/updateCashUi.js";
 import updateHealthUi from "./js/ui/updateHealtUi.js";
 import updateRoundUpdateTimerUi from "./js/ui/updateRoundTimerUi.js";
+import updateRoundUi from "./js/ui/updateRoundUi.js";
 import updateScoreUi from "./js/ui/updateScoreUi.js";
 import updateBullets from "./js/update/updateBullets.js";
 import randomInt from "./js/utils/randomInt.js";
@@ -148,6 +150,7 @@ function init() {
     updateCashUi({ player });
     updateAmmoUi({ player, Game });
     updateRoundUpdateTimerUi(Game);
+    updateRoundUi({ Game });
 
     gameLoop();
 }
@@ -204,4 +207,8 @@ const gameLoop = () => {
     handlePhysics({ player });
     handleCollisions({ player, Game });
     handleOutOfCanvas({ player, Game });
+
+    if (Game.enemies.length === 0) {
+        increaseRound({ Game });
+    }
 };

@@ -84,13 +84,17 @@ canvas {
     width: 10%;
 }
 
-#bottom {
+.bottom {
     position: absolute;
     display: flex;
     justify-content: space-between;
     bottom: 0.5em;
     left: 0.5em;
     right: 0.5em;
+
+    > div + div {
+        text-align: end;
+    }
 }
 
 .shake {

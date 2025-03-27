@@ -105,6 +105,7 @@ class Player {
      * @param {Game} param.Game
      */
     shoot({ Pointer, Game }) {
+        if (!this.activeWeapon) return;
         const { elapsedFrames } = Game.meta;
         console.log("shooting");
 

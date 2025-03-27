@@ -34,11 +34,11 @@ class Enemy {
     }
 
     repelFromPlayer({ player }) {
-        if (player.x < this.x) {
+        if (player.x + player.size / 2 < this.x + this.size / 2) {
             this.x += this.reboundDistance;
         } else this.x -= this.reboundDistance;
 
-        if (player.y > this.y) {
+        if (player.y + player.size / 2 > this.y + this.size / 2) {
             this.y += this.reboundDistance;
         } else this.y -= this.reboundDistance;
     }

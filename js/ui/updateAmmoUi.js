@@ -6,7 +6,6 @@ import { Game } from "../../game.js";
  * @param {Object} param
  * @param {Player} param.player
  * @param {Game} param.Game
- * @returns
  */
 const updateAmmoUi = ({ player, Game }) => {
     const ammoElement = document.getElementById("ammo");
