@@ -5,6 +5,7 @@ import updateAmmoUi from "../ui/updateAmmoUi.js";
 import updateCashUi from "../ui/updateCashUi.js";
 import upgradeMenuUi from "../ui/upgradeMenuUi.js";
 import { Game } from "../../game.js";
+import updateHealthUi from "../ui/updateHealtUi.js";
 
 /**
  *
@@ -21,14 +22,14 @@ const handleClick = ({ e, Pointer, player, Game }) => {
     if (e.target === upgradeMenuBtn) {
         Game.state.isPaused = true;
         Game.state.onUpgradeMenu = true;
-        upgradeMenuUi(Game);
+        upgradeMenuUi({ Game, player });
         return;
     }
 
     if (e.target === closeBtn) {
         Game.state.isPaused = false;
         Game.state.onUpgradeMenu = false;
-        upgradeMenuUi(Game);
+        upgradeMenuUi({ Game, player });
         return;
     }
 
@@ -59,6 +60,40 @@ const handleClick = ({ e, Pointer, player, Game }) => {
                         player.cash -= price;
                     }
                     updateCashUi({ player });
+                }
+            }
+        });
+
+        const upgradesOnSale = document.querySelectorAll("[data-upgrade-id]");
+
+        upgradesOnSale.forEach((upgradeBtn) => {
+            if (e.target === upgradeBtn) {
+                const price = Number(upgradeBtn.dataset.price);
+                const upgradeId = Number(upgradeBtn.dataset.upgradeId);
+                console.log("almost");
+                console.log(price);
+
+                if (player.cash >= price) {
+                    console.log("here");
+
+                    if (1 === upgradeId) {
+                        player.activeWeapon.maxAmmo += 5;
+                        player.activeWeapon.ammo += 5;
+
+                        player.cash -= price;
+                        updateAmmoUi({ player, Game });
+                        updateCashUi({ player });
+                    }
+
+                    if (upgradeId === 4) {
+                        const healthUpgrade = 5;
+                        player.maxHealth += healthUpgrade;
+                        player.health += healthUpgrade;
+
+                        player.cash -= price;
+                        updateHealthUi({ player });
+                        updateCashUi({ player });
+                    }
                 }
             }
         });

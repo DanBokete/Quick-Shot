@@ -107,7 +107,6 @@ class Player {
     shoot({ Pointer, Game }) {
         if (!this.activeWeapon) return;
         const { elapsedFrames } = Game.meta;
-        console.log("shooting");
 
         if (this.activeWeapon && this.activeWeapon.ammo) {
             const bullet = this.activeWeapon.shoot({
@@ -123,7 +122,6 @@ class Player {
                 updateAmmoUi({ player: this, Game });
             }
         }
-        console.log(this.activeWeapon);
     }
 
     reloadWeapon({ Game }) {

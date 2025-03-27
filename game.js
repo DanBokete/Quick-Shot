@@ -145,7 +145,7 @@ function init() {
         );
     }
 
-    updateHealthUi(player);
+    updateHealthUi({ player });
     updateScoreUi(player);
     updateCashUi({ player });
     updateAmmoUi({ player, Game });

@@ -16,7 +16,7 @@ const handleCollisions = ({ player, Game }) => {
 
         if (enemy.settings.canAttack && collision(player, enemy)) {
             player.health--;
-            updateHealthUi(player);
+            updateHealthUi({ player });
             enemy.repelFromPlayer({ player });
         }
     }

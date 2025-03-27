@@ -1,4 +1,5 @@
-const updateHealthUi = ({ health, maxHealth }) => {
+const updateHealthUi = ({ player }) => {
+    const { health, maxHealth } = player;
     const healthContainerElement = document.getElementById("healthContainer");
     const healthElement = document.getElementById("health");
     healthElement.innerText = `${health}/${maxHealth}`;

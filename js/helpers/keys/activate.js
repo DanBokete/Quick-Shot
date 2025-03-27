@@ -1,3 +1,12 @@
+import Player from "../../classes/Player.js";
+import { Game } from "../../../game.js";
+/**
+ * Assigning parameter types
+ * @param {object} param
+ * @param {Player} param.player
+ * @param {Game} param.Game
+ * @param {number|null} param.purchasedWeaponsId
+ */
 const activate = ({ e, Keys, player, Game }) => {
     const key = e.key;
 
@@ -10,6 +19,8 @@ const activate = ({ e, Keys, player, Game }) => {
     ) {
         e.preventDefault();
     }
+
+    if (Game.state.isPaused && Game.state.onUpgradeMenu) return;
 
     if (key === "w") {
         Keys.moveUp = true;
@@ -43,7 +54,6 @@ const activate = ({ e, Keys, player, Game }) => {
         const changeWeaponKeys = player.weapons.map((weapon) => {
             return weapon.key;
         });
-        console.log(changeWeaponKeys);
     }
 };
 
