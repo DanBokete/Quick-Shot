@@ -1,5 +1,8 @@
 import updateAmmoUi from "../ui/updateAmmoUi.js";
 import updateWeaponUi from "../ui/updateWeaponUi.js";
+import AK47 from "./Ak47.js";
+import Glock from "./Glock.js";
+import { Game } from "../../game.js";
 
 class Player {
     constructor() {
@@ -20,13 +23,29 @@ class Player {
 
         this.dashForce = 20;
 
-        // object
+        /**
+         * Weapon that is equipped
+         * @type {AK47 | Glock | null}
+         */
         this.activeWeapon = null;
 
-        // list of objects
+        /**
+         * Weapons owned
+         * @type {Glock[] | AK47[] | []}
+         */
         this.weapons = [];
+
+        /** @type {boolean} */
+        this.isShooting = false;
+
+        /** @type {boolean} */
+        this.autoReload = false;
     }
 
+    /**
+     * @param {object} param
+     * @param {Game} param.Game
+     */
     update({ Game }) {
         const { elapsedFrames } = Game.meta;
 
@@ -35,22 +54,44 @@ class Player {
 
         if (!this.activeWeapon) return;
         const weapon = this.activeWeapon;
-        if (
-            weapon.state.isReloading &&
-            elapsedFrames - weapon.lastReloaded > weapon.reloadTime
-        ) {
-            weapon.state.isReloading = false;
-            weapon.ammo = weapon.maxAmmo;
-            updateAmmoUi({ player: this, Game });
+        if (weapon.state.isReloading) {
+            if (
+                !this.autoReload &&
+                elapsedFrames - weapon.lastReloaded > weapon.reloadTime
+            ) {
+                weapon.state.isReloading = false;
+                weapon.ammo = weapon.maxAmmo;
+                updateAmmoUi({ player: this, Game });
+            } else if (
+                this.autoReload &&
+                elapsedFrames - weapon.lastReloaded >
+                    weapon.reloadTime + weapon.autoReloadDelay
+            ) {
+                weapon.state.isReloading = false;
+                weapon.ammo = weapon.maxAmmo;
+                updateAmmoUi({ player: this, Game });
+            }
         }
     }
 
     changeWeapon({ weapon, Game }) {
+        if (this.activeWeapon) {
+            this.activeWeapon.state.isReloading = false;
+            this.activeWeapon.lastReloaded = 0;
+        }
+
         this.activeWeapon = weapon;
-        updateWeaponUi(weapon);
+        console.log(weapon);
+
+        updateWeaponUi({ weapon });
         updateAmmoUi({ player: this, Game });
     }
 
+    /**
+     * @param {object} param
+     * @param {Game} param.Game
+     * @param {Glock | AK47 | null} param.weapon
+     */
     addWeapon({ weapon, Game }) {
         if (!this.weapons.includes(weapon)) {
             this.weapons.push(weapon);
@@ -59,7 +100,14 @@ class Player {
         } else console.error("Weapon has already been added");
     }
 
-    shoot({ Pointer, elapsedFrames }) {
+    /**
+     * @param {object} param
+     * @param {Game} param.Game
+     */
+    shoot({ Pointer, Game }) {
+        const { elapsedFrames } = Game.meta;
+        console.log("shooting");
+
         if (this.activeWeapon && this.activeWeapon.ammo) {
             const bullet = this.activeWeapon.shoot({
                 Pointer,
@@ -67,7 +115,12 @@ class Player {
                 elapsedFrames,
             });
 
-            return bullet;
+            if (bullet) {
+                this.activeWeapon.ammo--;
+                updateAmmoUi({ player: this, Game });
+                Game.bullets.push(bullet);
+                updateAmmoUi({ player: this, Game });
+            }
         }
         console.log(this.activeWeapon);
     }

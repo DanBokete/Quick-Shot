@@ -1,10 +1,20 @@
 import AK47 from "../classes/Ak47.js";
 import Glock from "../classes/Glock.js";
+import Player from "../classes/Player.js";
 import updateAmmoUi from "../ui/updateAmmoUi.js";
 import updateCashUi from "../ui/updateCashUi.js";
 import upgradeMenuUi from "../ui/upgradeMenuUi.js";
+import { Game } from "../../game.js";
 
-const handleClick = ({ e, Pointer, player, elapsedFrames, Game }) => {
+/**
+ *
+ * @param {object} param
+ * @param {Player} param.player
+ * @param {MouseEvent} param.e
+ * @param {Game} param.Game
+ * @returns
+ */
+const handleClick = ({ e, Pointer, player, Game }) => {
     const upgradeMenuBtn = document.getElementById("upgradeMenu");
     const closeBtn = document.getElementById("close");
 
@@ -56,14 +66,8 @@ const handleClick = ({ e, Pointer, player, elapsedFrames, Game }) => {
         return;
     }
 
-    const bullet = player.shoot({ Pointer, elapsedFrames });
-
-    if (bullet) {
-        player.activeWeapon.ammo--;
-        updateAmmoUi({ player, Game });
-        Game.bullets.push(bullet);
-        updateAmmoUi({ player, Game });
-    }
+    player.isShooting = true;
+    player.shoot({ Pointer, Game });
 };
 
 export default handleClick;

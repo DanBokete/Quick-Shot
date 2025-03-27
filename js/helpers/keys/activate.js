@@ -30,6 +30,21 @@ const activate = ({ e, Keys, player, Game }) => {
     if (key === " ") {
         player.dash({ Keys });
     }
+
+    const weapons = player.weapons;
+
+    for (let weapon of weapons) {
+        if (weapon.key === key) {
+            player.changeWeapon({ weapon, Game });
+        }
+    }
+
+    if (player.weapons) {
+        const changeWeaponKeys = player.weapons.map((weapon) => {
+            return weapon.key;
+        });
+        console.log(changeWeaponKeys);
+    }
 };
 
 export default activate;

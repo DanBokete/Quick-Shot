@@ -12,6 +12,7 @@ import handleOutOfCanvas from "./js/handle/handleOutOfCanvas.js";
 import handlePhysics from "./js/handle/handlePhysics.js";
 import activate from "./js/helpers/keys/activate.js";
 import deactivate from "./js/helpers/keys/deactivate.js";
+import onMouseUp from "./js/onAction/onMouseUp.js";
 import onPointerMove from "./js/onAction/onPointerMove.js";
 import updateAmmoUi from "./js/ui/updateAmmoUi.js";
 import updateCashUi from "./js/ui/updateCashUi.js";
@@ -23,7 +24,7 @@ import randomInt from "./js/utils/randomInt.js";
 
 document.addEventListener("DOMContentLoaded", init, false);
 
-const Game = {
+export const Game = {
     canvas: null,
     context: null,
     requestId: null,
@@ -96,13 +97,16 @@ function init() {
                 e,
                 Pointer,
                 player,
-                elapsedFrames: Game.meta.elapsedFrames,
                 Game,
             }),
         false
     );
 
-    // window.addEventListener("mouseup", disableClick, false);
+    window.addEventListener(
+        "mouseup",
+        (e) => onMouseUp({ e, Pointer, player }),
+        false
+    );
 
     // load_assets(
     //     [
@@ -180,7 +184,18 @@ const gameLoop = () => {
     drawEnemies({ enemies: Game.enemies, context: Game.context });
 
     handleKeyPresses({ Keys, player });
+    if (player.isShooting) {
+        player.shoot({ Pointer, Game });
+    }
+    if (
+        player.autoReload &&
+        player.activeWeapon &&
+        player.activeWeapon.ammo === 0
+    ) {
+        player.reloadWeapon({ Game });
+    }
     player.update({ Game });
+
     for (let enemy of Game.enemies) {
         enemy.update({ player });
     }
