@@ -6,7 +6,7 @@ class Sprayer extends Enemy {
         super({ x, y, speed, health, maxHealth });
         this.lastShotAt = 0;
         this.fireDelay = 200;
-        this.bulletSpeed = 1.2;
+        this.bulletSpeed = 1.0;
     }
 
     update({ player, Pointer, Game }) {

@@ -32,7 +32,7 @@ const increaseRound = ({ Game }) => {
     if (roundNumber === 3) {
         createHardEnemies({
             Game,
-            numberOfEnemies: 8,
+            numberOfEnemies: 2,
             enemySpeed: 0.55,
             canAttack: true,
         });
