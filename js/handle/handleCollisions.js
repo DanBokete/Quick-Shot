@@ -6,6 +6,8 @@ import updateHealthUi from "../ui/updateHealtUi.js";
 import updateScoreUi from "../ui/updateScoreUi.js";
 import collision from "../utils/collision.js";
 import { Game } from "../../game.js";
+import RPG from "../classes/RPG.js";
+import getDistance from "../utils/getDistance.js";
 
 /**
  * Assigning parameter types
@@ -19,6 +21,36 @@ const handleCollisions = ({ player, Game }) => {
             Game.bullets = Game.bullets.filter((bullet) => {
                 if (!collision(bullet, enemy)) {
                     return bullet;
+                }
+                // if( bullet instanceof RPG){
+                //     for(let otherEnemy of Game.enemies){
+                //         if (enemy === otherEnemy)continue
+
+                //         const distanceBetweenEnemies = getDistance(enemy, enemyWithinRange)
+
+                //         if(distanceBetweenEnemies>bullet.)
+
+                //     }
+                // }
+
+                if (bullet.splashDamage) {
+                    console.log(bullet.splashRadius);
+                    for (let otherEnemy of Game.enemies) {
+                        if (enemy === otherEnemy) continue;
+
+                        const distanceBetweenEnemies = getDistance(
+                            enemy,
+                            otherEnemy
+                        );
+
+                        console.log(distanceBetweenEnemies);
+                        console.log(bullet.splashRadius);
+
+                        if (distanceBetweenEnemies <= bullet.splashRadius) {
+                            otherEnemy.health -= bullet.splashDamage;
+                            console.log("hkjdhj");
+                        }
+                    }
                 }
                 enemy.health -= bullet.damage;
             });

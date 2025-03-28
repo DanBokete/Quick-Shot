@@ -15,7 +15,7 @@ const weaponsOnSale = [
         price: 20,
         img: "",
     },
-    { id: 3, name: "RPG", price: 9000, img: "" },
+    { id: 3, name: "RPG", price: 0, img: "" },
 ];
 
 const upgradesOnSale = [

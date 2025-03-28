@@ -13,6 +13,7 @@ class Weapon {
         autoReloadDelay,
         bulletHealth,
         bulletSpeed,
+        size = 10,
     }) {
         this.name = name;
         this.ammo = ammo;
@@ -34,6 +35,7 @@ class Weapon {
         this.bullet = {
             health: bulletHealth,
             speed: bulletSpeed,
+            size,
         };
     }
 
@@ -48,7 +50,7 @@ class Weapon {
             y: player.y + player.size / 2,
             dx: a * this.bullet.speed,
             dy: b * this.bullet.speed,
-            size: 10,
+            size: this.bullet.size,
             speed: this.bullet.speed,
             damage: this.damage,
             health: this.bullet.health,

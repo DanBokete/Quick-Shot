@@ -212,14 +212,6 @@ const gameLoop = () => {
     // if (Game.enemies.length === 0) {
     //     increaseRound({ Game });
     // }
-
-    console.log(
-        -Math.ceil(
-            Game.meta.elapsedFrames / Game.meta.fps -
-                (Game.round.startTime / Game.meta.fps + Game.round.timeLimit)
-        )
-    );
-
     if (
         -Math.ceil(
             Game.meta.elapsedFrames / Game.meta.fps -
@@ -227,6 +219,6 @@ const gameLoop = () => {
         ) === 0 ||
         Game.enemies.length === 0
     ) {
-        increaseRound({ Game });
+        increaseRound({ player, Game });
     }
 };

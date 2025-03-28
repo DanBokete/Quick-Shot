@@ -1,3 +1,7 @@
+import randomInt from "../utils/randomInt.js";
+import Player from "./Player.js";
+import { Game } from "../../game.js";
+
 class Enemy {
     constructor({ x, y, canShoot, canAttack, speed, health, maxHealth }) {
         this.x = x;
@@ -33,6 +37,47 @@ class Enemy {
         if (player.y + player.size / 2 > this.y + this.size / 2) {
             this.y -= this.reboundDistance;
         } else this.y += this.reboundDistance;
+    }
+
+    /**
+     * @param {object} param
+     * @param {Player} param.player
+     * @param {Game} param.Game
+     */
+    setRandomSpawnLocation({ player, Game }) {
+        const lowerXSpawnLocation = randomInt(
+            0,
+            player.x - player.safeZoneRadius
+        );
+
+        const higherXSpawnLocation = randomInt(
+            player.x + player.safeZoneRadius,
+            Game.canvas.width - this.size
+        );
+
+        if (player.x - player.safeZoneRadius < 0) {
+            this.x = higherXSpawnLocation;
+        } else {
+            this.x = lowerXSpawnLocation;
+        }
+
+        const lowerYSpawnLocation = randomInt(
+            0,
+            player.y - player.safeZoneRadius
+        );
+
+        const higherYSpawnLocation = randomInt(
+            player.x + player.safeZoneRadius,
+            Game.canvas.height - this.size
+        );
+
+        if (player.y - player.safeZoneRadius < 0) {
+            this.y = higherYSpawnLocation;
+            console.log(this.x, this.y);
+        } else {
+            this.y = lowerYSpawnLocation;
+            console.log(this.x, this.y);
+        }
     }
 }
 

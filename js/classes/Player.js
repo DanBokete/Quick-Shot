@@ -40,6 +40,8 @@ class Player {
 
         /** @type {boolean} */
         this.autoReload = true;
+
+        this.safeZoneRadius = 50;
     }
 
     /**

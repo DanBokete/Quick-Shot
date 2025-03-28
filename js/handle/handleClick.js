@@ -6,6 +6,7 @@ import updateCashUi from "../ui/updateCashUi.js";
 import upgradeMenuUi from "../ui/upgradeMenuUi.js";
 import { Game } from "../../game.js";
 import updateHealthUi from "../ui/updateHealtUi.js";
+import RPG from "../classes/RPG.js";
 
 /**
  *
@@ -53,6 +54,13 @@ const handleClick = ({ e, Pointer, player, Game }) => {
                         player.cash -= price;
                     } else if (2 === weaponId) {
                         player.addWeapon({ weapon: new AK47(), Game });
+                        Game.purchasedWeaponsId.push(weaponId);
+
+                        weaponBtn.disabled = true;
+
+                        player.cash -= price;
+                    } else if (3 === weaponId) {
+                        player.addWeapon({ weapon: new RPG(), Game });
                         Game.purchasedWeaponsId.push(weaponId);
 
                         weaponBtn.disabled = true;
