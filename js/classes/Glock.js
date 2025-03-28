@@ -11,7 +11,7 @@ class Glock extends Weapon {
             fireDelay: 60,
             lastShotAt: 0,
             reloadTime: 60,
-            autoReloadDelay: 40,
+            autoReloadDelay: 20,
             bulletHealth: 2,
             bulletSpeed: 8,
         });

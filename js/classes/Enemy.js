@@ -4,18 +4,10 @@ class Enemy {
         this.y = y;
         this.size = 30;
         this.speed = speed ?? 1;
-
         this.health = health ?? 3;
         this.maxHealth = this.maxHealth ?? 3;
-
         this.cash = 10;
-
         this.reboundDistance = 50;
-
-        this.settings = {
-            canShoot,
-            canAttack: canAttack ?? false,
-        };
     }
 
     update({ player }) {
@@ -39,8 +31,8 @@ class Enemy {
         } else this.x -= this.reboundDistance;
 
         if (player.y + player.size / 2 > this.y + this.size / 2) {
-            this.y += this.reboundDistance;
-        } else this.y -= this.reboundDistance;
+            this.y -= this.reboundDistance;
+        } else this.y += this.reboundDistance;
     }
 }
 

@@ -1,3 +1,6 @@
+import Enemy from "../classes/Enemy.js";
+import Sprayer from "../classes/Sprayer.js";
+
 const drawEnemies = ({ context, enemies }) => {
     if (!enemies.length) return;
 
@@ -12,8 +15,8 @@ const drawEnemies = ({ context, enemies }) => {
             enemy.size * (enemy.health / enemy.maxHealth),
             5
         );
-
-        context.fillStyle = "orange";
+        if (enemy instanceof Enemy) context.fillStyle = "orange";
+        if (enemy instanceof Sprayer) context.fillStyle = "purple";
         context.fillRect(enemy.x, enemy.y, enemy.size, enemy.size);
     }
 };

@@ -85,6 +85,13 @@ const handleClick = ({ e, Pointer, player, Game }) => {
                         updateCashUi({ player });
                     }
 
+                    if (upgradeId === 2) {
+                        player.activeWeapon.fireDelay *= 0.95;
+
+                        player.cash -= price;
+                        updateCashUi({ player });
+                    }
+
                     if (upgradeId === 4) {
                         const healthUpgrade = 5;
                         player.maxHealth += healthUpgrade;

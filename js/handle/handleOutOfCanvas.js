@@ -15,9 +15,19 @@ const handleOutOfCanvas = ({ Game, player }) => {
         player.y = 0;
     }
 
-    const bullets = Game.bullets;
+    const { bullets, enemyBullets } = Game;
 
     Game.bullets = bullets.filter((bullet) => {
+        if (
+            bullet.x > 0 &&
+            bullet.y > 0 &&
+            bullet.x + bullet.size < Game.canvas.width &&
+            bullet.y + bullet.size < Game.canvas.height
+        ) {
+            return bullet;
+        }
+    });
+    Game.enemyBullets = enemyBullets.filter((bullet) => {
         if (
             bullet.x > 0 &&
             bullet.y > 0 &&

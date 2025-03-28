@@ -1,5 +1,49 @@
 import Player from "../classes/Player.js";
 import { Game } from "../../game.js";
+import createOnSaleWeapons from "../helpers/UI Generation/createOnSaleWeapons.js";
+
+const weaponsOnSale = [
+    {
+        id: 1,
+        name: "Glock",
+        price: 0,
+        img: "",
+    },
+    {
+        id: 2,
+        name: "AK47",
+        price: 20,
+        img: "",
+    },
+    { id: 3, name: "RPG", price: 9000, img: "" },
+];
+
+const upgradesOnSale = [
+    {
+        id: 1,
+        title: "Increase Ammo Capacity +5",
+        price: 10,
+        img: "",
+    },
+    {
+        id: 2,
+        title: "Increase Fire Rate by 5%",
+        price: 1,
+        img: "",
+    },
+    {
+        id: 3,
+        title: "Reduce Reload Time",
+        price: 500,
+        img: "",
+    },
+    {
+        id: 4,
+        title: "Increase Health capacity +5",
+        price: 10,
+        img: "",
+    },
+];
 
 /**
  * Assigning parameter types
@@ -29,78 +73,11 @@ const upgradeMenuUi = ({ Game, player }) => {
 
     upgradeMenuContainerElement.classList.remove("hide");
 
-    const weaponsOnSale = [
-        {
-            id: 1,
-            name: "Glock",
-            price: 0,
-            img: "",
-        },
-        {
-            id: 2,
-            name: "AK47",
-            price: 20,
-            img: "",
-        },
-        { id: 3, name: "RPG", price: 9000, img: "" },
-    ];
-
-    const upgradesOnSale = [
-        {
-            id: 1,
-            title: "Increase Ammo Capacity +5",
-            price: 10,
-            img: "",
-        },
-        {
-            id: 2,
-            title: "Increase Fire Rate",
-            price: 300,
-            img: "",
-        },
-        {
-            id: 3,
-            title: "Reduce Reload Time",
-            price: 500,
-            img: "",
-        },
-        {
-            id: 4,
-            title: "Increase Health capacity +5",
-            price: 5,
-            img: "",
-        },
-    ];
-
-    weaponsOnSale.forEach((weapon) => {
-        const figure = document.createElement("figure");
-        const figcaption = document.createElement("figcaption");
-        const img = document.createElement("img");
-        const weaponName = document.createElement("p");
-        const price = document.createElement("button");
-
-        img.src = weapon.img;
-        img.alt = weapon.name;
-
-        weaponName.innerText = weapon.name;
-
-        price.innerText = `$${weapon.price}`;
-        price.dataset.weaponId = weapon.id;
-
-        if (purchasedWeaponsId.includes(weapon.id)) price.disabled = true;
-        price.dataset.price = weapon.price;
-
-        figcaption.appendChild(weaponName);
-        figcaption.appendChild(price);
-
-        figure.appendChild(img);
-        figure.appendChild(figcaption);
-
-        if (player.activeWeapon && player.activeWeapon.name === weapon.name) {
-            figure.style.backgroundColor = "lightGray";
-        }
-
-        purchaseWeaponsElement.appendChild(figure);
+    createOnSaleWeapons({
+        purchasedWeaponsId,
+        purchaseWeaponsElement,
+        weaponsOnSale,
+        player,
     });
 
     upgradesOnSale.forEach((upgrade) => {

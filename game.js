@@ -31,11 +31,12 @@ export const Game = {
     context: null,
     requestId: null,
     round: {
-        number: 1,
+        number: 0,
         startTime: 0,
         timeLimit: 100,
     },
     bullets: [],
+    enemyBullets: [],
     enemies: [],
     meta: {
         then: null,
@@ -135,21 +136,21 @@ function init() {
     //     draw
     // );
 
-    for (let i = 0; i < 5; i++) {
-        Game.enemies.push(
-            new Enemy({
-                x: randomInt(Game.canvas.width / 2, Game.canvas.width),
-                y: randomInt(0, Game.canvas.height),
-                speed: Math.random() + 0.5,
-            })
-        );
-    }
+    // for (let i = 0; i < 5; i++) {
+    //     Game.enemies.push(
+    //         new Enemy({
+    //             x: randomInt(Game.canvas.width / 2, Game.canvas.width),
+    //             y: randomInt(0, Game.canvas.height),
+    //             speed: Math.random() + 0.5,
+    //         })
+    //     );
+    // }
 
     updateHealthUi({ player });
     updateScoreUi(player);
     updateCashUi({ player });
     updateAmmoUi({ player, Game });
-    updateRoundUpdateTimerUi(Game);
+    updateRoundUpdateTimerUi({ Game });
     updateRoundUi({ Game });
 
     gameLoop();
@@ -167,7 +168,7 @@ const gameLoop = () => {
     if (Game.state.isPaused && Game.state.onUpgradeMenu) {
         return;
     }
-    updateRoundUpdateTimerUi(Game);
+    updateRoundUpdateTimerUi({ Game });
     if (player.activeWeapon && player.activeWeapon.state.isReloading) {
         updateAmmoUi({ player, Game });
     }
@@ -181,10 +182,10 @@ const gameLoop = () => {
 
     // drawings
     // drawBackground()
-    drawEndLine(Game);
+    // drawEndLine(Game);
     drawPlayer({ player, context: Game.context });
-    drawBullets({ bullets: Game.bullets, context: Game.context });
     drawEnemies({ enemies: Game.enemies, context: Game.context });
+    drawBullets({ Game });
 
     handleKeyPresses({ Keys, player });
     if (player.isShooting) {
@@ -200,7 +201,7 @@ const gameLoop = () => {
     player.update({ Game });
 
     for (let enemy of Game.enemies) {
-        enemy.update({ player });
+        enemy.update({ player, Game });
     }
 
     updateBullets({ bullets: Game.bullets, context: Game.context });
@@ -208,7 +209,24 @@ const gameLoop = () => {
     handleCollisions({ player, Game });
     handleOutOfCanvas({ player, Game });
 
-    if (Game.enemies.length === 0) {
+    // if (Game.enemies.length === 0) {
+    //     increaseRound({ Game });
+    // }
+
+    console.log(
+        -Math.ceil(
+            Game.meta.elapsedFrames / Game.meta.fps -
+                (Game.round.startTime / Game.meta.fps + Game.round.timeLimit)
+        )
+    );
+
+    if (
+        -Math.ceil(
+            Game.meta.elapsedFrames / Game.meta.fps -
+                (Game.round.startTime / Game.meta.fps + Game.round.timeLimit)
+        ) === 0 ||
+        Game.enemies.length === 0
+    ) {
         increaseRound({ Game });
     }
 };

@@ -1,14 +1,37 @@
-const drawBullets = ({ bullets, context }) => {
-    if (!bullets.length) return;
+import { Game } from "../../game.js";
 
-    for (let bullet of bullets) {
-        context.fillStyle = "black";
-        context.fillRect(
-            bullet.x - bullet.size / 2,
-            bullet.y - bullet.size / 2,
-            bullet.size,
-            bullet.size
-        );
+/**
+ * Assigning parameter types
+ * @param {Object} param
+ * @param {Game} param.Game
+ */
+const drawBullets = ({ Game }) => {
+    const { bullets, context, enemyBullets } = Game;
+
+    // console.log(enemyBullets);
+
+    if (bullets.length) {
+        for (let bullet of bullets) {
+            context.fillStyle = "black";
+            context.fillRect(
+                bullet.x - bullet.size / 2,
+                bullet.y - bullet.size / 2,
+                bullet.size,
+                bullet.size
+            );
+        }
+    }
+
+    if (enemyBullets.length) {
+        for (let bullet of enemyBullets) {
+            context.fillStyle = "black";
+            context.fillRect(
+                bullet.x - bullet.size / 2,
+                bullet.y - bullet.size / 2,
+                bullet.size,
+                bullet.size
+            );
+        }
     }
 };
 

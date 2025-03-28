@@ -39,7 +39,7 @@ class Player {
         this.isShooting = false;
 
         /** @type {boolean} */
-        this.autoReload = false;
+        this.autoReload = true;
     }
 
     /**
