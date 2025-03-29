@@ -1,8 +1,8 @@
 const drawPlayer = ({ player, Game }) => {
     const { context } = Game;
     const PlayerSpriteImage = Game.assets.sprite.player;
-    context.fillStyle = "red";
-    context.fillRect(player.x, player.y, player.size, player.size);
+    // context.fillStyle = "red";
+    // context.fillRect(player.x, player.y, player.size, player.size);
     context.drawImage(
         PlayerSpriteImage,
         player.frameX * (player.width * 16),

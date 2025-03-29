@@ -3,6 +3,7 @@ import updateWeaponUi from "../ui/updateWeaponUi.js";
 import AK47 from "./Ak47.js";
 import Glock from "./Glock.js";
 import { Game } from "../../game.js";
+import RPG from "./RPG.js";
 
 class Player {
     constructor() {
@@ -54,6 +55,7 @@ class Player {
      * @param {object} param
      * @param {Game} param.Game
      */
+
     update({ Game, Pointer, Keys }) {
         const { elapsedFrames } = Game.meta;
 
@@ -76,6 +78,15 @@ class Player {
 
         if (!this.activeWeapon) return;
         const weapon = this.activeWeapon;
+
+        if (weapon && weapon instanceof RPG) {
+            this.speed = 0.8;
+            this.dashForce = 10;
+        } else {
+            this.speed = 1;
+            this.dashForce = 20;
+        }
+
         if (weapon.state.isReloading) {
             if (
                 !this.autoReload &&
@@ -128,6 +139,7 @@ class Player {
      */
     shoot({ Pointer, Game }) {
         if (!this.activeWeapon) return;
+
         const { elapsedFrames } = Game.meta;
 
         if (this.activeWeapon && this.activeWeapon.ammo) {
@@ -138,6 +150,7 @@ class Player {
             });
 
             if (bullet) {
+                this.activeWeapon.frameX = 1;
                 if (!this.unlimitedAmmo) this.activeWeapon.ammo--;
                 updateAmmoUi({ player: this, Game });
                 Game.bullets.push(bullet);

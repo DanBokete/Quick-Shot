@@ -1,7 +1,7 @@
 import Weapon from "./Weapon.js";
 
 class Glock extends Weapon {
-    constructor() {
+    constructor({ image }) {
         super({
             ammo: 1,
             maxAmmo: 1,
@@ -14,6 +14,9 @@ class Glock extends Weapon {
             autoReloadDelay: 20,
             bulletHealth: 2,
             bulletSpeed: 8,
+            image,
+            imageWidth: 768,
+            imageHeight: 32,
         });
     }
 }

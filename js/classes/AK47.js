@@ -1,7 +1,7 @@
 import Weapon from "./Weapon.js";
 
 class AK47 extends Weapon {
-    constructor() {
+    constructor({ image }) {
         super({
             ammo: 10,
             maxAmmo: 10,
@@ -14,6 +14,9 @@ class AK47 extends Weapon {
             autoReloadDelay: 40,
             bulletHealth: 2,
             bulletSpeed: 8,
+            image,
+            imageWidth: 1152,
+            imageHeight: 32,
         });
     }
 }

@@ -14,7 +14,16 @@ class Weapon {
         bulletHealth,
         bulletSpeed,
         size = 10,
+        image,
+        imageWidth,
+        imageHeight,
     }) {
+        this.image = image;
+        this.imageWidth = imageWidth;
+        this.imageHeight = imageHeight;
+        this.frameX = 0;
+        this.frameY = 0;
+
         this.name = name;
         this.ammo = ammo;
         this.maxAmmo = maxAmmo;

@@ -51,17 +51,24 @@ const handleClick = ({ e, Pointer, player, Game }) => {
                     console.log(weaponId);
 
                     if (1 === weaponId) {
-                        player.addWeapon({ weapon: new Glock(), Game });
+                        const image = Game.assets.weapons.glock;
+
+                        const weapon = new Glock({ image });
+                        player.addWeapon({ weapon, Game });
                         Game.purchasedWeaponsId.push(weaponId);
 
                         weaponBtn.disabled = true;
                     } else if (2 === weaponId) {
-                        player.addWeapon({ weapon: new AK47(), Game });
+                        const image = Game.assets.weapons.ak;
+                        const weapon = new AK47({ image });
+                        player.addWeapon({ weapon, Game });
                         Game.purchasedWeaponsId.push(weaponId);
 
                         weaponBtn.disabled = true;
                     } else if (3 === weaponId) {
-                        player.addWeapon({ weapon: new RPG(), Game });
+                        const image = Game.assets.weapons.rpg;
+                        const weapon = new RPG({ image });
+                        player.addWeapon({ weapon, Game });
                         Game.purchasedWeaponsId.push(weaponId);
 
                         weaponBtn.disabled = true;

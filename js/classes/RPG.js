@@ -2,7 +2,7 @@ import Weapon from "./Weapon.js";
 import normaliseVector from "../utils/normaliseVector.js";
 
 class RPG extends Weapon {
-    constructor() {
+    constructor({ image }) {
         const damage = 5;
         const splashDamage = damage / 2;
         super({
@@ -17,7 +17,10 @@ class RPG extends Weapon {
             autoReloadDelay: 40,
             bulletHealth: 2,
             bulletSpeed: 8,
-            size: 30,
+            size: 32,
+            image,
+            imageWidth: 1536,
+            imageHeight: 32,
         });
 
         this.splashDamage = splashDamage;

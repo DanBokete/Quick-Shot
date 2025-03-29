@@ -25,6 +25,9 @@ import updateBullets from "./js/update/updateBullets.js";
 import randomInt from "./js/utils/randomInt.js";
 import load_assets from "./js/helpers/load_assets.js";
 import drawCursor from "./js/draw/drawCursor.js";
+import { drawLeftWeapon, drawRightWeapon } from "./js/draw/drawWeapon.js";
+import AK47 from "./js/classes/Ak47.js";
+import RPG from "./js/classes/RPG.js";
 
 document.addEventListener("DOMContentLoaded", init, false);
 
@@ -64,6 +67,12 @@ export const Game = {
         sprite: {
             player: null,
         },
+        weapons: {
+            glock: null,
+            ak: null,
+            rpg: null,
+        },
+        bullet: null,
     },
 };
 
@@ -142,6 +151,10 @@ function init() {
     Game.assets.glockCrosshair = new Image();
     Game.assets.rpgCrosshair = new Image();
     Game.assets.sprite.player = new Image();
+    Game.assets.weapons.glock = new Image();
+    Game.assets.weapons.ak = new Image();
+    Game.assets.weapons.rpg = new Image();
+    Game.assets.bullet = new Image();
 
     load_assets(
         [
@@ -161,18 +174,22 @@ function init() {
                 var: Game.assets.sprite.player,
                 url: "assets/sprites/player/player_sprite_no_hands.png",
             },
-            // {
-            //     var: assaultRifleImage,
-            //     url: "assets/weapons/AK47.png",
-            // },
-            // {
-            //     var: glockImage,
-            //     url: "assets/weapons/GLOCK.png",
-            // },
-            // {
-            //     var: rpgImage,
-            //     url: "assets/weapons/RPG.png",
-            // },
+            {
+                var: Game.assets.weapons.ak,
+                url: "assets/weapons/AK47.png",
+            },
+            {
+                var: Game.assets.weapons.glock,
+                url: "assets/weapons/GLOCK.png",
+            },
+            {
+                var: Game.assets.weapons.rpg,
+                url: "assets/weapons/RPG.png",
+            },
+            {
+                var: Game.assets.bullet,
+                url: "assets/bullets/bullets.png",
+            },
             // { var: mapTileSet, url: "assets/tileset/FG_Cellar_A5.png" },
             // { var: demonImage, url: "assets/enemy/demon.png" },
         ],
@@ -195,6 +212,25 @@ const gameLoop = () => {
         document.querySelector("canvas").style.cursor = "default";
         return;
     }
+    if (player.activeWeapon) {
+        if (player.activeWeapon instanceof Glock) {
+            if (player.activeWeapon.frameX >= 12) {
+                player.activeWeapon.frameX = 0;
+            }
+        }
+        if (player.activeWeapon instanceof AK47) {
+            if (player.activeWeapon.frameX >= 12) {
+                player.activeWeapon.frameX = 0;
+            }
+        }
+        if (player.activeWeapon instanceof RPG) {
+            if (player.activeWeapon.frameX >= 8) {
+                player.activeWeapon.frameX = 0;
+            }
+        }
+        if (player.activeWeapon.frameX) player.activeWeapon.frameX++;
+    }
+
     updateRoundUpdateTimerUi({ Game });
     if (player.activeWeapon && player.activeWeapon.state.isReloading) {
         updateAmmoUi({ player, Game });
@@ -211,7 +247,14 @@ const gameLoop = () => {
     // drawBackground()
     // drawEndLine(Game);
     drawEnemies({ enemies: Game.enemies, context: Game.context });
-    drawPlayer({ player, Game });
+
+    if (player.x + player.size / 2 < Pointer.x) {
+        drawPlayer({ player, Game });
+        drawLeftWeapon({ player, Game, Pointer });
+    } else {
+        drawRightWeapon({ player, Game, Pointer });
+        drawPlayer({ player, Game });
+    }
     drawBullets({ Game });
     drawCursor({ Game, Pointer, player });
 
