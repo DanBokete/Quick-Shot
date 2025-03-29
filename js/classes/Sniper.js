@@ -8,7 +8,7 @@ class Sniper extends Enemy {
         super({ x, y, speed, health, maxHealth });
         this.lastShotAt = 0;
         this.fireDelay = fireDelay ?? 200;
-        this.bulletSpeed = 1.0;
+        this.bulletSpeed = 4.0;
         this.damage = 1;
         this.chanceOfFiring = chanceOfFiring;
     }
@@ -18,7 +18,7 @@ class Sniper extends Enemy {
 
         let attackOffset = 0;
 
-        if (distanceBetweenPlayerAndEnemy > 200) {
+        if (distanceBetweenPlayerAndEnemy > 100) {
             attackOffset = this.attackOffset;
         }
 
@@ -37,11 +37,6 @@ class Sniper extends Enemy {
 
         this.x += this.dx;
         this.y += this.dy;
-
-        for (let bullet of Game.enemyBullets) {
-            bullet.x += bullet.dx;
-            bullet.y += bullet.dy;
-        }
     }
 
     _createBullets({ player }) {

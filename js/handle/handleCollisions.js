@@ -61,10 +61,7 @@ const handleCollisions = ({ player, Game }) => {
 
         // console.log(enemy instanceof Enemy);
 
-        if (
-            (enemy instanceof Sprayer || enemy instanceof Sniper) &&
-            collision(enemy, player)
-        ) {
+        if (collision(enemy, player)) {
             player.health -= enemy.damage ?? 1;
             updateHealthUi({ player });
             enemy.repelFromPlayer({ player });

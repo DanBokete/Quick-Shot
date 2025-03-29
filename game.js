@@ -59,6 +59,8 @@ export const Game = {
     purchasedWeaponsId: [],
     assets: {
         akCrosshair: null,
+        glockCrosshair: null,
+        rpgCrosshair: null,
     },
 };
 
@@ -117,6 +119,8 @@ function init() {
     );
 
     Game.assets.akCrosshair = new Image();
+    Game.assets.glockCrosshair = new Image();
+    Game.assets.rpgCrosshair = new Image();
 
     // for (let i = 0; i < 5; i++) {
     //     Game.enemies.push(
@@ -140,6 +144,14 @@ function init() {
             {
                 var: Game.assets.akCrosshair,
                 url: "assets/cursor/ak_crosshair.png",
+            },
+            {
+                var: Game.assets.glockCrosshair,
+                url: "assets/cursor/glock_crosshair.png",
+            },
+            {
+                var: Game.assets.rpgCrosshair,
+                url: "assets/cursor/rpg_crosshair.png",
             },
             // {
             //     var: PlayerSpriteImage,
@@ -176,7 +188,7 @@ const gameLoop = () => {
         return;
     }
     if (Game.state.isPaused && Game.state.onUpgradeMenu) {
-        document.body.style.cursor = "default";
+        document.querySelector("canvas").style.cursor = "default";
         return;
     }
     updateRoundUpdateTimerUi({ Game });
@@ -216,7 +228,7 @@ const gameLoop = () => {
         enemy.update({ player, Game });
     }
 
-    updateBullets({ bullets: Game.bullets, context: Game.context });
+    updateBullets({ Game });
     handlePhysics({ player });
     handleCollisions({ player, Game });
     handleOutOfCanvas({ player, Game });
