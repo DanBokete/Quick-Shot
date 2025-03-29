@@ -1,4 +1,5 @@
 import Enemy from "../classes/Enemy.js";
+import Sniper from "../classes/Sniper.js";
 import Sprayer from "../classes/Sprayer.js";
 
 const drawEnemies = ({ context, enemies }) => {
@@ -17,6 +18,7 @@ const drawEnemies = ({ context, enemies }) => {
         );
         if (enemy instanceof Enemy) context.fillStyle = "orange";
         if (enemy instanceof Sprayer) context.fillStyle = "purple";
+        if (enemy instanceof Sniper) context.fillStyle = "lightblue";
         context.fillRect(enemy.x, enemy.y, enemy.size, enemy.size);
     }
 };

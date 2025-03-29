@@ -1,17 +1,22 @@
 import randomInt from "../utils/randomInt.js";
 import Player from "./Player.js";
 import { Game } from "../../game.js";
+import getDistance from "../utils/getDistance.js";
 
 class Enemy {
     constructor({ x, y, canShoot, canAttack, speed, health, maxHealth }) {
         this.x = x;
         this.y = y;
+        this.dx = 0;
+        this.dy = 0;
         this.size = 30;
         this.speed = speed ?? 1;
         this.health = health ?? 3;
         this.maxHealth = this.maxHealth ?? 3;
         this.cash = 10;
         this.reboundDistance = 50;
+
+        this.attackOffset = randomInt(-100, 100);
     }
 
     update({ player }) {
@@ -31,12 +36,26 @@ class Enemy {
 
     repelFromPlayer({ player }) {
         if (player.x + player.size / 2 < this.x + this.size / 2) {
-            this.x += this.reboundDistance;
-        } else this.x -= this.reboundDistance;
+            this.x += randomInt(
+                this.reboundDistance - 40,
+                this.reboundDistance
+            );
+        } else
+            this.x -= randomInt(
+                this.reboundDistance - 40,
+                this.reboundDistance
+            );
 
         if (player.y + player.size / 2 > this.y + this.size / 2) {
-            this.y -= this.reboundDistance;
-        } else this.y += this.reboundDistance;
+            this.y -= randomInt(
+                this.reboundDistance - 40,
+                this.reboundDistance
+            );
+        } else
+            this.y += randomInt(
+                this.reboundDistance - 40,
+                this.reboundDistance
+            );
     }
 
     /**

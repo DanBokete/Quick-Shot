@@ -8,6 +8,7 @@ import collision from "../utils/collision.js";
 import { Game } from "../../game.js";
 import RPG from "../classes/RPG.js";
 import getDistance from "../utils/getDistance.js";
+import Sniper from "../classes/Sniper.js";
 
 /**
  * Assigning parameter types
@@ -52,14 +53,19 @@ const handleCollisions = ({ player, Game }) => {
                         }
                     }
                 }
+                console.log(bullet.damage);
+
                 enemy.health -= bullet.damage;
             });
         }
 
         // console.log(enemy instanceof Enemy);
 
-        if (enemy instanceof Sprayer && collision(enemy, player)) {
-            player.health--;
+        if (
+            (enemy instanceof Sprayer || enemy instanceof Sniper) &&
+            collision(enemy, player)
+        ) {
+            player.health -= enemy.damage ?? 1;
             updateHealthUi({ player });
             enemy.repelFromPlayer({ player });
         }
@@ -80,7 +86,7 @@ const handleCollisions = ({ player, Game }) => {
         if (!collision(bullet, player)) {
             return bullet;
         }
-        player.health--;
+        player.health -= bullet.damage ?? 1;
         updateHealthUi({ player });
     });
 };

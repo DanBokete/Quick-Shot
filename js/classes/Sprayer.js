@@ -7,6 +7,7 @@ class Sprayer extends Enemy {
         this.lastShotAt = 0;
         this.fireDelay = 200;
         this.bulletSpeed = 1.0;
+        this.damage = 0.5;
     }
 
     update({ player, Pointer, Game }) {
@@ -36,6 +37,8 @@ class Sprayer extends Enemy {
         const side2 = player.y - (this.y + this.size / 2);
 
         const { a, b, c } = normaliseVector(side1, side2);
+
+        console.log(this.damage);
 
         return [
             {

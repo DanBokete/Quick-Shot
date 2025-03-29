@@ -23,6 +23,8 @@ import updateRoundUi from "./js/ui/updateRoundUi.js";
 import updateScoreUi from "./js/ui/updateScoreUi.js";
 import updateBullets from "./js/update/updateBullets.js";
 import randomInt from "./js/utils/randomInt.js";
+import load_assets from "./js/helpers/load_assets.js";
+import drawCursor from "./js/draw/drawCursor.js";
 
 document.addEventListener("DOMContentLoaded", init, false);
 
@@ -55,6 +57,9 @@ export const Game = {
         onUpgradeMenu: true,
     },
     purchasedWeaponsId: [],
+    assets: {
+        akCrosshair: null,
+    },
 };
 
 const Keys = {
@@ -89,7 +94,7 @@ function init() {
 
     window.addEventListener(
         "pointermove",
-        (e) => onPointerMove({ e, Pointer, player }),
+        (e) => onPointerMove({ e, Pointer, player, Game }),
         false
     );
 
@@ -111,30 +116,7 @@ function init() {
         false
     );
 
-    // load_assets(
-    //     [
-    //         { var: idlePlayerImage, url: "assets/player/idle_no_hands.png" },
-    //         {
-    //             var: PlayerSpriteImage,
-    //             url: "assets/player/player_sprite_no_hands.png",
-    //         },
-    //         {
-    //             var: assaultRifleImage,
-    //             url: "assets/weapons/AK47.png",
-    //         },
-    //         {
-    //             var: glockImage,
-    //             url: "assets/weapons/GLOCK.png",
-    //         },
-    //         {
-    //             var: rpgImage,
-    //             url: "assets/weapons/RPG.png",
-    //         },
-    //         { var: mapTileSet, url: "assets/tileset/FG_Cellar_A5.png" },
-    //         { var: demonImage, url: "assets/enemy/demon.png" },
-    //     ],
-    //     draw
-    // );
+    Game.assets.akCrosshair = new Image();
 
     // for (let i = 0; i < 5; i++) {
     //     Game.enemies.push(
@@ -153,7 +135,35 @@ function init() {
     updateRoundUpdateTimerUi({ Game });
     updateRoundUi({ Game });
 
-    gameLoop();
+    load_assets(
+        [
+            {
+                var: Game.assets.akCrosshair,
+                url: "assets/cursor/ak_crosshair.png",
+            },
+            // {
+            //     var: PlayerSpriteImage,
+            //     url: "assets/player/player_sprite_no_hands.png",
+            // },
+            // {
+            //     var: assaultRifleImage,
+            //     url: "assets/weapons/AK47.png",
+            // },
+            // {
+            //     var: glockImage,
+            //     url: "assets/weapons/GLOCK.png",
+            // },
+            // {
+            //     var: rpgImage,
+            //     url: "assets/weapons/RPG.png",
+            // },
+            // { var: mapTileSet, url: "assets/tileset/FG_Cellar_A5.png" },
+            // { var: demonImage, url: "assets/enemy/demon.png" },
+        ],
+        gameLoop
+    );
+
+    // gameLoop();
 }
 
 const gameLoop = () => {
@@ -166,6 +176,7 @@ const gameLoop = () => {
         return;
     }
     if (Game.state.isPaused && Game.state.onUpgradeMenu) {
+        document.body.style.cursor = "default";
         return;
     }
     updateRoundUpdateTimerUi({ Game });
@@ -186,6 +197,7 @@ const gameLoop = () => {
     drawPlayer({ player, context: Game.context });
     drawEnemies({ enemies: Game.enemies, context: Game.context });
     drawBullets({ Game });
+    drawCursor({ Game, Pointer, player });
 
     handleKeyPresses({ Keys, player });
     if (player.isShooting) {
