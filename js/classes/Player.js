@@ -12,8 +12,11 @@ class Player {
         this.dx = 0;
         this.dy = 0;
         this.size = 40;
-        this.width = 40;
-        this.height = 40;
+
+        this.width = 32;
+        this.height = 32;
+        this.frameX = 0;
+        this.frameY = 0;
 
         this.health = 1;
         this.maxHealth = 1;
@@ -51,11 +54,25 @@ class Player {
      * @param {object} param
      * @param {Game} param.Game
      */
-    update({ Game }) {
+    update({ Game, Pointer, Keys }) {
         const { elapsedFrames } = Game.meta;
 
         this.x += this.dx;
         this.y += this.dy;
+
+        if (Keys.moveLeft || Keys.moveRight || Keys.moveUp || Keys.moveDown) {
+            if (this.x > Pointer.x) {
+                this.frameY = 1;
+            } else {
+                this.frameY = 0;
+            }
+        } else {
+            if (this.x > Pointer.x) {
+                this.frameY = 3;
+            } else {
+                this.frameY = 2;
+            }
+        }
 
         if (!this.activeWeapon) return;
         const weapon = this.activeWeapon;

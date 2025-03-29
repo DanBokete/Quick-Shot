@@ -1,6 +1,7 @@
 import Player from "../../classes/Player.js";
 import { Game } from "../../../game.js";
 import updateHealthUi from "../../ui/updateHealtUi.js";
+import updateCashUi from "../../ui/updateCashUi.js";
 /**
  * Assigning parameter types
  * @param {object} param
@@ -46,6 +47,10 @@ const activate = ({ e, Keys, player, Game }) => {
     if (key === "h") {
         player.unlimitedHealth = !player.unlimitedHealth;
         updateHealthUi({ player });
+    }
+    if (key === "c") {
+        player.unlimitedCash = !player.unlimitedCash;
+        updateCashUi({ player });
     }
 
     const weapons = player.weapons;

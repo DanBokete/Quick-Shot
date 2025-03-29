@@ -1,4 +1,4 @@
-const handleKeyPresses = ({ Keys, player }) => {
+const handleKeyPresses = ({ Keys, player, Game }) => {
     if (Keys.moveLeft) {
         player.dx -= player.speed;
     }
@@ -10,6 +10,15 @@ const handleKeyPresses = ({ Keys, player }) => {
     }
     if (Keys.moveDown) {
         player.dy += player.speed;
+    }
+
+    if (Game.meta.elapsedFrames % 2 > 0) return;
+    if (Keys.moveLeft || Keys.moveRight || Keys.moveUp || Keys.moveDown) {
+        player.frameY = 0;
+        player.frameX = (player.frameX + 1) % 8;
+    } else {
+        player.frameY = 2;
+        player.frameX = (player.frameX + 1) % 4;
     }
 };
 

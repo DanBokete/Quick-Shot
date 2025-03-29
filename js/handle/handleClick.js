@@ -40,9 +40,14 @@ const handleClick = ({ e, Pointer, player, Game }) => {
 
         weaponsOnSale.forEach((weaponBtn) => {
             if (e.target === weaponBtn) {
-                const price = weaponBtn.dataset.price;
+                const price = player.unlimitedCash
+                    ? 0
+                    : weaponBtn.dataset.price;
                 const weaponId = Number(weaponBtn.dataset.weaponId);
-                if (player.cash >= price) {
+                if (
+                    player.cash >= price &&
+                    (weaponId === 1 || weaponId === 2 || weaponId === 3)
+                ) {
                     console.log(weaponId);
 
                     if (1 === weaponId) {
@@ -50,23 +55,18 @@ const handleClick = ({ e, Pointer, player, Game }) => {
                         Game.purchasedWeaponsId.push(weaponId);
 
                         weaponBtn.disabled = true;
-
-                        player.cash -= price;
                     } else if (2 === weaponId) {
                         player.addWeapon({ weapon: new AK47(), Game });
                         Game.purchasedWeaponsId.push(weaponId);
 
                         weaponBtn.disabled = true;
-
-                        player.cash -= price;
                     } else if (3 === weaponId) {
                         player.addWeapon({ weapon: new RPG(), Game });
                         Game.purchasedWeaponsId.push(weaponId);
 
                         weaponBtn.disabled = true;
-
-                        player.cash -= price;
                     }
+                    player.cash -= player.unlimitedCash ? 0 : price;
                     updateCashUi({ player });
                 }
             }
@@ -76,7 +76,9 @@ const handleClick = ({ e, Pointer, player, Game }) => {
 
         upgradesOnSale.forEach((upgradeBtn) => {
             if (e.target === upgradeBtn) {
-                const price = Number(upgradeBtn.dataset.price);
+                const price = player.unlimitedCash
+                    ? 0
+                    : Number(upgradeBtn.dataset.price);
                 const upgradeId = Number(upgradeBtn.dataset.upgradeId);
                 console.log("almost");
                 console.log(price);

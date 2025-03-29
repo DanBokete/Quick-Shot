@@ -2,10 +2,10 @@ import normaliseVector from "../utils/normaliseVector.js";
 import Enemy from "./Enemy.js";
 
 class Sprayer extends Enemy {
-    constructor({ x, y, speed, health, maxHealth }) {
+    constructor({ x, y, speed, health, maxHealth, fireDelay }) {
         super({ x, y, speed, health, maxHealth });
         this.lastShotAt = 0;
-        this.fireDelay = 200;
+        this.fireDelay = fireDelay ?? 200;
         this.bulletSpeed = 3.0;
         this.damage = 0.5;
     }

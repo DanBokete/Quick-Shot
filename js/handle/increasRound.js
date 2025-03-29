@@ -61,6 +61,7 @@ const increaseRound = ({ Game, player }) => {
                     numberOfEnemies: 2,
                     enemySpeed: 0.55,
                     player,
+                    fireDelay: -roundNumber * 0.5,
                 });
                 value -= 5;
             } else if (randomNumber > 50 - roundNumber) {
@@ -70,7 +71,7 @@ const increaseRound = ({ Game, player }) => {
                     player,
                     numberOfEnemies: 3,
                     enemySpeed: 0.5,
-                    fireDelay: 55,
+                    fireDelay: 55 - roundNumber * 0.5,
                     chanceOfFiring: 0.02,
                 });
             } else {
@@ -103,7 +104,10 @@ const createEasyEnemies = ({ Game, numberOfEnemies, enemySpeed, player }) => {
         const enemy = new Enemy({
             x: randomInt(Game.canvas.width / 2, Game.canvas.width),
             y: randomInt(0, Game.canvas.height),
-            speed: Math.random() + enemySpeed,
+            speed:
+                Math.random() +
+                enemySpeed +
+                Math.min(Game.round.number / 10, 2),
         });
 
         enemy.setRandomSpawnLocation({ player, Game });
@@ -132,7 +136,10 @@ const createMediumEnemies = ({
         const hardEnemy = new Sniper({
             x: randomInt(Game.canvas.width / 2, Game.canvas.width),
             y: randomInt(0, Game.canvas.height),
-            speed: Math.random() + enemySpeed,
+            speed:
+                Math.random() +
+                enemySpeed +
+                Math.min(Game.round.number / 10, 2),
             fireDelay,
             chanceOfFiring,
         });
@@ -143,12 +150,22 @@ const createMediumEnemies = ({
     console.log();
 };
 
-const createHardEnemies = ({ Game, numberOfEnemies, enemySpeed, player }) => {
+const createHardEnemies = ({
+    Game,
+    numberOfEnemies,
+    enemySpeed,
+    player,
+    fireDelay,
+}) => {
     for (let i = 0; i < numberOfEnemies; i++) {
         const hardEnemy = new Sprayer({
             x: randomInt(Game.canvas.width / 2, Game.canvas.width),
             y: randomInt(0, Game.canvas.height),
-            speed: Math.random() + enemySpeed,
+            speed:
+                Math.random() +
+                enemySpeed +
+                Math.min(Game.round.number / 10, 1.5),
+            fireDelay: 55 - Game.round.number * 0.5,
         });
 
         hardEnemy.setRandomSpawnLocation({ player, Game });

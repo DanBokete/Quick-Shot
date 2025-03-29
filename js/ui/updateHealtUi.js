@@ -10,12 +10,13 @@ const updateHealthUi = ({ player }) => {
     if (health <= 2 && !player.unlimitedHealth) {
         healthContainerElement.classList.add("shake");
         healthElement.classList.add("shake");
-        // healthElement.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
+        healthElement.style.backgroundColor = "darkRed";
     } else {
         healthContainerElement.classList.remove("shake");
         healthContainerElement.classList.remove("low-health");
         healthElement.classList.remove("shake");
         healthElement.classList.remove("low-health");
+        healthElement.style.backgroundColor = "darkGreen";
     }
 };
 

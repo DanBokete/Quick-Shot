@@ -61,6 +61,9 @@ export const Game = {
         akCrosshair: null,
         glockCrosshair: null,
         rpgCrosshair: null,
+        sprite: {
+            player: null,
+        },
     },
 };
 
@@ -118,10 +121,6 @@ function init() {
         false
     );
 
-    Game.assets.akCrosshair = new Image();
-    Game.assets.glockCrosshair = new Image();
-    Game.assets.rpgCrosshair = new Image();
-
     // for (let i = 0; i < 5; i++) {
     //     Game.enemies.push(
     //         new Enemy({
@@ -139,6 +138,11 @@ function init() {
     updateRoundUpdateTimerUi({ Game });
     updateRoundUi({ Game });
 
+    Game.assets.akCrosshair = new Image();
+    Game.assets.glockCrosshair = new Image();
+    Game.assets.rpgCrosshair = new Image();
+    Game.assets.sprite.player = new Image();
+
     load_assets(
         [
             {
@@ -153,10 +157,10 @@ function init() {
                 var: Game.assets.rpgCrosshair,
                 url: "assets/cursor/rpg_crosshair.png",
             },
-            // {
-            //     var: PlayerSpriteImage,
-            //     url: "assets/player/player_sprite_no_hands.png",
-            // },
+            {
+                var: Game.assets.sprite.player,
+                url: "assets/sprites/player/player_sprite_no_hands.png",
+            },
             // {
             //     var: assaultRifleImage,
             //     url: "assets/weapons/AK47.png",
@@ -206,12 +210,12 @@ const gameLoop = () => {
     // drawings
     // drawBackground()
     // drawEndLine(Game);
-    drawPlayer({ player, context: Game.context });
     drawEnemies({ enemies: Game.enemies, context: Game.context });
+    drawPlayer({ player, Game });
     drawBullets({ Game });
     drawCursor({ Game, Pointer, player });
 
-    handleKeyPresses({ Keys, player });
+    handleKeyPresses({ Game, Keys, player });
     if (player.isShooting) {
         player.shoot({ Pointer, Game });
     }
@@ -222,7 +226,7 @@ const gameLoop = () => {
     ) {
         player.reloadWeapon({ Game });
     }
-    player.update({ Game });
+    player.update({ Game, Pointer, Keys });
 
     for (let enemy of Game.enemies) {
         enemy.update({ player, Game });
@@ -245,4 +249,13 @@ const gameLoop = () => {
     ) {
         increaseRound({ player, Game });
     }
+
+    // if (player.health <= 0) {
+    //     endGame();
+    // }
 };
+
+function endGame() {
+    window.cancelAnimationFrame(Game.requestId);
+    document.querySelector("canvas").style.cursor = "default";
+}
