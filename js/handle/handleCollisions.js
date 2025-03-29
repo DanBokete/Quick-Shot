@@ -62,7 +62,7 @@ const handleCollisions = ({ player, Game }) => {
         // console.log(enemy instanceof Enemy);
 
         if (collision(enemy, player)) {
-            player.health -= enemy.damage ?? 1;
+            player.health -= player.unlimitedHealth ? 0 : enemy.damage ?? 1;
             updateHealthUi({ player });
             enemy.repelFromPlayer({ player });
         }
@@ -83,7 +83,7 @@ const handleCollisions = ({ player, Game }) => {
         if (!collision(bullet, player)) {
             return bullet;
         }
-        player.health -= bullet.damage ?? 1;
+        player.health -= player.unlimitedHealth ? 0 : bullet.damage ?? 1;
         updateHealthUi({ player });
     });
 };

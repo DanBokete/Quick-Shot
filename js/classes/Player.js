@@ -35,11 +35,14 @@ class Player {
          */
         this.weapons = [];
 
-        /** @type {boolean} */
         this.isShooting = false;
 
-        /** @type {boolean} */
         this.autoReload = true;
+
+        this.unlimitedHealth = false;
+        this.unlimitedAmmo = false;
+        this.noFireDelay = false;
+        this.unlimitedCash = false;
 
         this.safeZoneRadius = 50;
     }
@@ -118,7 +121,7 @@ class Player {
             });
 
             if (bullet) {
-                this.activeWeapon.ammo--;
+                if (!this.unlimitedAmmo) this.activeWeapon.ammo--;
                 updateAmmoUi({ player: this, Game });
                 Game.bullets.push(bullet);
                 updateAmmoUi({ player: this, Game });

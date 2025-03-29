@@ -1,5 +1,6 @@
 import Player from "../../classes/Player.js";
 import { Game } from "../../../game.js";
+import updateHealthUi from "../../ui/updateHealtUi.js";
 /**
  * Assigning parameter types
  * @param {object} param
@@ -40,6 +41,11 @@ const activate = ({ e, Keys, player, Game }) => {
 
     if (key === " ") {
         player.dash({ Keys });
+    }
+
+    if (key === "h") {
+        player.unlimitedHealth = !player.unlimitedHealth;
+        updateHealthUi({ player });
     }
 
     const weapons = player.weapons;

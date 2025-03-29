@@ -2,10 +2,12 @@ const updateHealthUi = ({ player }) => {
     const { health, maxHealth } = player;
     const healthContainerElement = document.getElementById("healthContainer");
     const healthElement = document.getElementById("health");
-    healthElement.innerText = `${health}/${maxHealth}`;
+    healthElement.innerHTML = `${
+        player.unlimitedHealth ? "&infin;" : health
+    }/${maxHealth}`;
     healthElement.style.width = `${(health / maxHealth) * 100}%`;
 
-    if (health <= 2) {
+    if (health <= 2 && !player.unlimitedHealth) {
         healthContainerElement.classList.add("shake");
         healthElement.classList.add("shake");
         // healthElement.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
