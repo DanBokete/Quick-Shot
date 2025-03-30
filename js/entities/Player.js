@@ -1,9 +1,8 @@
-import updateAmmoUi from "../ui/updateAmmoUi.js";
-import updateWeaponUi from "../ui/updateWeaponUi.js";
+import { updateAmmoUi, updateWeaponUi } from "../ui/uiElements.js";
 import AK47 from "./Ak47.js";
 import Glock from "./Glock.js";
-import { Game } from "../../game.js";
 import RPG from "./RPG.js";
+import Game from "./Game.js";
 
 class Player {
     constructor() {
@@ -80,8 +79,11 @@ class Player {
         const weapon = this.activeWeapon;
 
         if (weapon && weapon instanceof RPG) {
-            this.speed = 0.8;
+            this.speed = 0.5;
             this.dashForce = 10;
+        } else if (weapon && weapon instanceof AK47) {
+            this.speed = 0.8;
+            this.dashForce = 15;
         } else {
             this.speed = 1;
             this.dashForce = 20;

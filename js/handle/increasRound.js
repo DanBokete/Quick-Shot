@@ -1,10 +1,9 @@
-import { Game } from "../../game.js";
-import Enemy from "../classes/Enemy.js";
-import Player from "../classes/Player.js";
-import Sniper from "../classes/Sniper.js";
-import Sprayer from "../classes/Sprayer.js";
-import updateRoundUpdateTimerUi from "../ui/updateRoundTimerUi.js";
-import updateRoundUi from "../ui/updateRoundUi.js";
+import Game from "../entities/Game.js";
+import Enemy from "../entities/Enemy.js";
+import Player from "../entities/Player.js";
+import Sniper from "../entities/Sniper.js";
+import Sprayer from "../entities/Sprayer.js";
+import { updateRoundUi } from "../ui/uiElements.js";
 import randomInt from "../utils/randomInt.js";
 
 /**

@@ -1,14 +1,13 @@
-import Enemy from "../classes/Enemy.js";
-import Player from "../classes/Player.js";
-import Sprayer from "../classes/Sprayer.js";
-import updateCashUi from "../ui/updateCashUi.js";
-import updateHealthUi from "../ui/updateHealtUi.js";
-import updateScoreUi from "../ui/updateScoreUi.js";
+import Player from "../entities/Player.js";
+import {
+    updateCashUi,
+    updateHealthUi,
+    updateScoreUi,
+} from "../ui/uiElements.js";
 import collision from "../utils/collision.js";
-import { Game } from "../../game.js";
-import RPG from "../classes/RPG.js";
+import Game from "../entities/Game.js";
 import getDistance from "../utils/getDistance.js";
-import Sniper from "../classes/Sniper.js";
+import RPG from "../entities/RPG.js";
 
 /**
  * Assigning parameter types
@@ -23,18 +22,8 @@ const handleCollisions = ({ player, Game }) => {
                 if (!collision(bullet, enemy)) {
                     return bullet;
                 }
-                // if( bullet instanceof RPG){
-                //     for(let otherEnemy of Game.enemies){
-                //         if (enemy === otherEnemy)continue
 
-                //         const distanceBetweenEnemies = getDistance(enemy, enemyWithinRange)
-
-                //         if(distanceBetweenEnemies>bullet.)
-
-                //     }
-                // }
-
-                if (bullet.splashDamage) {
+                if (bullet instanceof RPG) {
                     console.log(bullet.splashRadius);
                     for (let otherEnemy of Game.enemies) {
                         if (enemy === otherEnemy) continue;

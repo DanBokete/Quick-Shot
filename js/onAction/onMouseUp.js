@@ -1,5 +1,5 @@
-import Player from "../classes/Player.js";
-import { Game } from "../../game.js";
+import Player from "../entities/Player.js";
+import Game from "../entities/Game.js";
 
 /**
  * Assigning parameter types

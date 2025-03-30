@@ -1,7 +1,7 @@
-import Player from "../../classes/Player.js";
-import { Game } from "../../../game.js";
-import updateHealthUi from "../../ui/updateHealtUi.js";
-import updateCashUi from "../../ui/updateCashUi.js";
+import Player from "../entities/Player.js";
+import Game from "../entities/Game.js";
+import { updateCashUi, updateHealthUi } from "../ui/uiElements.js";
+
 /**
  * Assigning parameter types
  * @param {object} param
@@ -9,7 +9,7 @@ import updateCashUi from "../../ui/updateCashUi.js";
  * @param {Game} param.Game
  * @param {number|null} param.purchasedWeaponsId
  */
-const activate = ({ e, Keys, player, Game }) => {
+export const activate = ({ e, Keys, player, Game }) => {
     const key = e.key;
 
     if (
@@ -68,4 +68,19 @@ const activate = ({ e, Keys, player, Game }) => {
     }
 };
 
-export default activate;
+export const deactivate = ({ e, Keys }) => {
+    const key = e.key;
+
+    if (key === "w") {
+        Keys.moveUp = false;
+    }
+    if (key === "s") {
+        Keys.moveDown = false;
+    }
+    if (key === "a") {
+        Keys.moveLeft = false;
+    }
+    if (key === "d") {
+        Keys.moveRight = false;
+    }
+};

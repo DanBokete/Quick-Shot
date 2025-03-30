@@ -1,80 +1,37 @@
-import Enemy from "./js/classes/Enemy.js";
-import Glock from "./js/classes/Glock.js";
-import Player from "./js/classes/Player.js";
-import drawBullets from "./js/draw/drawBullets.js";
-import drawEndLine from "./js/draw/drawEndLine.js";
-import drawEnemies from "./js/draw/drawEnemies.js";
-import drawPlayer from "./js/draw/drawPlayer.js";
+import Glock from "./js/entities/Glock.js";
+import Player from "./js/entities/Player.js";
+import {
+    drawBullets,
+    drawEnemies,
+    drawCursor,
+    drawPlayer,
+    drawLeftWeapon,
+    drawRightWeapon,
+} from "./js/lib/draw.js";
 import handleClick from "./js/handle/handleClick.js";
-import handleCollisions from "./js/handle/handleCollisions.js";
+import handleCollisions from "./js/lib/collisions.js";
 import handleKeyPresses from "./js/handle/handleKeyPresses.js";
 import handleOutOfCanvas from "./js/handle/handleOutOfCanvas.js";
 import handlePhysics from "./js/handle/handlePhysics.js";
 import increaseRound from "./js/handle/increasRound.js";
-import activate from "./js/helpers/keys/activate.js";
-import deactivate from "./js/helpers/keys/deactivate.js";
+import { activate, deactivate } from "./js/lib/inputs.js";
 import onMouseUp from "./js/onAction/onMouseUp.js";
 import onPointerMove from "./js/onAction/onPointerMove.js";
-import updateAmmoUi from "./js/ui/updateAmmoUi.js";
-import updateCashUi from "./js/ui/updateCashUi.js";
-import updateHealthUi from "./js/ui/updateHealtUi.js";
-import updateRoundUpdateTimerUi from "./js/ui/updateRoundTimerUi.js";
-import updateRoundUi from "./js/ui/updateRoundUi.js";
-import updateScoreUi from "./js/ui/updateScoreUi.js";
+import {
+    updateAmmoUi,
+    updateCashUi,
+    updateHealthUi,
+    updateRoundUpdateTimerUi,
+    updateRoundUi,
+    updateScoreUi,
+} from "./js/ui/uiElements.js";
 import updateBullets from "./js/update/updateBullets.js";
-import randomInt from "./js/utils/randomInt.js";
-import load_assets from "./js/helpers/load_assets.js";
-import drawCursor from "./js/draw/drawCursor.js";
-import { drawLeftWeapon, drawRightWeapon } from "./js/draw/drawWeapon.js";
-import AK47 from "./js/classes/Ak47.js";
-import RPG from "./js/classes/RPG.js";
+import load_assets from "./js/lib/load_assets.js";
+import AK47 from "./js/entities/Ak47.js";
+import RPG from "./js/entities/RPG.js";
+import Game from "./js/entities/Game.js";
 
 document.addEventListener("DOMContentLoaded", init, false);
-
-export const Game = {
-    canvas: null,
-    context: null,
-    requestId: null,
-    round: {
-        number: 0,
-        startTime: 0,
-        timeLimit: 100,
-    },
-    bullets: [],
-    enemyBullets: [],
-    enemies: [],
-    meta: {
-        then: null,
-        elapsed: null,
-        elapsedFrames: 0,
-        fpsInterval: 1000 / 30,
-        fps: 30,
-        now: null,
-    },
-    endLine: {
-        width: 100,
-        colour: "#828282",
-    },
-    state: {
-        isPaused: false,
-        onUpgradeMenu: true,
-    },
-    purchasedWeaponsId: [],
-    assets: {
-        akCrosshair: null,
-        glockCrosshair: null,
-        rpgCrosshair: null,
-        sprite: {
-            player: null,
-        },
-        weapons: {
-            glock: null,
-            ak: null,
-            rpg: null,
-        },
-        bullet: null,
-    },
-};
 
 const Keys = {
     moveUp: false,
@@ -243,9 +200,7 @@ const gameLoop = () => {
 
     Game.meta.elapsedFrames += 1;
 
-    // drawings
     // drawBackground()
-    // drawEndLine(Game);
     drawEnemies({ enemies: Game.enemies, context: Game.context });
 
     if (player.x + player.size / 2 < Pointer.x) {

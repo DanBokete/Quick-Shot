@@ -1,8 +1,8 @@
 import randomInt from "../utils/randomInt.js";
 import Player from "./Player.js";
-import { Game } from "../../game.js";
 import getDistance from "../utils/getDistance.js";
 import normaliseVector from "../utils/normaliseVector.js";
+import Game from "./Game.js";
 
 class Enemy {
     constructor({ x, y, canShoot, canAttack, speed, health, maxHealth }) {

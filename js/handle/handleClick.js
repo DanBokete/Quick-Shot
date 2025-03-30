@@ -1,12 +1,14 @@
-import AK47 from "../classes/Ak47.js";
-import Glock from "../classes/Glock.js";
-import Player from "../classes/Player.js";
-import updateAmmoUi from "../ui/updateAmmoUi.js";
-import updateCashUi from "../ui/updateCashUi.js";
-import upgradeMenuUi from "../ui/upgradeMenuUi.js";
-import { Game } from "../../game.js";
-import updateHealthUi from "../ui/updateHealtUi.js";
-import RPG from "../classes/RPG.js";
+import AK47 from "../entities/Ak47.js";
+import Glock from "../entities/Glock.js";
+import Player from "../entities/Player.js";
+import {
+    updateAmmoUi,
+    updateCashUi,
+    updateHealthUi,
+} from "../ui/uiElements.js";
+import upgradeMenuUi from "../ui/storeUi.js";
+import Game from "../entities/Game.js";
+import RPG from "../entities/RPG.js";
 
 /**
  *

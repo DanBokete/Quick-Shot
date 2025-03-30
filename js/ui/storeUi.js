@@ -1,6 +1,6 @@
-import Player from "../classes/Player.js";
-import { Game } from "../../game.js";
-import createOnSaleWeapons from "../helpers/UI Generation/createOnSaleWeapons.js";
+import Player from "../entities/Player.js";
+import Game from "../entities/Game.js";
+import createOnSaleWeapons from "../lib/createOnSaleWeapons.js";
 
 const weaponsOnSale = [
     {
