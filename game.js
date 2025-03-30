@@ -15,8 +15,8 @@ import handleOutOfCanvas from "./js/handle/handleOutOfCanvas.js";
 import handlePhysics from "./js/handle/handlePhysics.js";
 import increaseRound from "./js/handle/increasRound.js";
 import { activate, deactivate } from "./js/lib/inputs.js";
-import onMouseUp from "./js/onAction/onMouseUp.js";
-import onPointerMove from "./js/onAction/onPointerMove.js";
+import onMouseUp from "./js/handle/onMouseUp.js";
+import onPointerMove from "./js/handle/onPointerMove.js";
 import {
     updateAmmoUi,
     updateCashUi,
@@ -25,7 +25,7 @@ import {
     updateRoundUi,
     updateScoreUi,
 } from "./js/ui/uiElements.js";
-import updateBullets from "./js/update/updateBullets.js";
+import updateBullets from "./js/lib/updateBullets.js";
 import load_assets from "./js/lib/load_assets.js";
 import AK47 from "./js/entities/Ak47.js";
 import RPG from "./js/entities/RPG.js";
