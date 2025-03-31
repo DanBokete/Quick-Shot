@@ -1,5 +1,10 @@
 import Player from "../entities/Player.js";
 import Game from "../entities/Game.js";
+import Glock from "../entities/Glock.js";
+import AK47 from "../entities/Ak47.js";
+import RPG from "../entities/RPG.js";
+import { player } from "../../game.js";
+import { storeData } from "../entities/storeData.js";
 
 /**
  * Assigning parameter types
@@ -7,7 +12,7 @@ import Game from "../entities/Game.js";
  * @param {Player} param.player
  * @param {Game} param.Game
  */
-export const updateAmmoUi = ({ player, Game }) => {
+export const updateAmmoUi = () => {
     const ammoElement = document.getElementById("ammo");
     const { elapsedFrames } = Game.meta;
     const { activeWeapon } = player;
@@ -31,13 +36,13 @@ export const updateAmmoUi = ({ player, Game }) => {
     }
 };
 
-export const updateCashUi = ({ player }) => {
+export const updateCashUi = () => {
     const { cash } = player;
     const scoreElement = document.getElementById("cash");
     scoreElement.innerHTML = `Cash: ${player.unlimitedCash ? "&infin;" : cash}`;
 };
 
-export const updateHealthUi = ({ player }) => {
+export const updateHealthUi = () => {
     const { health, maxHealth } = player;
     const healthContainerElement = document.getElementById("healthContainer");
     const healthElement = document.getElementById("health");
@@ -89,7 +94,54 @@ export const updateScoreUi = ({ score }) => {
 };
 
 export const updateWeaponUi = ({ weapon }) => {
+    const glockImage = document.getElementById("glock").firstElementChild;
+    const ak47Image = document.getElementById("ak47").firstElementChild;
+    const rpgImage = document.getElementById("rpg").firstElementChild;
+    console.log(glockImage);
+
     const { name } = weapon;
     const activeWeaponElement = document.getElementById("activeWeapon");
     activeWeaponElement.innerText = name;
+
+    for (weapon of player.weapons) {
+        if (weapon instanceof Glock)
+            glockImage.classList.add("unlocked-weapon");
+        if (weapon instanceof AK47) ak47Image.classList.add("unlocked-weapon");
+        if (weapon instanceof RPG) rpgImage.classList.add("unlocked-weapon");
+    }
+
+    glockImage.classList.remove("active-weapon");
+    ak47Image.classList.remove("active-weapon");
+    rpgImage.classList.remove("active-weapon");
+
+    if (weapon instanceof Glock) glockImage.classList.add("active-weapon");
+    if (weapon instanceof AK47) ak47Image.classList.add("active-weapon");
+    if (weapon instanceof RPG) rpgImage.classList.add("active-weapon");
+};
+
+export const updateUpgradeWeaponUi = () => {
+    const upgrades = document.querySelectorAll(`[data-upgrade-id]`);
+
+    for (let i = 0; i < upgrades.length; i++) {
+        upgrades[i].lastElementChild.innerText = `${
+            storeData.upgradesOnSale[i + 1]["title"]
+        } ${
+            player.cash < storeData.upgradesOnSale[i + 1]["price"] &&
+            !player.unlimitedCash
+                ? ""
+                : `Cost:${storeData.upgradesOnSale[i + 1]["price"]}`
+        }`;
+
+        if (
+            player.cash < storeData.upgradesOnSale[i + 1]["price"] &&
+            !player.unlimitedCash
+        ) {
+            upgrades[i].firstElementChild.innerText =
+                storeData.upgradesOnSale[i + 1]["price"];
+
+            upgrades[i].firstElementChild.disabled = true;
+        } else {
+            upgrades[i].firstElementChild.innerText = "";
+        }
+    }
 };

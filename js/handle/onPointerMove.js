@@ -15,12 +15,6 @@ const onPointerMove = ({ e, Pointer, player, Game }) => {
         Pointer.x - player.x,
         -(Pointer.y - player.y)
     );
-    // if (Game.assets && Game.assets.akCrosshair) {
-    //     document.querySelector(
-    //         "body"
-    //     ).style.cursor = `url(${Game.assets.akCrosshair.src}),auto`;
-    //     console.log(document.querySelector("body").style.cursor);
-    // }
 };
 
 export default onPointerMove;

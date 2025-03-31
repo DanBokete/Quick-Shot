@@ -8,13 +8,12 @@ import {
     drawLeftWeapon,
     drawRightWeapon,
 } from "./js/lib/draw.js";
-import handleClick from "./js/handle/handleClick.js";
 import handleCollisions from "./js/lib/collisions.js";
 import handleKeyPresses from "./js/handle/handleKeyPresses.js";
 import handleOutOfCanvas from "./js/handle/handleOutOfCanvas.js";
 import handlePhysics from "./js/handle/handlePhysics.js";
-import increaseRound from "./js/handle/increasRound.js";
-import { activate, deactivate } from "./js/lib/inputs.js";
+import increaseRound from "./js/lib/increaseRound.js";
+import { activate, deactivate, handleClick } from "./js/lib/inputs.js";
 import onMouseUp from "./js/handle/onMouseUp.js";
 import onPointerMove from "./js/handle/onPointerMove.js";
 import {
@@ -24,6 +23,7 @@ import {
     updateRoundUpdateTimerUi,
     updateRoundUi,
     updateScoreUi,
+    updateUpgradeWeaponUi,
 } from "./js/ui/uiElements.js";
 import updateBullets from "./js/lib/updateBullets.js";
 import load_assets from "./js/lib/load_assets.js";
@@ -46,7 +46,7 @@ const Pointer = {
     rotationFromPlayer: null,
 };
 
-const player = new Player();
+export const player = new Player();
 
 function init() {
     Game.canvas = document.querySelector("canvas");
@@ -159,15 +159,21 @@ function init() {
 const gameLoop = () => {
     const context = Game.context;
     Game.requestId = window.requestAnimationFrame(gameLoop);
+
     Game.meta.now = Date.now();
     Game.meta.elapsed = Game.meta.now - Game.meta.then;
-
     if (Game.meta.elapsed <= Game.meta.fpsInterval) {
         return;
     }
     if (Game.state.isPaused && Game.state.onUpgradeMenu) {
         document.querySelector("canvas").style.cursor = "default";
         return;
+    }
+    if (!Game.meta.elapsedFrames) {
+        player.addWeapon({
+            Game,
+            weapon: new Glock({ image: Game.assets.weapons.glock }),
+        });
     }
     if (player.activeWeapon) {
         if (player.activeWeapon instanceof Glock) {
@@ -188,6 +194,7 @@ const gameLoop = () => {
         if (player.activeWeapon.frameX) player.activeWeapon.frameX++;
     }
 
+    updateUpgradeWeaponUi();
     updateRoundUpdateTimerUi({ Game });
     if (player.activeWeapon && player.activeWeapon.state.isReloading) {
         updateAmmoUi({ player, Game });
@@ -203,7 +210,7 @@ const gameLoop = () => {
     // drawBackground()
     drawEnemies({ enemies: Game.enemies, context: Game.context });
 
-    if (player.x + player.size / 2 < Pointer.x) {
+    if (player.x < Pointer.x) {
         drawPlayer({ player, Game });
         drawLeftWeapon({ player, Game, Pointer });
     } else {

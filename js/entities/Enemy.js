@@ -25,7 +25,7 @@ class Enemy {
 
         let attackOffset = 0;
 
-        if (distanceBetweenPlayerAndEnemy > 100) {
+        if (distanceBetweenPlayerAndEnemy > 150) {
             attackOffset = this.attackOffset;
         }
 
@@ -74,38 +74,55 @@ class Enemy {
      * @param {Game} param.Game
      */
     setRandomSpawnLocation({ player, Game }) {
+        const { canvas } = Game;
         const lowerXSpawnLocation = randomInt(
             0,
-            player.x - player.safeZoneRadius
+            player.x + player.size / 2 - player.safeZoneRadius
         );
 
         const higherXSpawnLocation = randomInt(
-            player.x + player.safeZoneRadius,
+            player.x + player.size / 2 + player.safeZoneRadius,
             Game.canvas.width - this.size
         );
 
         if (player.x - player.safeZoneRadius < 0) {
             this.x = higherXSpawnLocation;
-        } else {
+        } else if (
+            player.x + player.size + player.safeZoneRadius >
+            canvas.width
+        ) {
             this.x = lowerXSpawnLocation;
+        } else {
+            this.x =
+                Math.random() > 0.5
+                    ? lowerXSpawnLocation
+                    : higherXSpawnLocation;
         }
 
         const lowerYSpawnLocation = randomInt(
             0,
-            player.y - player.safeZoneRadius
+            player.y + player.size / 2 - player.safeZoneRadius
         );
 
         const higherYSpawnLocation = randomInt(
-            player.x + player.safeZoneRadius,
+            player.y + player.size / 2 + player.safeZoneRadius,
             Game.canvas.height - this.size
         );
 
         if (player.y - player.safeZoneRadius < 0) {
             this.y = higherYSpawnLocation;
             console.log(this.x, this.y);
-        } else {
+        } else if (
+            player.y + player.size + player.safeZoneRadius >
+            canvas.height
+        ) {
             this.y = lowerYSpawnLocation;
             console.log(this.x, this.y);
+        } else {
+            this.y =
+                Math.random() > 0.5
+                    ? lowerYSpawnLocation
+                    : higherYSpawnLocation;
         }
     }
 }

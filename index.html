@@ -9,6 +9,28 @@
     </head>
     <body>
         <div id="gameContainer">
+            <div id="right">
+                <button class="upgrade" data-upgrade-id="1">
+                    <div class="price"></div>
+                    <div>A</div>
+                    <div class="upgrade-title"></div>
+                </button>
+                <button class="upgrade" data-upgrade-id="2">
+                    <div class="price"></div>
+                    <div>F</div>
+                    <div class="upgrade-title"></div>
+                </button>
+                <button class="upgrade" data-upgrade-id="3">
+                    <div class="price"></div>
+                    <div>R</div>
+                    <div class="upgrade-title"></div>
+                </button>
+                <button class="upgrade" data-upgrade-id="4">
+                    <div class="price"></div>
+                    <div>H</div>
+                    <div class="upgrade-title"></div>
+                </button>
+            </div>
             <div id="upgradeMenuContainer" class="upgrade-menu-container hide">
                 <button id="close">Close</button>
 
@@ -33,11 +55,22 @@
                 <div>
                     <div id="ammo">---</div>
                     <div id="activeWeapon">No guns purchased</div>
-                    <div>
-                        <figure><img src="" alt="" /></figure>
+                    <div class="player-weapons">
+                        <button id="glock">
+                            <img src="" alt="" />
+                            <div>1</div>
+                        </button>
+                        <button id="ak47">
+                            <img src="assets/weapons/AK47_UI.png" alt="" />
+                            <div>2</div>
+                        </button>
+                        <button id="rpg">
+                            <img src="" alt="" />
+                            <div>3</div>
+                        </button>
                     </div>
                 </div>
-                <div>
+                <div class="round-info">
                     <div id="round">Round 5</div>
                     <div id="roundTimer">100</div>
                 </div>

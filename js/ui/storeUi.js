@@ -2,48 +2,49 @@ import Player from "../entities/Player.js";
 import Game from "../entities/Game.js";
 import createOnSaleWeapons from "../lib/createOnSaleWeapons.js";
 
-const weaponsOnSale = [
-    {
-        id: 1,
-        name: "Glock",
-        price: 0,
-        img: "",
-    },
-    {
-        id: 2,
-        name: "AK47",
-        price: 20,
-        img: "",
-    },
-    { id: 3, name: "RPG", price: 0, img: "" },
-];
-
-const upgradesOnSale = [
-    {
-        id: 1,
-        title: "Increase Ammo Capacity +5",
-        price: 10,
-        img: "",
-    },
-    {
-        id: 2,
-        title: "Increase Fire Rate by 5%",
-        price: 1,
-        img: "",
-    },
-    {
-        id: 3,
-        title: "Reduce Reload Time",
-        price: 500,
-        img: "",
-    },
-    {
-        id: 4,
-        title: "Increase Health capacity +5",
-        price: 10,
-        img: "",
-    },
-];
+export const storeData = {
+    weaponsOnSale: [
+        {
+            id: 1,
+            name: "Glock",
+            price: 0,
+            img: "",
+        },
+        {
+            id: 2,
+            name: "AK47",
+            price: 20,
+            img: "",
+        },
+        { id: 3, name: "RPG", price: 0, img: "" },
+    ],
+    upgradesOnSale: [
+        {
+            id: 1,
+            title: "Increase Ammo Capacity +5",
+            price: 10,
+            img: "",
+        },
+        {
+            id: 2,
+            title: "Increase Fire Rate by 5%",
+            price: 1,
+            img: "",
+        },
+        {
+            id: 3,
+            title: "Reduce Reload Time",
+            price: 500,
+            img: "",
+        },
+        {
+            id: 4,
+            title: "Increase Health capacity +5",
+            price: 10,
+            img: "",
+        },
+    ],
+};
 
 /**
  * Assigning parameter types
@@ -53,6 +54,7 @@ const upgradesOnSale = [
  * @param {number|null} param.purchasedWeaponsId
  */
 const upgradeMenuUi = ({ Game, player }) => {
+    const { weaponsOnSale, upgradesOnSale } = storeData;
     const { purchasedWeaponsId } = Game;
     const { isPaused, onUpgradeMenu } = Game.state;
 

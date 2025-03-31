@@ -9,15 +9,10 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     font-size: 1.5em;
-    /* cursor: url("assets/cursor/ak_crosshair.png"), auto; */
 }
 
 canvas {
     background-color: gray;
-
-    /* &:hover {
-        cursor: none;
-    } */
 }
 
 .upgrade-menu-container {
@@ -111,6 +106,42 @@ canvas {
     width: 10%;
 }
 
+#right {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    top: 0;
+    right: 0.5em;
+    row-gap: 12px;
+    bottom: 0;
+    button {
+        font-size: 10px;
+        opacity: 0.5;
+        width: 64px;
+        height: 64px;
+        background-color: aliceblue;
+        border: none;
+        border-radius: 5px;
+
+        position: relative;
+        div:first-child {
+            color: red;
+            font-weight: bold;
+            font-size: 32px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
+
 .bottom {
     position: absolute;
     display: flex;
@@ -122,6 +153,41 @@ canvas {
     > div + div {
         text-align: end;
     }
+}
+
+.player-weapons {
+    display: flex;
+    column-gap: 0.25em;
+    button {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        height: 2.5em;
+        padding: 0;
+        img {
+            display: block;
+            width: 3em;
+            flex: 1;
+            border: solid black 1px;
+            border-radius: 0.1em;
+            background-color: black;
+        }
+        .unlocked-weapon {
+            background-color: rgba(253, 150, 150, 0.1);
+        }
+        .active-weapon {
+            background-color: rgba(255, 0, 0, 0.2);
+        }
+        div {
+            font-size: 16px;
+        }
+    }
+}
+
+.round-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
 }
 
 .shake {

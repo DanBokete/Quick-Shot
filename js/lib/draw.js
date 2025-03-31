@@ -169,15 +169,11 @@ export const drawPlayer = ({ player, Game }) => {
 // https://www.youtube.com/watch?v=cB6paLHebb4
 // Code can be found at 05:00
 export const drawLeftWeapon = ({ player, Game, Pointer }) => {
-    // let size = 96;
-    // const width = 96;
-    // const height = 48;
     const { context } = Game;
 
     const activeWeapon = player.activeWeapon;
     if (!activeWeapon) return;
     const image = activeWeapon.image;
-    console.log(image);
 
     context.save();
     context.translate(player.x + player.size / 2, player.y + player.size);
@@ -250,7 +246,7 @@ export const drawRightWeapon = ({ player, Game, Pointer }) => {
     context.save();
 
     context.translate(player.x + player.size * 0, player.y + player.size * 0.7);
-    context.rotate(Pointer.rotationFromPlayer + 1.9);
+    context.rotate(Pointer.rotationFromPlayer + 1.6);
     context.scale(-1, 1);
 
     if (activeWeapon instanceof Glock) {

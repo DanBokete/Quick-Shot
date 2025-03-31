@@ -24,7 +24,7 @@ class Player {
         this.cash = 0;
         this.score = 0;
 
-        this.dashForce = 20;
+        this.dashForce = 12;
 
         /**
          * Weapon that is equipped
@@ -80,13 +80,13 @@ class Player {
 
         if (weapon && weapon instanceof RPG) {
             this.speed = 0.5;
-            this.dashForce = 10;
+            this.dashForce = 8;
         } else if (weapon && weapon instanceof AK47) {
             this.speed = 0.8;
-            this.dashForce = 15;
+            this.dashForce = 10;
         } else {
             this.speed = 1;
-            this.dashForce = 20;
+            this.dashForce = 12;
         }
 
         if (weapon.state.isReloading) {
