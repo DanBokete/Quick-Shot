@@ -11,6 +11,9 @@ class Sniper extends Enemy {
         this.bulletSpeed = 4.0;
         this.damage = 1;
         this.chanceOfFiring = chanceOfFiring;
+        this.angle = null;
+
+        this.WITHIN_RANGE = false;
     }
 
     update({ player, Game }) {
@@ -18,25 +21,40 @@ class Sniper extends Enemy {
 
         let attackOffset = 0;
 
-        if (distanceBetweenPlayerAndEnemy > 100) {
-            attackOffset = this.attackOffset;
-        }
+        // if (distanceBetweenPlayerAndEnemy > 50) {
+        //     attackOffset = this.attackOffset;
+        // }
 
         const xDistanceFromPlayer = player.x - this.x + attackOffset;
         const yDistanceFromPlayer = player.y - this.y + attackOffset;
 
-        const { a, b, c } = normaliseVector(
-            xDistanceFromPlayer,
-            yDistanceFromPlayer
-        );
+        if (distanceBetweenPlayerAndEnemy < 150) {
+            if (this.angle === null || !this.WITHIN_RANGE) {
+                this.angle = Math.asin(
+                    xDistanceFromPlayer / distanceBetweenPlayerAndEnemy
+                );
+            }
+            this.WITHIN_RANGE = true;
+            this.angle += 0.025 * this.speed;
+            this.y =
+                player.y + Math.sin(this.angle) * distanceBetweenPlayerAndEnemy;
+            this.x =
+                player.x + Math.cos(this.angle) * distanceBetweenPlayerAndEnemy;
+        } else {
+            this.WITHIN_RANGE = false;
+            const { a, b, c } = normaliseVector(
+                xDistanceFromPlayer,
+                yDistanceFromPlayer
+            );
+
+            this.dx = this.speed * a;
+            this.dy = this.speed * b;
+
+            this.x += this.dx;
+            this.y += this.dy;
+        }
 
         this._shoot({ Game, player });
-
-        this.dx = this.speed * a;
-        this.dy = this.speed * b;
-
-        this.x += this.dx;
-        this.y += this.dy;
     }
 
     _createBullets({ player }) {

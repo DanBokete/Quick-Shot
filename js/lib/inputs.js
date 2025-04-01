@@ -7,6 +7,7 @@ import {
     updateAmmoUi,
     updateCashUi,
     updateHealthUi,
+    updateWeaponUi,
 } from "../ui/uiElements.js";
 import upgradeMenuUi from "../ui/storeUi.js";
 import { makePurchase } from "./purchases.js";
@@ -78,15 +79,17 @@ export const activate = ({ e, Keys, player, Game }) => {
 
     for (let weapon of weapons) {
         if (weapon.key === key) {
-            player.changeWeapon({ weapon, Game });
+            player.changeWeapon({ weapon });
+        } else {
+            makePurchase({ weaponId: key });
         }
     }
 
-    if (player.weapons) {
-        const changeWeaponKeys = player.weapons.map((weapon) => {
-            return weapon.key;
-        });
-    }
+    // if (player.weapons) {
+    //     const changeWeaponKeys = player.weapons.map((weapon) => {
+    //         return weapon.key;
+    //     });
+    // }
 };
 
 export const deactivate = ({ e, Keys }) => {
@@ -134,7 +137,6 @@ export const handleClick = ({ e, Pointer, player, Game }) => {
     // }
 
     // handle purchases
-
     if (
         player.activeWeapon &&
         (e.target.closest(".upgrade") || e.target.matches(".upgrade"))
@@ -144,95 +146,17 @@ export const handleClick = ({ e, Pointer, player, Game }) => {
             e.target.parentElement.dataset.upgradeId;
         makePurchase({ upgradeId });
         return;
-        // const weaponsOnSale = document.querySelectorAll("[data-weapon-id]");
-
-        // weaponsOnSale.forEach((weaponBtn) => {
-        //     if (e.target === weaponBtn) {
-        //         const price = player.unlimitedCash
-        //             ? 0
-        //             : weaponBtn.dataset.price;
-        //         const weaponId = Number(weaponBtn.dataset.weaponId);
-        //         if (
-        //             player.cash >= price &&
-        //             (weaponId === 1 || weaponId === 2 || weaponId === 3)
-        //         ) {
-        //             console.log(weaponId);
-
-        //             if (1 === weaponId) {
-        //                 const image = Game.assets.weapons.glock;
-
-        //                 const weapon = new Glock({ image });
-        //                 player.addWeapon({ weapon, Game });
-        //                 Game.purchasedWeaponsId.push(weaponId);
-
-        //                 weaponBtn.disabled = true;
-        //             } else if (2 === weaponId) {
-        //                 const image = Game.assets.weapons.ak;
-        //                 const weapon = new AK47({ image });
-        //                 player.addWeapon({ weapon, Game });
-        //                 Game.purchasedWeaponsId.push(weaponId);
-
-        //                 weaponBtn.disabled = true;
-        //             } else if (3 === weaponId) {
-        //                 const image = Game.assets.weapons.rpg;
-        //                 const weapon = new RPG({ image });
-        //                 player.addWeapon({ weapon, Game });
-        //                 Game.purchasedWeaponsId.push(weaponId);
-
-        //                 weaponBtn.disabled = true;
-        //             }
-        //             player.cash -= player.unlimitedCash ? 0 : price;
-        //             updateCashUi({ player });
-        //         }
-        //     }
-        // });
-
-        // const upgradesOnSale = document.querySelectorAll("[data-upgrade-id]");
-
-        // upgradesOnSale.forEach((upgradeBtn) => {
-        //     if (e.target === upgradeBtn) {
-        //         const price = player.unlimitedCash
-        //             ? 0
-        //             : Number(upgradeBtn.dataset.price);
-        //         const upgradeId = Number(upgradeBtn.dataset.upgradeId);
-        //         console.log("almost");
-        //         console.log(price);
-
-        //         if (player.cash >= price) {
-        //             console.log("here");
-
-        //             if (1 === upgradeId) {
-        //                 player.activeWeapon.maxAmmo += 5;
-        //                 player.activeWeapon.ammo += 5;
-
-        //                 player.cash -= price;
-        //                 updateAmmoUi({ player, Game });
-        //                 updateCashUi({ player });
-        //             }
-
-        //             if (upgradeId === 2) {
-        //                 player.activeWeapon.fireDelay *= 0.95;
-
-        //                 player.cash -= price;
-        //                 updateCashUi({ player });
-        //             }
-
-        //             if (upgradeId === 4) {
-        //                 const healthUpgrade = 5;
-        //                 player.maxHealth += healthUpgrade;
-        //                 player.health += healthUpgrade;
-
-        //                 player.cash -= price;
-        //                 updateHealthUi({ player });
-        //                 updateCashUi({ player });
-        //             }
-        //         }
-        //     }
-        // });
-
-        // return;
     }
 
-    player.isShooting = true;
+    if (e.target.closest(".purchase") || e.target.matches(".purchase")) {
+        const weaponId =
+            e.target.dataset.purchaseId ??
+            e.target.parentElement.dataset.purchaseId;
+
+        makePurchase({ weaponId });
+        return;
+    }
+
     player.shoot({ Pointer, Game });
+    player.isShooting = true;
 };

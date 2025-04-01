@@ -24,7 +24,7 @@ class RPG extends Weapon {
         });
 
         this.splashDamage = splashDamage;
-        this.splashRadius = 100;
+        this.splashRadius = 200;
     }
 
     _createBullet({ player, Pointer }) {

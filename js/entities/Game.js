@@ -2,6 +2,7 @@ export const Game = {
     canvas: null,
     context: null,
     requestId: null,
+
     round: {
         number: 0,
         startTime: 0,
@@ -40,6 +41,7 @@ export const Game = {
             rpg: null,
         },
         bullet: null,
+        backgroundImage: null,
     },
 };
 

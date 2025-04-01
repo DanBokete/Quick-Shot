@@ -3,24 +3,54 @@ import {
     updateAmmoUi,
     updateHealthUi,
     updateUpgradeWeaponUi,
+    updateWeaponUi,
 } from "../ui/uiElements.js";
+import AK47 from "./Ak47.js";
+import Game from "./Game.js";
+import Glock from "./Glock.js";
+import RPG from "./RPG.js";
 
 export const storeData = {
-    weaponsOnSale: [
-        {
-            id: 1,
+    weaponsOnSale: {
+        1: {
             name: "Glock",
             price: 0,
             img: "",
+            purchase: () => {
+                for (let weapon of player.weapons) {
+                    if (weapon instanceof Glock) return;
+                }
+                const weapon = new Glock({ image: Game.assets.weapons.glock });
+                player.addWeapon({ weapon });
+            },
         },
-        {
-            id: 2,
+        2: {
             name: "AK47",
             price: 20,
             img: "",
+            purchase: () => {
+                for (let weapon of player.weapons) {
+                    if (weapon instanceof AK47) return;
+                }
+                const weapon = new AK47({ image: Game.assets.weapons.ak });
+                console.log("purchase weapon");
+
+                player.addWeapon({ weapon });
+            },
         },
-        { id: 3, name: "RPG", price: 0, img: "" },
-    ],
+        3: {
+            name: "RPG",
+            price: 0,
+            img: "",
+            purchase: () => {
+                for (let weapon of player.weapons) {
+                    if (weapon instanceof RPG) return;
+                }
+                const weapon = new RPG({ image: Game.assets.weapons.rpg });
+                player.addWeapon({ weapon });
+            },
+        },
+    },
     upgradesOnSale: {
         1: {
             title: "+5 Ammo",

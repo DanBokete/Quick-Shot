@@ -1,4 +1,8 @@
-import { updateAmmoUi, updateWeaponUi } from "../ui/uiElements.js";
+import {
+    updateAmmoUi,
+    updateUpgradeWeaponUi,
+    updateWeaponUi,
+} from "../ui/uiElements.js";
 import AK47 from "./Ak47.js";
 import Glock from "./Glock.js";
 import RPG from "./RPG.js";
@@ -109,7 +113,7 @@ class Player {
         }
     }
 
-    changeWeapon({ weapon, Game }) {
+    changeWeapon({ weapon }) {
         if (this.activeWeapon) {
             this.activeWeapon.state.isReloading = false;
             this.activeWeapon.lastReloaded = 0;
@@ -120,6 +124,7 @@ class Player {
 
         updateWeaponUi({ weapon });
         updateAmmoUi({ player: this, Game });
+        updateUpgradeWeaponUi();
     }
 
     /**
@@ -127,11 +132,11 @@ class Player {
      * @param {Game} param.Game
      * @param {Glock | AK47 | null} param.weapon
      */
-    addWeapon({ weapon, Game }) {
+    addWeapon({ weapon }) {
         if (!this.weapons.includes(weapon)) {
             this.weapons.push(weapon);
-            this.changeWeapon({ weapon, Game });
             console.log("added", weapon);
+            this.changeWeapon({ weapon, Game });
         } else console.error("Weapon has already been added");
     }
 
@@ -139,7 +144,7 @@ class Player {
      * @param {object} param
      * @param {Game} param.Game
      */
-    shoot({ Pointer, Game }) {
+    shoot({ Pointer }) {
         if (!this.activeWeapon) return;
 
         const { elapsedFrames } = Game.meta;

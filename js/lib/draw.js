@@ -6,6 +6,7 @@ import RPG from "../entities/RPG.js";
 import Enemy from "../entities/Enemy.js";
 import Sniper from "../entities/Sniper.js";
 import Sprayer from "../entities/Sprayer.js";
+import { background } from "./background.js";
 
 /**
  * Assigning parameter types
@@ -310,4 +311,35 @@ export const drawRightWeapon = ({ player, Game, Pointer }) => {
     //     player.height * 2
     // );
     context.restore();
+};
+
+export const drawBackground = () => {
+    const { context, canvas } = Game;
+    const { backgroundImage } = Game.assets;
+    context.fillStyle = "gray";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    const tilesPerRow = 18;
+    const tilesPerCol = 7;
+    const tileSize = 16;
+    background.forEach((row, r) => {
+        row.forEach((square, c) => {
+            const tile = background[r][c];
+            if (tile >= 0) {
+                const tileRow = Math.floor(tile / tilesPerRow);
+                const tileCol = Math.floor(tile % tilesPerRow);
+                context.drawImage(
+                    backgroundImage,
+                    tileCol * tileSize,
+                    tileRow * tileSize,
+                    tileSize,
+                    tileSize,
+                    c * tileSize,
+                    r * tileSize,
+                    tileSize,
+                    tileSize
+                );
+            }
+            // console.log("kk");
+        });
+    });
 };

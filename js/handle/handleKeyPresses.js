@@ -1,3 +1,5 @@
+import { Pointer } from "../../game.js";
+
 const handleKeyPresses = ({ Keys, player, Game }) => {
     if (Keys.moveLeft) {
         player.dx -= player.speed;

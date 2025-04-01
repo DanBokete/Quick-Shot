@@ -23,12 +23,21 @@ const increaseRound = ({ Game, player }) => {
     // console.log(roundNumber);
 
     if (roundNumber === 1) {
-        createEasyEnemies({
+        createMediumEnemies({
             Game,
             player,
             numberOfEnemies: 3,
             enemySpeed: 0.5,
+            fireDelay: 55,
+            chanceOfFiring: 0.02,
         });
+        Game.round.timeLimit = 90;
+        // createEasyEnemies({
+        //     Game,
+        //     player,
+        //     numberOfEnemies: 3,
+        //     enemySpeed: 0.5,
+        // });
     } else if (roundNumber === 2) {
         createMediumEnemies({
             Game,
@@ -38,8 +47,7 @@ const increaseRound = ({ Game, player }) => {
             fireDelay: 55,
             chanceOfFiring: 0.02,
         });
-        Game.round.timeLimit = 20;
-        Game.round.timeLimit = 20;
+        Game.round.timeLimit = 90;
     } else if (roundNumber === 3) {
         createHardEnemies({
             Game,
@@ -47,7 +55,7 @@ const increaseRound = ({ Game, player }) => {
             enemySpeed: 0.55,
             player,
         });
-        Game.round.timeLimit = 20;
+        Game.round.timeLimit = 90;
     } else {
         let value = 2 * round.number;
         while (value > 0) {
@@ -83,7 +91,7 @@ const increaseRound = ({ Game, player }) => {
                 });
             }
         }
-        Game.round.timeLimit = 20;
+        Game.round.timeLimit = 60;
     }
 
     Game.round.startTime = Game.meta.elapsedFrames;

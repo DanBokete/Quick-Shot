@@ -9,8 +9,8 @@ import Player from "../entities/Player.js";
  * @param {Player} param.player
  */
 const onPointerMove = ({ e, Pointer, player, Game }) => {
-    Pointer.x = e.clientX;
-    Pointer.y = e.clientY;
+    Pointer.x += e.movementX;
+    Pointer.y += e.movementY;
     Pointer.rotationFromPlayer = Math.atan2(
         Pointer.x - player.x,
         -(Pointer.y - player.y)

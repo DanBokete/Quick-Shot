@@ -7,6 +7,7 @@ import {
     drawPlayer,
     drawLeftWeapon,
     drawRightWeapon,
+    drawBackground,
 } from "./js/lib/draw.js";
 import handleCollisions from "./js/lib/collisions.js";
 import handleKeyPresses from "./js/handle/handleKeyPresses.js";
@@ -30,6 +31,7 @@ import load_assets from "./js/lib/load_assets.js";
 import AK47 from "./js/entities/Ak47.js";
 import RPG from "./js/entities/RPG.js";
 import Game from "./js/entities/Game.js";
+import Camera from "./js/entities/Camera.js";
 
 document.addEventListener("DOMContentLoaded", init, false);
 
@@ -40,7 +42,7 @@ const Keys = {
     moveRight: false,
 };
 
-const Pointer = {
+export const Pointer = {
     x: null,
     y: null,
     rotationFromPlayer: null,
@@ -48,28 +50,37 @@ const Pointer = {
 
 export const player = new Player();
 
+const camera = new Camera();
+
 function init() {
     Game.canvas = document.querySelector("canvas");
     Game.context = Game.canvas.getContext("2d");
     Game.endLine.height = Game.canvas.height;
 
+    // Game.canvas.width = window.innerWidth * 0.8;
+    // Game.canvas.height = window.innerHeight * 0.8;
+
     player.x = 10;
     player.y = 10;
 
-    window.addEventListener(
+    document.addEventListener(
         "keydown",
         (e) => activate({ e, Keys, player, Game }),
         false
     );
-    window.addEventListener("keyup", (e) => deactivate({ e, Keys }), false);
+    document.addEventListener("keyup", (e) => deactivate({ e, Keys }), false);
 
-    window.addEventListener(
+    document.addEventListener(
         "pointermove",
         (e) => onPointerMove({ e, Pointer, player, Game }),
         false
     );
 
-    window.addEventListener(
+    document.addEventListener("click", function () {
+        document.body.requestPointerLock();
+    });
+
+    document.addEventListener(
         "mousedown",
         (e) =>
             handleClick({
@@ -103,6 +114,7 @@ function init() {
     updateAmmoUi({ player, Game });
     updateRoundUpdateTimerUi({ Game });
     updateRoundUi({ Game });
+    updateUpgradeWeaponUi();
 
     Game.assets.akCrosshair = new Image();
     Game.assets.glockCrosshair = new Image();
@@ -112,6 +124,7 @@ function init() {
     Game.assets.weapons.ak = new Image();
     Game.assets.weapons.rpg = new Image();
     Game.assets.bullet = new Image();
+    Game.assets.backgroundImage = new Image();
 
     load_assets(
         [
@@ -147,7 +160,10 @@ function init() {
                 var: Game.assets.bullet,
                 url: "assets/bullets/bullets.png",
             },
-            // { var: mapTileSet, url: "assets/tileset/FG_Cellar_A5.png" },
+            {
+                var: Game.assets.backgroundImage,
+                url: "assets/tileset/background.png",
+            },
             // { var: demonImage, url: "assets/enemy/demon.png" },
         ],
         gameLoop
@@ -165,6 +181,7 @@ const gameLoop = () => {
     if (Game.meta.elapsed <= Game.meta.fpsInterval) {
         return;
     }
+
     if (Game.state.isPaused && Game.state.onUpgradeMenu) {
         document.querySelector("canvas").style.cursor = "default";
         return;
@@ -194,7 +211,8 @@ const gameLoop = () => {
         if (player.activeWeapon.frameX) player.activeWeapon.frameX++;
     }
 
-    updateUpgradeWeaponUi();
+    camera.update();
+
     updateRoundUpdateTimerUi({ Game });
     if (player.activeWeapon && player.activeWeapon.state.isReloading) {
         updateAmmoUi({ player, Game });
@@ -207,7 +225,10 @@ const gameLoop = () => {
 
     Game.meta.elapsedFrames += 1;
 
-    // drawBackground()
+    Game.context.save();
+    Game.context.translate(camera.x, camera.y);
+
+    drawBackground();
     drawEnemies({ enemies: Game.enemies, context: Game.context });
 
     if (player.x < Pointer.x) {
@@ -218,7 +239,9 @@ const gameLoop = () => {
         drawPlayer({ player, Game });
     }
     drawBullets({ Game });
+
     drawCursor({ Game, Pointer, player });
+    Game.context.restore();
 
     handleKeyPresses({ Game, Keys, player });
     if (player.isShooting) {

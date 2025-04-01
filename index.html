@@ -13,21 +13,25 @@
                 <button class="upgrade" data-upgrade-id="1">
                     <div class="price"></div>
                     <div>A</div>
+                    <div class="upgrade-shortcut">v</div>
                     <div class="upgrade-title"></div>
                 </button>
                 <button class="upgrade" data-upgrade-id="2">
                     <div class="price"></div>
                     <div>F</div>
+                    <div class="upgrade-shortcut">b</div>
                     <div class="upgrade-title"></div>
                 </button>
                 <button class="upgrade" data-upgrade-id="3">
                     <div class="price"></div>
                     <div>R</div>
+                    <div class="upgrade-shortcut">n</div>
                     <div class="upgrade-title"></div>
                 </button>
                 <button class="upgrade" data-upgrade-id="4">
                     <div class="price"></div>
                     <div>H</div>
+                    <div class="upgrade-shortcut">m</div>
                     <div class="upgrade-title"></div>
                 </button>
             </div>
@@ -56,15 +60,22 @@
                     <div id="ammo">---</div>
                     <div id="activeWeapon">No guns purchased</div>
                     <div class="player-weapons">
-                        <button id="glock">
+                        <button
+                            class="purchase"
+                            id="glock"
+                            data-purchase-id="1"
+                        >
+                            <div class="weapon-price">79</div>
                             <img src="" alt="" />
                             <div>1</div>
                         </button>
-                        <button id="ak47">
+                        <button class="purchase" id="ak47" data-purchase-id="2">
+                            <div class="weapon-price">79</div>
                             <img src="assets/weapons/AK47_UI.png" alt="" />
                             <div>2</div>
                         </button>
-                        <button id="rpg">
+                        <button class="purchase" id="rpg" data-purchase-id="3">
+                            <div class="weapon-price">79</div>
                             <img src="" alt="" />
                             <div>3</div>
                         </button>

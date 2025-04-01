@@ -3,6 +3,8 @@ import {
     updateCashUi,
     updateHealthUi,
     updateScoreUi,
+    updateUpgradeWeaponUi,
+    updateWeaponUi,
 } from "../ui/uiElements.js";
 import collision from "../utils/collision.js";
 import Game from "../entities/Game.js";
@@ -23,7 +25,7 @@ const handleCollisions = ({ player, Game }) => {
                     return bullet;
                 }
 
-                if (bullet instanceof RPG) {
+                if (bullet.splashDamage) {
                     console.log(bullet.splashRadius);
                     for (let otherEnemy of Game.enemies) {
                         if (enemy === otherEnemy) continue;
