@@ -35,7 +35,7 @@ class Sniper extends Enemy {
                 } else if (this.y > player.y) {
                     this.angle = Math.acos(-xDistanceFromPlayer / 150);
                 } else {
-                    this.angle = Math.acos(xDistanceFromPlayer / 150);
+                    this.angle = -Math.acos(-xDistanceFromPlayer / 150);
                 }
             }
             this.angle += 0.025 * this.speed;
