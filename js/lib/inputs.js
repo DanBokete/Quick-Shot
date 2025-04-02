@@ -80,7 +80,7 @@ export const activate = ({ e, Keys, player, Game }) => {
     for (let weapon of weapons) {
         if (weapon.key === key) {
             player.changeWeapon({ weapon });
-        } else {
+        } else if (key === "1" || key === "2" || key === "3") {
             makePurchase({ weaponId: key });
         }
     }

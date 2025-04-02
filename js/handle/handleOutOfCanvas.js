@@ -1,19 +1,31 @@
-const handleOutOfCanvas = ({ Game, player }) => {
+import Game from "../entities/Game.js";
+
+const handleOutOfCanvas = ({ player }) => {
     const canvas = Game.canvas;
-    if (player.x + player.width > canvas.width) {
-        player.x = canvas.width - player.width;
-    }
+    // if (player.x + player.width > canvas.width) {
+    //     player.x = canvas.width - player.width;
+    // }
 
-    if (player.y + player.height > canvas.height) {
-        player.y = canvas.height - player.height;
-    }
+    // if (player.y + player.height > canvas.height) {
+    //     player.y = canvas.height - player.height;
+    // }
 
-    if (player.x < 0) {
-        player.x = 0;
-    }
-    if (player.y < 0) {
-        player.y = 0;
-    }
+    // background.forEach((row, r) => {
+    //     row.forEach((square, c) => {
+    //         const tile = background[r][c];
+    //         const playerBoardX = Math.floor(player.x / Game.assets.tileSize);
+    //         if (tile < 0) {
+    //         }
+    //         // console.log("kk");
+    //     });
+    // });
+
+    // if (player.x < 0) {
+    //     player.x = 0;
+    // }
+    // if (player.y < 0) {
+    //     player.y = 0;
+    // }
 
     const { bullets, enemyBullets } = Game;
 

@@ -43,6 +43,7 @@ export const Game = {
         },
         bullet: null,
         backgroundImage: null,
+        tileSize: 16,
     },
 };
 
