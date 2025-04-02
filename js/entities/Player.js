@@ -7,6 +7,7 @@ import AK47 from "./Ak47.js";
 import Glock from "./Glock.js";
 import RPG from "./RPG.js";
 import Game from "./Game.js";
+import { Pointer } from "../../game.js";
 
 class Player {
     constructor() {
@@ -144,7 +145,7 @@ class Player {
      * @param {object} param
      * @param {Game} param.Game
      */
-    shoot({ Pointer }) {
+    shoot() {
         if (!this.activeWeapon) return;
 
         const { elapsedFrames } = Game.meta;

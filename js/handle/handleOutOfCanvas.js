@@ -19,10 +19,10 @@ const handleOutOfCanvas = ({ Game, player }) => {
 
     Game.bullets = bullets.filter((bullet) => {
         if (
-            bullet.x > 0 &&
-            bullet.y > 0 &&
+            bullet.x - bullet.size > 0 &&
+            bullet.y - bullet.size > 0 &&
             bullet.x + bullet.size < Game.canvas.width &&
-            bullet.y + bullet.size < Game.canvas.height
+            bullet.y - bullet.size < Game.canvas.height
         ) {
             return bullet;
         }

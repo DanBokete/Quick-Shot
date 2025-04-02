@@ -9,6 +9,7 @@ import Player from "../entities/Player.js";
  * @param {Player} param.player
  */
 const onPointerMove = ({ e, Pointer, player, Game }) => {
+    if (document.pointerLockElement !== document.body) return;
     Pointer.x += e.movementX;
     Pointer.y += e.movementY;
     Pointer.rotationFromPlayer = Math.atan2(

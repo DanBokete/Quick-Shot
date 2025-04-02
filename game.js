@@ -77,7 +77,11 @@ function init() {
     );
 
     document.addEventListener("click", function () {
+        if (Game.state) {
+            player.shoot();
+        }
         document.body.requestPointerLock();
+        Game.state = true;
     });
 
     document.addEventListener(
@@ -182,10 +186,6 @@ const gameLoop = () => {
         return;
     }
 
-    if (Game.state.isPaused && Game.state.onUpgradeMenu) {
-        document.querySelector("canvas").style.cursor = "default";
-        return;
-    }
     if (!Game.meta.elapsedFrames) {
         player.addWeapon({
             Game,
@@ -285,5 +285,6 @@ const gameLoop = () => {
 
 function endGame() {
     window.cancelAnimationFrame(Game.requestId);
+    document.exitPointerLock();
     document.querySelector("canvas").style.cursor = "default";
 }

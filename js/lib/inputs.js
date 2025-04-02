@@ -156,7 +156,6 @@ export const handleClick = ({ e, Pointer, player, Game }) => {
         makePurchase({ weaponId });
         return;
     }
-
-    player.shoot({ Pointer, Game });
+    if (player.activeWeapon instanceof AK47) player.shoot({ Pointer, Game });
     player.isShooting = true;
 };

@@ -2,6 +2,7 @@ export const Game = {
     canvas: null,
     context: null,
     requestId: null,
+    status: false,
 
     round: {
         number: 0,

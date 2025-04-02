@@ -53,7 +53,11 @@ export const updateHealthUi = () => {
     }/${maxHealth}`;
     healthElement.style.width = `${(health / maxHealth) * 100}%`;
 
-    if (health <= 2 && !player.unlimitedHealth) {
+    if (
+        health <= 2 &&
+        !player.unlimitedHealth &&
+        player.health !== player.maxHealth
+    ) {
         healthContainerElement.classList.add("shake");
         healthElement.classList.add("shake");
         healthElement.style.backgroundColor = "darkRed";

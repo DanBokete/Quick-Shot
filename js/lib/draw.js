@@ -104,9 +104,9 @@ export const drawCursor = ({ Game, Pointer, player }) => {
         Pointer.x < canvas.width &&
         Pointer.y < canvas.height
     ) {
-        document.querySelector("canvas").style.cursor = "none";
+        // document.querySelector("canvas").style.cursor = "none";
     } else {
-        document.querySelector("canvas").style.cursor = "default";
+        // document.querySelector("canvas").style.cursor = "default";
     }
 };
 

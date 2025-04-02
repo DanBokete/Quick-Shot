@@ -26,7 +26,7 @@ const increaseRound = ({ Game, player }) => {
         createMediumEnemies({
             Game,
             player,
-            numberOfEnemies: 3,
+            numberOfEnemies: 1,
             enemySpeed: 0.5,
             fireDelay: 55,
             chanceOfFiring: 0.02,
