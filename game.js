@@ -60,8 +60,8 @@ function init() {
     // Game.canvas.width = window.innerWidth * 0.8;
     // Game.canvas.height = window.innerHeight * 0.8;
 
-    player.x = 10;
-    player.y = 10;
+    player.x = 100;
+    player.y = 100;
 
     document.addEventListener(
         "keydown",

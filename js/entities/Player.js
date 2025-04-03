@@ -8,6 +8,8 @@ import Glock from "./Glock.js";
 import RPG from "./RPG.js";
 import Game from "./Game.js";
 import { Pointer } from "../../game.js";
+import Sniper from "./Sniper.js";
+import { storeData } from "./storeData.js";
 
 class Player {
     constructor() {
@@ -123,6 +125,20 @@ class Player {
         this.activeWeapon = weapon;
         console.log(weapon);
 
+        if (this.activeWeapon instanceof Glock) {
+            storeData.upgradesOnSale[1].price = 10;
+            storeData.upgradesOnSale[2].price = 20;
+            storeData.upgradesOnSale[3].price = 10;
+        } else if (this.activeWeapon instanceof AK47) {
+            storeData.upgradesOnSale[1].price = 15;
+            storeData.upgradesOnSale[2].price = 10;
+            storeData.upgradesOnSale[3].price = 10;
+        } else if (this.activeWeapon instanceof RPG) {
+            storeData.upgradesOnSale[1].price = 100;
+            storeData.upgradesOnSale[2].price = 100;
+            storeData.upgradesOnSale[3].price = 20;
+        }
+
         updateWeaponUi({ weapon });
         updateAmmoUi({ player: this, Game });
         updateUpgradeWeaponUi();
@@ -190,6 +206,12 @@ class Player {
         if (Keys.moveDown) {
             this.dy += this.speed * this.dashForce;
         }
+
+        Game.enemies = Game.enemies.map((enemy) => {
+            enemy.isAttached = false;
+            enemy.angle = null;
+            return enemy;
+        });
     }
 }
 

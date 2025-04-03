@@ -2,30 +2,6 @@ import Game from "../entities/Game.js";
 
 const handleOutOfCanvas = ({ player }) => {
     const canvas = Game.canvas;
-    // if (player.x + player.width > canvas.width) {
-    //     player.x = canvas.width - player.width;
-    // }
-
-    // if (player.y + player.height > canvas.height) {
-    //     player.y = canvas.height - player.height;
-    // }
-
-    // background.forEach((row, r) => {
-    //     row.forEach((square, c) => {
-    //         const tile = background[r][c];
-    //         const playerBoardX = Math.floor(player.x / Game.assets.tileSize);
-    //         if (tile < 0) {
-    //         }
-    //         // console.log("kk");
-    //     });
-    // });
-
-    // if (player.x < 0) {
-    //     player.x = 0;
-    // }
-    // if (player.y < 0) {
-    //     player.y = 0;
-    // }
 
     const { bullets, enemyBullets } = Game;
 
@@ -33,8 +9,8 @@ const handleOutOfCanvas = ({ player }) => {
         if (
             bullet.x - bullet.size > 0 &&
             bullet.y - bullet.size > 0 &&
-            bullet.x + bullet.size < Game.canvas.width &&
-            bullet.y - bullet.size < Game.canvas.height
+            bullet.x + bullet.size < 100 * 16 &&
+            bullet.y - bullet.size < 100 * 16
         ) {
             return bullet;
         }
@@ -43,8 +19,8 @@ const handleOutOfCanvas = ({ player }) => {
         if (
             bullet.x > 0 &&
             bullet.y > 0 &&
-            bullet.x + bullet.size < Game.canvas.width &&
-            bullet.y + bullet.size < Game.canvas.height
+            bullet.x + bullet.size < 100 * 16 &&
+            bullet.y + bullet.size < 100 * 16
         ) {
             return bullet;
         }

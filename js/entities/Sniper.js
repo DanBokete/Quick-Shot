@@ -27,7 +27,11 @@ class Sniper extends Enemy {
         const xDistanceFromPlayer = player.x - this.x + attackOffset;
         const yDistanceFromPlayer = player.y - this.y + attackOffset;
 
-        if (distanceBetweenPlayerAndEnemy < 150 || this.isAttached) {
+        if (distanceBetweenPlayerAndEnemy < 150) {
+            this.isAttached = true;
+        }
+
+        if (this.isAttached) {
             this.isAttached = true;
             if (this.angle === null) {
                 if (this.x > player.x) {
@@ -72,6 +76,7 @@ class Sniper extends Enemy {
                 dy: b * this.bulletSpeed,
                 size: 16,
                 frameX: 0,
+                frameY: 9,
                 speed: this.bulletSpeed,
                 damage: this.damage,
             },

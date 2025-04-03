@@ -59,7 +59,7 @@ export const storeData = {
             upgrade: () => {
                 player.activeWeapon.maxAmmo += 5;
                 player.activeWeapon.ammo += 5;
-                storeData.upgradesOnSale[1].price += 5;
+                // storeData.upgradesOnSale[1].price += 5;
                 updateAmmoUi();
                 updateUpgradeWeaponUi();
             },
@@ -70,7 +70,7 @@ export const storeData = {
             img: "",
             upgrade: () => {
                 player.activeWeapon.fireDelay *= 0.95;
-                storeData.upgradesOnSale[2].price += 5;
+                // storeData.upgradesOnSale[2].price += 5;
             },
         },
         3: {
@@ -79,7 +79,7 @@ export const storeData = {
             img: "",
             upgrade: () => {
                 player.activeWeapon.reloadTime *= 0.95;
-                storeData.upgradesOnSale[3].price += 5;
+                // storeData.upgradesOnSale[3].price += 5;
             },
         },
         4: {
@@ -89,7 +89,7 @@ export const storeData = {
             upgrade: () => {
                 player.health += 5;
                 player.maxHealth += 5;
-                storeData.upgradesOnSale[4].price += 5;
+                // storeData.upgradesOnSale[4].price += 5;
                 updateHealthUi();
             },
         },

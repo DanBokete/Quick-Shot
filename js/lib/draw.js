@@ -32,24 +32,19 @@ export const drawBullets = ({ Game }) => {
 
     if (enemyBullets.length) {
         for (let bullet of Game.enemyBullets) {
-            // context.fillStyle = "black";
-            // context.fillRect(
-            //     bullet.x - bullet.size / 2,
-            //     bullet.y - bullet.size / 2,
-            //     bullet.size,
-            //     bullet.size
-            // );
-            context.drawImage(
-                Game.assets.bullet,
-                bullet.size * bullet.frameX,
-                16 + 1,
-                bullet.size,
-                bullet.size,
-                bullet.x - bullet.size / 2,
-                bullet.y - bullet.size / 2,
-                bullet.size,
-                bullet.size
-            );
+            if (true) {
+                context.drawImage(
+                    Game.assets.bullet,
+                    bullet.size * bullet.frameX,
+                    bullet.frameY ? bullet.frameY * bullet.size : 17,
+                    bullet.size,
+                    bullet.size,
+                    bullet.x - bullet.size / 2,
+                    bullet.y - bullet.size / 2,
+                    bullet.size,
+                    bullet.size
+                );
+            }
         }
 
         if (Game.meta.elapsedFrames % 2 === 0) {
@@ -316,10 +311,10 @@ export const drawRightWeapon = ({ player, Game, Pointer }) => {
 export const drawBackground = () => {
     const { context, canvas } = Game;
     const { backgroundImage } = Game.assets;
-    context.fillStyle = "gray";
-    context.fillRect(0, 0, canvas.width, canvas.height);
-    const tilesPerRow = 18;
-    const tilesPerCol = 7;
+    // context.fillStyle = "gray";
+    // context.fillRect(0, 0, canvas.width, canvas.height);
+    const tilesPerRow = 28;
+    const tilesPerCol = 28;
     const tileSize = 16;
     background.forEach((row, r) => {
         row.forEach((square, c) => {

@@ -2,30 +2,46 @@ import { Pointer } from "../../game.js";
 import { background } from "../lib/background.js";
 
 const handleKeyPresses = ({ Keys, player, Game }) => {
-    const playerBoardX = Math.floor(player.x / Game.assets.tileSize);
-    const playerBoardY = Math.floor(player.y / Game.assets.tileSize);
-    console.log(playerBoardX, playerBoardY);
+    const validMoves = [562, 561, 560, 226];
+    const playerBoardX = Math.floor(
+        (player.x + player.dx) / Game.assets.tileSize
+    );
+    const playerBoardY = Math.floor(
+        (player.y + player.height + player.dx) / Game.assets.tileSize
+    );
 
     if (Keys.moveLeft) {
         try {
-            const leftCell = background[playerBoardX - 1][playerBoardY];
+            const leftCell = background[playerBoardY][playerBoardX - 2];
 
-            if (leftCell >= 0) {
+            if (validMoves.includes(leftCell)) {
                 player.dx -= player.speed;
             }
         } catch {}
     }
     if (Keys.moveRight) {
-        player.dx += player.speed;
+        try {
+            const leftCell = background[playerBoardY][playerBoardX + 4];
+
+            if (validMoves.includes(leftCell)) {
+                player.dx += player.speed;
+            }
+        } catch {}
     }
     if (Keys.moveUp) {
-        player.dy -= player.speed;
+        try {
+            const bottomCell = background[playerBoardY - 2][playerBoardX];
+
+            if (validMoves.includes(bottomCell)) {
+                player.dy -= player.speed;
+            }
+        } catch {}
     }
     if (Keys.moveDown) {
         try {
-            const bottomCell = background[playerBoardX][playerBoardY];
+            const bottomCell = background[playerBoardY + 3][playerBoardX];
 
-            if (bottomCell >= 0) {
+            if (validMoves.includes(bottomCell)) {
                 player.dy += player.speed;
             }
         } catch {}
