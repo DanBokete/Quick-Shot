@@ -1,5 +1,6 @@
 import Weapon from "./Weapon.js";
 import normaliseVector from "../utils/normaliseVector.js";
+import Game from "./Game.js";
 
 class RPG extends Weapon {
     constructor({ image }) {
@@ -44,6 +45,7 @@ class RPG extends Weapon {
             health: this.bullet.health,
             splashDamage: this.splashDamage,
             splashRadius: this.splashRadius,
+            shotAt: Game.meta.elapsedFrames,
         };
     }
 }

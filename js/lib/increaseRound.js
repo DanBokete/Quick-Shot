@@ -140,7 +140,7 @@ const createMediumEnemies = ({
     chanceOfFiring,
 }) => {
     for (let i = 0; i < numberOfEnemies; i++) {
-        const hardEnemy = new Sniper({
+        const mediumEnemy = new Sniper({
             x: randomInt(Game.canvas.width / 2, Game.canvas.width),
             y: randomInt(0, Game.canvas.height),
             speed:
@@ -151,8 +151,8 @@ const createMediumEnemies = ({
             chanceOfFiring,
         });
 
-        hardEnemy.setRandomSpawnLocation({ player, Game });
-        Game.enemies.push(hardEnemy);
+        mediumEnemy.setRandomSpawnLocation({ player, Game });
+        Game.enemies.push(mediumEnemy);
     }
     console.log();
 };

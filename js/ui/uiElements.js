@@ -20,16 +20,26 @@ export const updateAmmoUi = () => {
     if (activeWeapon.state.isReloading) {
         if (player.autoReload) {
             ammoElement.innerText = `reloading....${-(
-                elapsedFrames -
-                activeWeapon.lastReloaded -
-                (activeWeapon.reloadTime + activeWeapon.autoReloadDelay)
-            )}`;
+                Math.ceil(
+                    ((elapsedFrames -
+                        activeWeapon.lastReloaded -
+                        (activeWeapon.reloadTime +
+                            activeWeapon.autoReloadDelay)) /
+                        Game.meta.fps) *
+                        100
+                ) / 100
+            )}s`;
         } else {
             ammoElement.innerText = `reloading....${-(
-                elapsedFrames -
-                activeWeapon.lastReloaded -
-                activeWeapon.reloadTime
-            )}`;
+                (Math.floor(
+                    (elapsedFrames -
+                        activeWeapon.lastReloaded -
+                        activeWeapon.reloadTime) /
+                        Game.meta.fps
+                ) *
+                    100) /
+                100
+            )}s`;
         }
     } else {
         ammoElement.innerText = `${activeWeapon.ammo}/${activeWeapon.maxAmmo}`;
@@ -107,7 +117,17 @@ export const updateWeaponUi = () => {
 
     // const { name } = weapon;
     const activeWeaponElement = document.getElementById("activeWeapon");
-    // activeWeaponElement.innerText = name;
+
+    const activeWeapon = player.activeWeapon ?? null;
+    const { elapsedFrames } = Game.meta;
+
+    if (activeWeapon) {
+        activeWeaponElement.innerText = `Reload Time:${
+            Math.ceil((activeWeapon.reloadTime / Game.meta.fps) * 100) / 100
+        }s Fire Rate:${
+            Math.ceil((activeWeapon.fireDelay / Game.meta.fps) * 100) / 100
+        }bullets/s`;
+    }
 
     glockBtn.firstElementChild.innerText = storeData.weaponsOnSale[1].price;
     ak47Btn.firstElementChild.innerText = storeData.weaponsOnSale[2].price;

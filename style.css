@@ -162,7 +162,9 @@ canvas {
     bottom: 0.5em;
     left: 0.5em;
     right: 0.5em;
-
+    div:first-child {
+        font-size: 12px;
+    }
     > div + div {
         text-align: end;
     }

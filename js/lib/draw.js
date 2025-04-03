@@ -7,6 +7,7 @@ import Enemy from "../entities/Enemy.js";
 import Sniper from "../entities/Sniper.js";
 import Sprayer from "../entities/Sprayer.js";
 import { background } from "./background.js";
+import { player } from "../../game.js";
 
 /**
  * Assigning parameter types
@@ -125,6 +126,7 @@ export const drawEndLine = ({ context, canvas, enemies, endLine }) => {
 
 export const drawEnemies = ({ context, enemies }) => {
     if (!enemies.length) return;
+    console.log(enemies);
 
     for (let enemy of enemies) {
         context.fillStyle = "lightGreen";
@@ -134,13 +136,36 @@ export const drawEnemies = ({ context, enemies }) => {
         context.fillRect(
             enemy.x,
             enemy.y - enemy.size / 2,
-            enemy.size * (enemy.health / enemy.maxHealth),
+            enemy.health > 0
+                ? enemy.size * (enemy.health / enemy.maxHealth)
+                : 0,
             5
         );
         if (enemy instanceof Enemy) context.fillStyle = "orange";
         if (enemy instanceof Sprayer) context.fillStyle = "purple";
-        if (enemy instanceof Sniper) context.fillStyle = "lightblue";
         context.fillRect(enemy.x, enemy.y, enemy.size, enemy.size);
+        if (enemy instanceof Sniper) {
+            const demonImage = Game.assets.enemies.demonImage;
+            context.fillStyle = "lightblue";
+            if (enemy.x > player.x) {
+                enemy.frameY = 0;
+            } else {
+                enemy.frameY = 2;
+            }
+            context.drawImage(
+                demonImage,
+                enemy.frameX * enemy.width,
+                enemy.frameY * enemy.height,
+                enemy.width,
+                enemy.height,
+                enemy.frameY === 0
+                    ? enemy.x - enemy.size / 2
+                    : enemy.x - enemy.size,
+                enemy.y - enemy.size * 0.9,
+                enemy.width,
+                enemy.height
+            );
+        }
     }
 };
 

@@ -1,4 +1,5 @@
 import normaliseVector from "../utils/normaliseVector.js";
+import Game from "./Game.js";
 
 class Weapon {
     constructor({
@@ -63,6 +64,7 @@ class Weapon {
             speed: this.bullet.speed,
             damage: this.damage,
             health: this.bullet.health,
+            shotAt: Game.meta.elapsedFrames,
         };
     }
 

@@ -17,31 +17,39 @@ class Enemy {
         this.cash = 10;
         this.reboundDistance = 50;
 
+        this.frameX = 0;
+        this.frameY = 0;
+        this.frameLimit = 0;
+
         this.attackOffset = randomInt(-100, 100);
+        this.killedAt = null;
+        // this.
     }
 
     update({ player }) {
-        const distanceBetweenPlayerAndEnemy = getDistance(player, this);
+        if (!this.killedAt) {
+            const distanceBetweenPlayerAndEnemy = getDistance(player, this);
 
-        let attackOffset = 0;
+            let attackOffset = 0;
 
-        if (distanceBetweenPlayerAndEnemy > 150) {
-            attackOffset = this.attackOffset;
+            if (distanceBetweenPlayerAndEnemy > 150) {
+                attackOffset = this.attackOffset;
+            }
+
+            const xDistanceFromPlayer = player.x - this.x + attackOffset;
+            const yDistanceFromPlayer = player.y - this.y + attackOffset;
+
+            const { a, b, c } = normaliseVector(
+                xDistanceFromPlayer,
+                yDistanceFromPlayer
+            );
+
+            this.dx = this.speed * a;
+            this.dy = this.speed * b;
+
+            this.x += this.dx;
+            this.y += this.dy;
         }
-
-        const xDistanceFromPlayer = player.x - this.x + attackOffset;
-        const yDistanceFromPlayer = player.y - this.y + attackOffset;
-
-        const { a, b, c } = normaliseVector(
-            xDistanceFromPlayer,
-            yDistanceFromPlayer
-        );
-
-        this.dx = this.speed * a;
-        this.dy = this.speed * b;
-
-        this.x += this.dx;
-        this.y += this.dy;
     }
 
     repelFromPlayer({ player }) {

@@ -41,6 +41,9 @@ export const Game = {
             ak: null,
             rpg: null,
         },
+        enemies: {
+            demonImage: null,
+        },
         bullet: null,
         backgroundImage: null,
         tileSize: 16,

@@ -16,8 +16,12 @@ const handleKeyPresses = ({ Keys, player, Game }) => {
 
             if (validMoves.includes(leftCell)) {
                 player.dx -= player.speed;
+            } else {
+                // Keys.moveLeft = false;
             }
-        } catch {}
+        } catch {
+            // Keys.moveLeft = false;
+        }
     }
     if (Keys.moveRight) {
         try {
@@ -25,8 +29,12 @@ const handleKeyPresses = ({ Keys, player, Game }) => {
 
             if (validMoves.includes(leftCell)) {
                 player.dx += player.speed;
+            } else {
+                // Keys.moveRight = false;
             }
-        } catch {}
+        } catch {
+            // Keys.moveRight = false;
+        }
     }
     if (Keys.moveUp) {
         try {
@@ -34,8 +42,12 @@ const handleKeyPresses = ({ Keys, player, Game }) => {
 
             if (validMoves.includes(bottomCell)) {
                 player.dy -= player.speed;
+            } else {
+                // Keys.moveUp = false;
             }
-        } catch {}
+        } catch {
+            // Keys.moveUp = false;
+        }
     }
     if (Keys.moveDown) {
         try {
@@ -43,8 +55,12 @@ const handleKeyPresses = ({ Keys, player, Game }) => {
 
             if (validMoves.includes(bottomCell)) {
                 player.dy += player.speed;
+            } else {
+                // Keys.moveDown = false;
             }
-        } catch {}
+        } catch {
+            // Keys.moveDown = false;
+        }
     }
 
     if (Game.meta.elapsedFrames % 2 > 0) return;

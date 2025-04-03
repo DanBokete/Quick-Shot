@@ -35,7 +35,7 @@ import Camera from "./js/entities/Camera.js";
 
 document.addEventListener("DOMContentLoaded", init, false);
 
-const Keys = {
+export const Keys = {
     moveUp: false,
     moveDown: false,
     moveLeft: false,
@@ -129,6 +129,7 @@ function init() {
     Game.assets.weapons.rpg = new Image();
     Game.assets.bullet = new Image();
     Game.assets.backgroundImage = new Image();
+    Game.assets.enemies.demonImage = new Image();
 
     load_assets(
         [
@@ -167,6 +168,10 @@ function init() {
             {
                 var: Game.assets.backgroundImage,
                 url: "assets/tileset/background.png",
+            },
+            {
+                var: Game.assets.enemies.demonImage,
+                url: "assets/sprites/enemy/demon.png",
             },
             // { var: demonImage, url: "assets/enemy/demon.png" },
         ],

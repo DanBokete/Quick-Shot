@@ -1,3 +1,4 @@
+import getDistance from "../utils/getDistance.js";
 import normaliseVector from "../utils/normaliseVector.js";
 import Enemy from "./Enemy.js";
 
@@ -11,18 +12,27 @@ class Sprayer extends Enemy {
     }
 
     update({ player, Pointer, Game }) {
-        const xDistanceFromPlayer =
-            player.x + player.size / 2 - (this.x + this.size / 2);
-        const yDistanceFromPlayer =
-            player.y + player.size / 2 - (this.y + this.size / 2);
+        const distanceBetweenPlayerAndEnemy = getDistance(player, this);
 
-        xDistanceFromPlayer > 0
-            ? (this.x += this.speed)
-            : (this.x -= this.speed);
+        let attackOffset = 0;
 
-        yDistanceFromPlayer > 0
-            ? (this.y += this.speed)
-            : (this.y -= this.speed);
+        if (distanceBetweenPlayerAndEnemy > 150) {
+            attackOffset = this.attackOffset;
+        }
+
+        const xDistanceFromPlayer = player.x - this.x + attackOffset;
+        const yDistanceFromPlayer = player.y - this.y + attackOffset;
+
+        const { a, b, c } = normaliseVector(
+            xDistanceFromPlayer,
+            yDistanceFromPlayer
+        );
+
+        this.dx = this.speed * a;
+        this.dy = this.speed * b;
+
+        this.x += this.dx;
+        this.y += this.dy;
 
         this._shoot({ Game, player });
     }

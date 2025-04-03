@@ -2,6 +2,7 @@ import getDistance from "../utils/getDistance.js";
 import normaliseVector from "../utils/normaliseVector.js";
 import randomInt from "../utils/randomInt.js";
 import Enemy from "./Enemy.js";
+import Game from "./Game.js";
 
 class Sniper extends Enemy {
     constructor({ x, y, speed, health, maxHealth, fireDelay, chanceOfFiring }) {
@@ -13,53 +14,74 @@ class Sniper extends Enemy {
         this.chanceOfFiring = chanceOfFiring;
         this.angle = null;
         this.isAttached = false;
+
+        this.width = 81;
+        this.height = 71;
     }
 
-    update({ player, Game }) {
+    update({ player }) {
         const distanceBetweenPlayerAndEnemy = getDistance(player, this);
 
-        let attackOffset = 0;
+        if (!this.killedAt) {
+            let attackOffset = 0;
 
-        // if (distanceBetweenPlayerAndEnemy > 50) {
-        //     attackOffset = this.attackOffset;
-        // }
-
-        const xDistanceFromPlayer = player.x - this.x + attackOffset;
-        const yDistanceFromPlayer = player.y - this.y + attackOffset;
-
-        if (distanceBetweenPlayerAndEnemy < 150) {
-            this.isAttached = true;
-        }
-
-        if (this.isAttached) {
-            this.isAttached = true;
-            if (this.angle === null) {
-                if (this.x > player.x) {
-                    this.angle = Math.asin(-yDistanceFromPlayer / 150);
-                } else if (this.y > player.y) {
-                    this.angle = Math.acos(-xDistanceFromPlayer / 150);
-                } else {
-                    this.angle = -Math.acos(-xDistanceFromPlayer / 150);
-                }
+            if (Game.meta.elapsedFrames % 2 === 0) {
+                this.frameX = (this.frameX + 1) % 8;
             }
-            this.angle += 0.01 * this.speed;
-            this.y = player.y + Math.sin(this.angle) * 150;
-            this.x = player.x + Math.cos(this.angle) * 150;
+
+            // if (distanceBetweenPlayerAndEnemy > 50) {
+            //     attackOffset = this.attackOffset;
+            // }
+
+            const xDistanceFromPlayer = player.x - this.x + attackOffset;
+            const yDistanceFromPlayer = player.y - this.y + attackOffset;
+
+            if (distanceBetweenPlayerAndEnemy < 150) {
+                this.isAttached = true;
+                // this.frameLimit = 3;
+            }
+
+            if (this.isAttached) {
+                this.isAttached = true;
+                // this.frameY = 3;
+                this.frameLimit = 3;
+                if (this.angle === null) {
+                    if (this.x > player.x) {
+                        this.angle = Math.asin(-yDistanceFromPlayer / 150);
+                    } else if (this.y > player.y) {
+                        this.angle = Math.acos(-xDistanceFromPlayer / 150);
+                    } else {
+                        this.angle = -Math.acos(-xDistanceFromPlayer / 150);
+                    }
+                }
+                this.angle += 0.01 * this.speed;
+                this.y = player.y + Math.sin(this.angle) * 150;
+                this.x = player.x + Math.cos(this.angle) * 150;
+            } else {
+                // this.frameY = 0;
+                this.frameLimit = 8;
+
+                this.WITHIN_RANGE = false;
+                const { a, b, c } = normaliseVector(
+                    xDistanceFromPlayer,
+                    yDistanceFromPlayer
+                );
+
+                this.dx = this.speed * a;
+                this.dy = this.speed * b;
+
+                this.x += this.dx;
+                this.y += this.dy;
+            }
+
+            this._shoot({ Game, player });
         } else {
-            this.WITHIN_RANGE = false;
-            const { a, b, c } = normaliseVector(
-                xDistanceFromPlayer,
-                yDistanceFromPlayer
-            );
-
-            this.dx = this.speed * a;
-            this.dy = this.speed * b;
-
-            this.x += this.dx;
-            this.y += this.dy;
+            this.frameY = 1;
+            if (Game.meta.elapsedFrames % 3 === 0) {
+                this.frameX = (this.frameX + 1) % 8;
+            }
+            // this.frameX += 1;
         }
-
-        this._shoot({ Game, player });
     }
 
     _createBullets({ player }) {

@@ -10,6 +10,8 @@ import collision from "../utils/collision.js";
 import Game from "../entities/Game.js";
 import getDistance from "../utils/getDistance.js";
 import RPG from "../entities/RPG.js";
+import Sniper from "../entities/Sniper.js";
+import Sprayer from "../entities/Sprayer.js";
 
 /**
  * Assigning parameter types
@@ -59,15 +61,38 @@ const handleCollisions = ({ player, Game }) => {
         }
     }
 
+    // Game.enemies = Game.enemies.filter((enemy) => {
+    //     if (enemy.health > 0) {
+    //         return enemy;
+    //     }
+    //     player.score++;
+    //     player.cash += enemy.cash;
+    //     updateScoreUi(player);
+    //     updateCashUi({ player });
+    // });
+    Game.enemies = Game.enemies.map((enemy) => {
+        if (enemy.health <= 0 && !enemy.killedAt) {
+            // enemy.health = 0;
+            enemy.frameY = 1;
+            enemy.frameX = 0;
+            enemy.killedAt = Game.meta.elapsedFrames;
+            player.score++;
+            player.cash += enemy.cash;
+            updateScoreUi(player);
+            updateCashUi({ player });
+        }
+        // console.log(enemy);
+
+        return enemy;
+    });
+
     Game.enemies = Game.enemies.filter((enemy) => {
-        if (enemy.health > 0) {
+        if (
+            !(enemy.killedAt && enemy.frameX === 4 && enemy.frameY === 1) ||
+            enemy instanceof Sprayer
+        ) {
             return enemy;
         }
-
-        player.score++;
-        player.cash += enemy.cash;
-        updateScoreUi(player);
-        updateCashUi({ player });
     });
 
     Game.enemyBullets = Game.enemyBullets.filter((bullet) => {
