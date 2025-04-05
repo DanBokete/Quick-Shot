@@ -66,6 +66,9 @@ export function init() {
     Game.assets.bullet = new Image();
     Game.assets.backgroundImage = new Image();
     Game.assets.enemies.demonImage = new Image();
+    Game.assets.enemies.batImage = new Image();
+    Game.assets.enemies.sprayerImage = new Image();
+    Game.assets.fx.explosion = new Image();
 
     player.addWeapon({
         Game,
@@ -113,6 +116,18 @@ export function init() {
             {
                 var: Game.assets.enemies.demonImage,
                 url: "assets/sprites/enemy/demon.png",
+            },
+            {
+                var: Game.assets.enemies.batImage,
+                url: "assets/sprites/enemy/bat.png",
+            },
+            {
+                var: Game.assets.enemies.sprayerImage,
+                url: "assets/sprites/enemy/sprayer.png",
+            },
+            {
+                var: Game.assets.fx.explosion,
+                url: "assets/fx/explosion.png",
             },
         ],
         gameLoop

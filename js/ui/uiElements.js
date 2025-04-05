@@ -114,7 +114,6 @@ export const updateWeaponUi = () => {
     const glockBtn = document.getElementById("glock");
     const ak47Btn = document.getElementById("ak47");
     const rpgBtn = document.getElementById("rpg");
-    console.log(glockBtn);
 
     // const { name } = weapon;
     const activeWeaponElement = document.getElementById("activeWeapon");

@@ -1,5 +1,6 @@
 export const Game = {
     canvas: null,
+    /**  @type {CanvasRenderingContext2D | null} */
     context: null,
     requestId: null,
     status: false,
@@ -14,6 +15,9 @@ export const Game = {
     bullets: [],
     enemyBullets: [],
     enemies: [],
+
+    explosions: [],
+
     meta: {
         then: null,
         elapsed: null,
@@ -42,6 +46,11 @@ export const Game = {
         },
         enemies: {
             demonImage: null,
+            batImage: null,
+            sprayerImage: null,
+        },
+        fx: {
+            explosion: null,
         },
         bullet: null,
         backgroundImage: null,

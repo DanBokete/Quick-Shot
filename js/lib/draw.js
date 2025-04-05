@@ -23,6 +23,7 @@ export const drawGame = () => {
 
     drawBullets();
     drawCursor();
+    drawExplosions();
 };
 
 /**
@@ -42,6 +43,25 @@ const drawBullets = () => {
                 bullet.size,
                 bullet.size
             );
+
+            context.drawImage(
+                Game.assets.bullet,
+                16 * bullet.frameX,
+                17,
+                16,
+                16,
+                bullet.x - bullet.size / 2,
+                bullet.y - bullet.size / 2,
+                bullet.size,
+                bullet.size
+            );
+
+            if (Game.meta.elapsedFrames % 2 === 0) {
+                Game.bullets.filter((bullet) => {
+                    bullet.frameX > 3 ? (bullet.frameX = 0) : bullet.frameX++;
+                    return { ...bullet, bullet: bullet.frameX };
+                });
+            }
         }
     }
 
@@ -109,21 +129,19 @@ const drawEnemies = () => {
 
     for (let enemy of enemies) {
         context.fillStyle = "lightGreen";
-        context.fillRect(enemy.x, enemy.y - enemy.size / 2, enemy.size, 5);
+        context.fillRect(enemy.x, enemy.y - enemy.size, enemy.size, 5);
 
         context.fillStyle = "darkGreen";
         context.fillRect(
             enemy.x,
-            enemy.y - enemy.size / 2,
+            enemy.y - enemy.size,
             enemy.health > 0
                 ? enemy.size * (enemy.health / enemy.maxHealth)
                 : 0,
             5
         );
-        if (enemy instanceof Enemy) context.fillStyle = "orange";
-        if (enemy instanceof Sprayer) context.fillStyle = "purple";
-        context.fillRect(enemy.x, enemy.y, enemy.size, enemy.size);
-        if (enemy instanceof Creeper) enemy.draw();
+        // context.fillRect(enemy.x, enemy.y, enemy.size, enemy.size);
+        enemy.draw();
     }
 };
 
@@ -194,4 +212,25 @@ const drawBackground = () => {
             }
         });
     });
+};
+
+const drawExplosions = () => {
+    if (!Game.explosions.length) return;
+
+    const explosionImg = Game.assets.fx.explosion;
+
+    const context = Game.context;
+    for (let explosion of Game.explosions) {
+        context.drawImage(
+            explosionImg,
+            explosion.frameX * explosion.size,
+            0 * explosion.size,
+            explosion.size,
+            explosion.size,
+            explosion.x - (explosion.size * 5) / 2,
+            explosion.y - (explosion.size * 5) / 2,
+            explosion.size * 5,
+            explosion.size * 5
+        );
+    }
 };

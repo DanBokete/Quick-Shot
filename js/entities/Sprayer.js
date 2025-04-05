@@ -1,3 +1,4 @@
+import { player } from "../../game.js";
 import getDistance from "../utils/getDistance.js";
 import normaliseVector from "../utils/normaliseVector.js";
 import Enemy from "./Enemy.js";
@@ -14,28 +15,43 @@ class Sprayer extends Enemy {
 
     update({ player, Pointer, Game }) {
         const distanceBetweenPlayerAndEnemy = getDistance(player, this);
+        if (!this.killedAt) {
+            let attackOffset = 0;
 
-        let attackOffset = 0;
+            if (this.x > player.x) {
+                this.frameY = 1;
+            } else {
+                this.frameY = 0;
+            }
 
-        if (distanceBetweenPlayerAndEnemy > 150) {
-            attackOffset = this.attackOffset;
+            if (Game.meta.elapsedFrames % 2 === 0) {
+                this.frameX = (this.frameX + 1) % 8;
+            }
+
+            if (distanceBetweenPlayerAndEnemy > 150) {
+                attackOffset = this.attackOffset;
+            }
+
+            const xDistanceFromPlayer = player.x - this.x + attackOffset;
+            const yDistanceFromPlayer = player.y - this.y + attackOffset;
+
+            const { a, b, c } = normaliseVector(
+                xDistanceFromPlayer,
+                yDistanceFromPlayer
+            );
+
+            this.dx = this.speed * a;
+            this.dy = this.speed * b;
+
+            this.x += this.dx;
+            this.y += this.dy;
+
+            this._shoot({ Game, player });
+        } else {
+            if (Game.meta.elapsedFrames % 3 === 0) {
+                this.frameX += 1;
+            }
         }
-
-        const xDistanceFromPlayer = player.x - this.x + attackOffset;
-        const yDistanceFromPlayer = player.y - this.y + attackOffset;
-
-        const { a, b, c } = normaliseVector(
-            xDistanceFromPlayer,
-            yDistanceFromPlayer
-        );
-
-        this.dx = this.speed * a;
-        this.dy = this.speed * b;
-
-        this.x += this.dx;
-        this.y += this.dy;
-
-        this._shoot({ Game, player });
     }
 
     _createBullets({ player }) {
@@ -43,8 +59,6 @@ class Sprayer extends Enemy {
         const side2 = player.y - (this.y + this.size / 2);
 
         const { a, b, c } = normaliseVector(side1, side2);
-
-        console.log(this.damage);
 
         return [
             {
@@ -98,7 +112,6 @@ class Sprayer extends Enemy {
         ) {
             this.lastShotAt = elapsedFrames;
             const bullets = this._createBullets({ player });
-            console.log("shot");
 
             if (bullets) {
                 for (let bullet of bullets) {
@@ -111,7 +124,27 @@ class Sprayer extends Enemy {
     }
 
     enableDeathState() {
+        this.x > player.x ? (this.frameY = 3) : (this.frameY = 2);
+        this.frameX = 0;
         this.killedAt = Game.meta.elapsedFrames;
+    }
+
+    draw() {
+        const sprayerImage = Game.assets.enemies.sprayerImage;
+        const context = Game.context;
+        // context.fillStyle = "lightblue";
+
+        context.drawImage(
+            sprayerImage,
+            this.frameX * this.width,
+            this.frameY * this.height,
+            this.width,
+            this.height,
+            this.x - this.size / 2,
+            this.y - this.size / 2,
+            this.width,
+            this.height
+        );
     }
 }
 

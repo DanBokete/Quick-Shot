@@ -124,7 +124,6 @@ class Player {
         }
 
         this.activeWeapon = weapon;
-        console.log(weapon);
 
         if (this.activeWeapon instanceof Glock) {
             storeData.upgradesOnSale[1].price = 10;
@@ -153,7 +152,6 @@ class Player {
     addWeapon({ weapon }) {
         if (!this.weapons.includes(weapon)) {
             this.weapons.push(weapon);
-            console.log("added", weapon);
             this.changeWeapon({ weapon, Game });
         } else console.error("Weapon has already been added");
     }

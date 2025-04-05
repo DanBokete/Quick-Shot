@@ -1,5 +1,6 @@
 import { player } from "../../game.js";
 import AK47 from "../entities/Ak47.js";
+import Game from "../entities/Game.js";
 import Glock from "../entities/Glock.js";
 import RPG from "../entities/RPG.js";
 
@@ -22,5 +23,14 @@ export const resolveAnimations = () => {
             }
         }
         if (player.activeWeapon.frameX) player.activeWeapon.frameX++;
+
+        if (Game.explosions.length) {
+            Game.explosions = Game.explosions.filter((explosion) => {
+                if (explosion.explodedAt + 30 > Game.meta.elapsedFrames) {
+                    explosion.frameX++;
+                    return explosion;
+                }
+            });
+        }
     }
 };

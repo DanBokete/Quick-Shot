@@ -23,13 +23,17 @@ const increaseRound = ({ Game, player }) => {
     // console.log(roundNumber);
 
     if (roundNumber === 1) {
-        createMediumEnemies({
+        // createEasyEnemies({
+        //     Game,
+        //     player,
+        //     numberOfEnemies: 6,
+        //     enemySpeed: 0.5,
+        // });
+        createHardEnemies({
             Game,
+            numberOfEnemies: 2,
+            enemySpeed: 0.55,
             player,
-            numberOfEnemies: 1,
-            enemySpeed: 0.5,
-            fireDelay: 55,
-            chanceOfFiring: 0.02,
         });
         Game.round.timeLimit = 90;
         // createEasyEnemies({

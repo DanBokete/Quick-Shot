@@ -47,6 +47,7 @@ class RPG extends Weapon {
             splashDamage: this.splashDamage,
             splashRadius: this.splashRadius,
             shotAt: Game.meta.elapsedFrames,
+            frameX: 0,
         };
     }
 

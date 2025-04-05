@@ -65,6 +65,7 @@ class Weapon {
             damage: this.damage,
             health: this.bullet.health,
             shotAt: Game.meta.elapsedFrames,
+            frameX: 0,
         };
     }
 

@@ -11,13 +11,21 @@ import { player } from "../../game.js";
 const handleCollisions = () => {
     for (let enemy of Game.enemies) {
         if (Game.bullets.length) {
-            Game.bullets = Game.bullets.filter((bullet) => {
+            Game.bullets.filter((bullet) => {
                 if (!collision(bullet, enemy)) {
                     return bullet;
                 }
 
                 if (bullet.splashDamage) {
-                    console.log(bullet.splashRadius);
+                    // add explosion objects
+                    Game.explosions.push({
+                        x: bullet.x,
+                        y: bullet.y,
+                        explodedAt: Game.meta.elapsedFrames,
+                        frameX: 1,
+                        size: 64,
+                    });
+
                     for (let otherEnemy of Game.enemies) {
                         if (enemy === otherEnemy) continue;
 
@@ -26,16 +34,11 @@ const handleCollisions = () => {
                             otherEnemy
                         );
 
-                        console.log(distanceBetweenEnemies);
-                        console.log(bullet.splashRadius);
-
                         if (distanceBetweenEnemies <= bullet.splashRadius) {
                             otherEnemy.health -= bullet.splashDamage;
-                            console.log("hkjdhj");
                         }
                     }
                 }
-                console.log(bullet.damage);
 
                 enemy.health -= bullet.damage;
             });
@@ -70,7 +73,7 @@ const handleCollisions = () => {
         }
     });
 
-    Game.enemyBullets = Game.enemyBullets.filter((bullet) => {
+    Game.enemyBullets.filter((bullet) => {
         if (!collision(bullet, player)) {
             return bullet;
         }
