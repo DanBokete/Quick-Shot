@@ -84,12 +84,6 @@ export const activate = ({ e, Keys, player, Game }) => {
             makePurchase({ weaponId: key });
         }
     }
-
-    // if (player.weapons) {
-    //     const changeWeaponKeys = player.weapons.map((weapon) => {
-    //         return weapon.key;
-    //     });
-    // }
 };
 
 export const deactivate = ({ e, Keys }) => {
@@ -107,55 +101,4 @@ export const deactivate = ({ e, Keys }) => {
     if (key === "d") {
         Keys.moveRight = false;
     }
-};
-
-/**
- *
- * @param {object} param
- * @param {Player} param.player
- * @param {MouseEvent} param.e
- * @param {Game} param.Game
- * @returns
- */
-export const handleClick = ({ e, Pointer, player, Game }) => {
-    const upgradeMenuBtn = document.getElementById("upgradeMenu");
-    const rightElement = document.getElementById("right");
-    const closeBtn = document.getElementById("close");
-
-    // if (e.target === upgradeMenuBtn) {
-    //     Game.state.isPaused = true;
-    //     Game.state.onUpgradeMenu = true;
-    //     upgradeMenuUi({ Game, player });
-    //     return;
-    // }
-
-    // if (e.target === closeBtn) {
-    //     Game.state.isPaused = false;
-    //     Game.state.onUpgradeMenu = false;
-    //     upgradeMenuUi({ Game, player });
-    //     return;
-    // }
-
-    // handle purchases
-    if (
-        player.activeWeapon &&
-        (e.target.closest(".upgrade") || e.target.matches(".upgrade"))
-    ) {
-        const upgradeId =
-            e.target.dataset.upgradeId ??
-            e.target.parentElement.dataset.upgradeId;
-        makePurchase({ upgradeId });
-        return;
-    }
-
-    if (e.target.closest(".purchase") || e.target.matches(".purchase")) {
-        const weaponId =
-            e.target.dataset.purchaseId ??
-            e.target.parentElement.dataset.purchaseId;
-
-        makePurchase({ weaponId });
-        return;
-    }
-    if (player.activeWeapon instanceof AK47) player.shoot({ Pointer, Game });
-    player.isShooting = true;
 };

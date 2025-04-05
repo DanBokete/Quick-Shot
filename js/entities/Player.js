@@ -7,9 +7,10 @@ import AK47 from "./Ak47.js";
 import Glock from "./Glock.js";
 import RPG from "./RPG.js";
 import Game from "./Game.js";
-import { Pointer } from "../../game.js";
-import Sniper from "./Sniper.js";
+import { Keys, Pointer } from "../../game.js";
+import Creeper from "./Creeper.js";
 import { storeData } from "./storeData.js";
+import { isValidPlayerMove } from "../utils/isValidPlayerMove.js";
 
 class Player {
     constructor() {
@@ -34,14 +35,14 @@ class Player {
         this.dashForce = 12;
 
         /**
-         * Weapon that is equipped
-         * @type {AK47 | Glock | null}
+         * Equipped Weapon
+         * @type {AK47 | Glock | RPG | null}
          */
         this.activeWeapon = null;
 
         /**
          * Weapons owned
-         * @type {Glock[] | AK47[] | []}
+         * @type {Glock[] | AK47[] | RPG[] | [] }
          */
         this.weapons = [];
 
@@ -62,7 +63,7 @@ class Player {
      * @param {Game} param.Game
      */
 
-    update({ Game, Pointer, Keys }) {
+    update() {
         const { elapsedFrames } = Game.meta;
 
         this.x += this.dx;
@@ -157,10 +158,6 @@ class Player {
         } else console.error("Weapon has already been added");
     }
 
-    /**
-     * @param {object} param
-     * @param {Game} param.Game
-     */
     shoot() {
         if (!this.activeWeapon) return;
 
@@ -194,17 +191,19 @@ class Player {
     }
 
     dash({ Keys }) {
-        if (Keys.moveLeft) {
-            this.dx -= this.speed * this.dashForce;
-        }
-        if (Keys.moveRight) {
-            this.dx += this.speed * this.dashForce;
-        }
-        if (Keys.moveUp) {
-            this.dy -= this.speed * this.dashForce;
-        }
-        if (Keys.moveDown) {
-            this.dy += this.speed * this.dashForce;
+        if (isValidPlayerMove()) {
+            if (Keys.moveLeft) {
+                this.dx -= this.speed * this.dashForce;
+            }
+            if (Keys.moveRight) {
+                this.dx += this.speed * this.dashForce;
+            }
+            if (Keys.moveUp) {
+                this.dy -= this.speed * this.dashForce;
+            }
+            if (Keys.moveDown) {
+                this.dy += this.speed * this.dashForce;
+            }
         }
 
         Game.enemies = Game.enemies.map((enemy) => {
@@ -212,6 +211,24 @@ class Player {
             enemy.angle = null;
             return enemy;
         });
+    }
+
+    draw() {
+        const { context } = Game;
+        const PlayerSpriteImage = Game.assets.sprite.player;
+        // context.fillStyle = "red";
+        // context.fillRect(player.x, player.y, player.size, player.size);
+        context.drawImage(
+            PlayerSpriteImage,
+            this.frameX * (this.width * 16),
+            this.frameY * (this.height * 16),
+            this.width * 16,
+            this.height * 16,
+            this.x - this.width * 2.7,
+            this.y - this.height * 2 - this.height * 2.4,
+            this.width * 6.8,
+            this.height * 6.8
+        );
     }
 }
 

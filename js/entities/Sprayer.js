@@ -1,6 +1,7 @@
 import getDistance from "../utils/getDistance.js";
 import normaliseVector from "../utils/normaliseVector.js";
 import Enemy from "./Enemy.js";
+import Game from "./Game.js";
 
 class Sprayer extends Enemy {
     constructor({ x, y, speed, health, maxHealth, fireDelay }) {
@@ -107,6 +108,10 @@ class Sprayer extends Enemy {
 
             // console.log(Game.enemyBullets);
         }
+    }
+
+    enableDeathState() {
+        this.killedAt = Game.meta.elapsedFrames;
     }
 }
 

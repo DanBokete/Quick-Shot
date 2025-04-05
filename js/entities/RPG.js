@@ -22,6 +22,7 @@ class RPG extends Weapon {
             image,
             imageWidth: 1536,
             imageHeight: 32,
+            image,
         });
 
         this.splashDamage = splashDamage;
@@ -47,6 +48,24 @@ class RPG extends Weapon {
             splashRadius: this.splashRadius,
             shotAt: Game.meta.elapsedFrames,
         };
+    }
+
+    draw() {
+        const context = Game.context;
+        const imageWidth = this.imageWidth / 8;
+        const imageHeight = 32;
+
+        context.drawImage(
+            this.image,
+            this.frameX * imageWidth,
+            0,
+            imageWidth,
+            imageHeight,
+            -imageWidth / 2,
+            -imageHeight / 2,
+            imageWidth,
+            imageHeight
+        );
     }
 }
 

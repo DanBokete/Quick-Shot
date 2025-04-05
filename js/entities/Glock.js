@@ -1,3 +1,4 @@
+import Game from "./Game.js";
 import Weapon from "./Weapon.js";
 
 class Glock extends Weapon {
@@ -18,6 +19,24 @@ class Glock extends Weapon {
             imageWidth: 768,
             imageHeight: 32,
         });
+    }
+
+    draw() {
+        const imageWidth = this.imageWidth / 12;
+        const imageHeight = 48;
+        const context = Game.context;
+
+        context.drawImage(
+            this.image,
+            this.frameX * imageWidth,
+            0,
+            imageWidth,
+            imageHeight,
+            -imageWidth / 2,
+            -imageHeight / 2,
+            imageWidth,
+            imageHeight
+        );
     }
 }
 export default Glock;

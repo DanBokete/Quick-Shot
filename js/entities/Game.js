@@ -9,6 +9,8 @@ export const Game = {
         startTime: 0,
         timeLimit: 100,
     },
+
+    /** Player bullets @type {{}[]} */
     bullets: [],
     enemyBullets: [],
     enemies: [],
@@ -20,10 +22,7 @@ export const Game = {
         fps: 30,
         now: null,
     },
-    endLine: {
-        width: 100,
-        colour: "#828282",
-    },
+
     state: {
         isPaused: false,
         onUpgradeMenu: true,

@@ -1,7 +1,7 @@
 import Game from "../entities/Game.js";
 import Enemy from "../entities/Enemy.js";
 import Player from "../entities/Player.js";
-import Sniper from "../entities/Sniper.js";
+import Creeper from "../entities/Creeper.js";
 import Sprayer from "../entities/Sprayer.js";
 import { updateRoundUi } from "../ui/uiElements.js";
 import randomInt from "../utils/randomInt.js";
@@ -140,7 +140,7 @@ const createMediumEnemies = ({
     chanceOfFiring,
 }) => {
     for (let i = 0; i < numberOfEnemies; i++) {
-        const mediumEnemy = new Sniper({
+        const mediumEnemy = new Creeper({
             x: randomInt(Game.canvas.width / 2, Game.canvas.width),
             y: randomInt(0, Game.canvas.height),
             speed:

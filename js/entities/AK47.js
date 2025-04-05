@@ -1,3 +1,4 @@
+import Game from "./Game.js";
 import Weapon from "./Weapon.js";
 
 class AK47 extends Weapon {
@@ -18,6 +19,24 @@ class AK47 extends Weapon {
             imageWidth: 1152,
             imageHeight: 32,
         });
+    }
+
+    draw() {
+        const imageWidth = this.imageWidth / 12;
+        const imageHeight = 48;
+        const context = Game.context;
+
+        context.drawImage(
+            this.image,
+            this.frameX * imageWidth,
+            0,
+            imageWidth,
+            imageHeight,
+            -imageWidth / 2,
+            -imageHeight / 2,
+            imageWidth,
+            imageHeight
+        );
     }
 }
 

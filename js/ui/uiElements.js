@@ -80,7 +80,7 @@ export const updateHealthUi = () => {
     }
 };
 
-export const updateRoundUpdateTimerUi = ({ Game }) => {
+export const updateRoundUpdateTimerUi = () => {
     const { startTime, timeLimit } = Game.round;
     const { elapsedFrames, fps } = Game.meta;
     const roundTimerElement = document.getElementById("roundTimer");
@@ -98,13 +98,14 @@ export const updateRoundUpdateTimerUi = ({ Game }) => {
  * @param {Object} param
  * @param {Game} param.Game
  */
-export const updateRoundUi = ({ Game }) => {
+export const updateRoundUi = () => {
     const { round } = Game;
     const scoreElement = document.getElementById("round");
     scoreElement.innerText = `Round: ${round.number}`;
 };
 
-export const updateScoreUi = ({ score }) => {
+export const updateScoreUi = () => {
+    const { score } = player;
     const scoreElement = document.getElementById("score");
     scoreElement.innerText = `Score: ${score}`;
 };

@@ -3,6 +3,7 @@ import Player from "./Player.js";
 import getDistance from "../utils/getDistance.js";
 import normaliseVector from "../utils/normaliseVector.js";
 import Game from "./Game.js";
+import { player } from "../../game.js";
 
 class Enemy {
     constructor({ x, y, canShoot, canAttack, speed, health, maxHealth }) {
@@ -26,7 +27,7 @@ class Enemy {
         // this.
     }
 
-    update({ player }) {
+    update() {
         if (!this.killedAt) {
             const distanceBetweenPlayerAndEnemy = getDistance(player, this);
 
@@ -52,7 +53,7 @@ class Enemy {
         }
     }
 
-    repelFromPlayer({ player }) {
+    repelFromPlayer() {
         if (player.x + player.size / 2 < this.x + this.size / 2) {
             this.x += randomInt(
                 this.reboundDistance - 40,
@@ -132,6 +133,20 @@ class Enemy {
                     ? lowerYSpawnLocation
                     : higherYSpawnLocation;
         }
+    }
+
+    canBeRemoved() {
+        if (!this.killedAt) return false;
+
+        if (Game.meta.elapsedFrames - 30 < this.killedAt) return false;
+
+        return true;
+    }
+
+    enableDeathState() {
+        this.frameY = 1;
+        this.frameX = 0;
+        this.killedAt = Game.meta.elapsedFrames;
     }
 }
 

@@ -118,10 +118,10 @@ canvas {
     row-gap: 12px;
     bottom: 0;
     button {
-        font-size: 10px;
+        font-size: 12px;
         opacity: 0.5;
-        width: 64px;
-        height: 64px;
+        width: 96px;
+        height: 86px;
         background-color: aliceblue;
         border: none;
         border-radius: 5px;
@@ -143,7 +143,7 @@ canvas {
             align-items: center;
         }
         .upgrade-shortcut {
-            font-size: 12px;
+            font-size: 16px;
             font-weight: bold;
             background-color: gray;
             color: white;
@@ -151,6 +151,7 @@ canvas {
             margin: auto;
             padding: 0 4px;
             border-radius: 3px;
+            border: solid black 3px;
         }
     }
 }
@@ -162,11 +163,17 @@ canvas {
     bottom: 0.5em;
     left: 0.5em;
     right: 0.5em;
-    div:first-child {
+    /* div:first-child {
         font-size: 12px;
-    }
+    } */
     > div + div {
         text-align: end;
+    }
+
+    #activeWeapon {
+        display: flex;
+        align-items: end;
+        font-size: 16px;
     }
 
     .purchase {

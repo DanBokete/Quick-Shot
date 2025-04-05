@@ -1,7 +1,8 @@
-import { Pointer } from "../../game.js";
-import { background } from "../lib/background.js";
+import { Keys, player, Pointer } from "../../game.js";
+import Game from "../entities/Game.js";
+import { background } from "./background.js";
 
-const handleKeyPresses = ({ Keys, player, Game }) => {
+const handleActiveKeys = () => {
     const validMoves = [562, 561, 560, 226];
     const playerBoardX = Math.floor(
         (player.x + player.dx) / Game.assets.tileSize
@@ -9,11 +10,9 @@ const handleKeyPresses = ({ Keys, player, Game }) => {
     const playerBoardY = Math.floor(
         (player.y + player.height + player.dx) / Game.assets.tileSize
     );
-
     if (Keys.moveLeft) {
         try {
             const leftCell = background[playerBoardY][playerBoardX - 2];
-
             if (validMoves.includes(leftCell)) {
                 player.dx -= player.speed;
             } else {
@@ -26,7 +25,6 @@ const handleKeyPresses = ({ Keys, player, Game }) => {
     if (Keys.moveRight) {
         try {
             const leftCell = background[playerBoardY][playerBoardX + 4];
-
             if (validMoves.includes(leftCell)) {
                 player.dx += player.speed;
             } else {
@@ -39,7 +37,6 @@ const handleKeyPresses = ({ Keys, player, Game }) => {
     if (Keys.moveUp) {
         try {
             const bottomCell = background[playerBoardY - 2][playerBoardX];
-
             if (validMoves.includes(bottomCell)) {
                 player.dy -= player.speed;
             } else {
@@ -52,7 +49,6 @@ const handleKeyPresses = ({ Keys, player, Game }) => {
     if (Keys.moveDown) {
         try {
             const bottomCell = background[playerBoardY + 3][playerBoardX];
-
             if (validMoves.includes(bottomCell)) {
                 player.dy += player.speed;
             } else {
@@ -62,7 +58,6 @@ const handleKeyPresses = ({ Keys, player, Game }) => {
             // Keys.moveDown = false;
         }
     }
-
     if (Game.meta.elapsedFrames % 2 > 0) return;
     if (Keys.moveLeft || Keys.moveRight || Keys.moveUp || Keys.moveDown) {
         player.frameY = 0;
@@ -73,4 +68,4 @@ const handleKeyPresses = ({ Keys, player, Game }) => {
     }
 };
 
-export default handleKeyPresses;
+export default handleActiveKeys;

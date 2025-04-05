@@ -4,7 +4,7 @@ import randomInt from "../utils/randomInt.js";
 import Enemy from "./Enemy.js";
 import Game from "./Game.js";
 
-class Sniper extends Enemy {
+class Creeper extends Enemy {
     constructor({ x, y, speed, health, maxHealth, fireDelay, chanceOfFiring }) {
         super({ x, y, speed, health, maxHealth });
         this.lastShotAt = 0;
@@ -25,6 +25,12 @@ class Sniper extends Enemy {
         if (!this.killedAt) {
             let attackOffset = 0;
 
+            if (this.x > player.x) {
+                this.frameY = 0;
+            } else {
+                this.frameY = 2;
+            }
+
             if (Game.meta.elapsedFrames % 2 === 0) {
                 this.frameX = (this.frameX + 1) % 8;
             }
@@ -38,12 +44,10 @@ class Sniper extends Enemy {
 
             if (distanceBetweenPlayerAndEnemy < 150) {
                 this.isAttached = true;
-                // this.frameLimit = 3;
             }
 
             if (this.isAttached) {
                 this.isAttached = true;
-                // this.frameY = 3;
                 this.frameLimit = 3;
                 if (this.angle === null) {
                     if (this.x > player.x) {
@@ -58,7 +62,6 @@ class Sniper extends Enemy {
                 this.y = player.y + Math.sin(this.angle) * 150;
                 this.x = player.x + Math.cos(this.angle) * 150;
             } else {
-                // this.frameY = 0;
                 this.frameLimit = 8;
 
                 this.WITHIN_RANGE = false;
@@ -76,11 +79,9 @@ class Sniper extends Enemy {
 
             this._shoot({ Game, player });
         } else {
-            this.frameY = 1;
             if (Game.meta.elapsedFrames % 3 === 0) {
-                this.frameX = (this.frameX + 1) % 8;
+                this.frameX += 1;
             }
-            // this.frameX += 1;
         }
     }
 
@@ -126,6 +127,30 @@ class Sniper extends Enemy {
             // console.log(Game.enemyBullets);
         }
     }
+
+    enableDeathState() {
+        this.frameY = 1;
+        this.frameX = 0;
+        this.killedAt = Game.meta.elapsedFrames;
+    }
+
+    draw() {
+        const demonImage = Game.assets.enemies.demonImage;
+        const context = Game.context;
+        context.fillStyle = "lightblue";
+
+        context.drawImage(
+            demonImage,
+            this.frameX * this.width,
+            this.frameY * this.height,
+            this.width,
+            this.height,
+            this.frameY === 0 ? this.x - this.size / 2 : this.x - this.size,
+            this.y - this.size * 0.9,
+            this.width,
+            this.height
+        );
+    }
 }
 
-export default Sniper;
+export default Creeper;

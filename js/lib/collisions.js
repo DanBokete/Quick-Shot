@@ -1,25 +1,14 @@
-import Player from "../entities/Player.js";
 import {
     updateCashUi,
     updateHealthUi,
     updateScoreUi,
-    updateUpgradeWeaponUi,
-    updateWeaponUi,
 } from "../ui/uiElements.js";
 import collision from "../utils/collision.js";
 import Game from "../entities/Game.js";
 import getDistance from "../utils/getDistance.js";
-import RPG from "../entities/RPG.js";
-import Sniper from "../entities/Sniper.js";
-import Sprayer from "../entities/Sprayer.js";
+import { player } from "../../game.js";
 
-/**
- * Assigning parameter types
- * @param {Object} param
- * @param {Game} param.Game
- * @param {Player} param.player
- */
-const handleCollisions = ({ player, Game }) => {
+const handleCollisions = () => {
     for (let enemy of Game.enemies) {
         if (Game.bullets.length) {
             Game.bullets = Game.bullets.filter((bullet) => {
@@ -61,21 +50,10 @@ const handleCollisions = ({ player, Game }) => {
         }
     }
 
-    // Game.enemies = Game.enemies.filter((enemy) => {
-    //     if (enemy.health > 0) {
-    //         return enemy;
-    //     }
-    //     player.score++;
-    //     player.cash += enemy.cash;
-    //     updateScoreUi(player);
-    //     updateCashUi({ player });
-    // });
     Game.enemies = Game.enemies.map((enemy) => {
         if (enemy.health <= 0 && !enemy.killedAt) {
             // enemy.health = 0;
-            enemy.frameY = 1;
-            enemy.frameX = 0;
-            enemy.killedAt = Game.meta.elapsedFrames;
+            enemy.enableDeathState();
             player.score++;
             player.cash += enemy.cash;
             updateScoreUi(player);
@@ -87,10 +65,7 @@ const handleCollisions = ({ player, Game }) => {
     });
 
     Game.enemies = Game.enemies.filter((enemy) => {
-        if (
-            !(enemy.killedAt && enemy.frameX === 4 && enemy.frameY === 1) ||
-            enemy instanceof Sprayer
-        ) {
+        if (!enemy.canBeRemoved()) {
             return enemy;
         }
     });
