@@ -19,3 +19,14 @@ nav {
         text-decoration: none;
     }
 }
+
+main {
+    margin: 0 1em;
+}
+
+.text-red {
+    color: red;
+}
+.text-green {
+    color: green;
+}

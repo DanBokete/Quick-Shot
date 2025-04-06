@@ -26,7 +26,7 @@ export const storeData = {
         },
         2: {
             name: "AK47",
-            price: 600,
+            price: 500,
             img: "",
             purchase: () => {
                 for (let weapon of player.weapons) {
@@ -83,13 +83,13 @@ export const storeData = {
             },
         },
         4: {
-            title: "Health +5",
+            title: "Health +1",
             price: 10,
             img: "",
             upgrade: () => {
-                player.health += 5;
-                player.maxHealth += 5;
-                // storeData.upgradesOnSale[4].price += 5;
+                player.health += 1;
+                player.maxHealth += 1;
+                storeData.upgradesOnSale[4].price += 5;
                 updateHealthUi();
             },
         },

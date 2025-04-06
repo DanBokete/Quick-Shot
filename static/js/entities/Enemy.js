@@ -140,7 +140,6 @@ class Enemy {
             canvas.height
         ) {
             this.y = lowerYSpawnLocation;
-            console.log(this.x, this.y);
         } else {
             this.y =
                 Math.random() > 0.5

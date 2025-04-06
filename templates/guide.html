@@ -1,9 +1,154 @@
 {% extends "base.html" %} {% block head %} <title>Guide</title> {% endblock %}
 {% block content %}
 <main>
-    <h1>How to play</h1>
     <section>
-        <h2>Movement</h2>
+        <h1>How to play</h1>
+
+        <section>
+            <h2>Movement</h2>
+            <ul>
+                <li>w - move up</li>
+                <li>d - move right</li>
+                <li>s - move down</li>
+                <li>a - move left</li>
+                <li>[space bar] - dash</li>
+            </ul>
+        </section>
+        <section>
+            <h2>Purchase</h2>
+            <section>
+                <h3>How to purchase a weapon.</h3>
+                <p>
+                    Once you have enough cash to purchase a weapon, the price
+                    will turn form <b class="text-red">red</b> to
+                    <b class="text-green">green</b>.
+                </p>
+                <p>
+                    Clicking the corresponding key bind will purchase that
+                    weapon.
+                </p>
+                <ul>
+                    <li>2 -> AK47</li>
+                    <li>3 -> RPG</li>
+                </ul>
+            </section>
+            <section>
+                <h3>How to purchase an upgrade</h3>
+                <p>
+                    The upgrade price for
+                    <b
+                        >each upgrade cost varies depending on your current
+                        weapon.</b
+                    >
+                </p>
+                <p>
+                    The key bind for each upgrade is the letter that becomes
+                    visible once you have enough money to purchase the upgrade.
+                </p>
+                <p>
+                    Clicking the corresponding key binds will purchase that
+                    upgrade.
+                </p>
+                <ul>
+                    <li>v -> Increase Ammo</li>
+                    <li>b -> Decrease Fire Rate</li>
+                    <li>n -> Decrease Reload Time</li>
+                    <li>m -> Increase Player Health</li>
+                </ul>
+            </section>
+        </section>
+    </section>
+    <section>
+        <h1>Guide</h1>
+
+        <section>
+            <h2>Strategy</h2>
+            <p>Survive as long as possible.</p>
+            <p>Purchasing health (m) will go a long way.</p>
+            <p>Other then that, <b>you decide your strategy</b>.</p>
+        </section>
+
+        <section>
+            <h2>Enemy</h2>
+            <table>
+                <caption>
+                    Enemy Summary
+                </caption>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <th scope="col">Bat</th>
+                        <th scope="col">Creeper</th>
+                        <th scope="col">Sprayer</th>
+                    </tr>
+                    <tr>
+                        <th scope="row">Health</th>
+                        <td>Low</td>
+                        <td>Medium</td>
+                        <td>High</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Cash for elimination</th>
+                        <td>Low</td>
+                        <td>Medium</td>
+                        <td>High</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Can Shoot</th>
+                        <td>False</td>
+                        <td>True</td>
+                        <td>True</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Can Attack</th>
+                        <td>True</td>
+                        <td>True</td>
+                        <td>True</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Can Circle Player</th>
+                        <td>False</td>
+                        <td>True</td>
+                        <td>False</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <section>
+                <figure>
+                    <img src="" alt="" />
+                    <figcaption>
+                        <h3>Bat</h3>
+                        <p>Inflicts damage every time it touches you.</p>
+                    </figcaption>
+                </figure>
+
+                <figure>
+                    <img src="" alt="" />
+                    <figcaption>
+                        <h3>Creeper</h3>
+                        <p>
+                            Once close to you, it will circle you perfectly no
+                            matter where you go.
+                        </p>
+                        <p>
+                            To force it to detach from you, dash in the opposite
+                            direction of it.
+                        </p>
+                    </figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="" />
+                    <figcaption>
+                        <h3>Sprayer</h3>
+                        <p>
+                            A relentless shooter. Shooting in all direction
+                            making it's presence known.
+                        </p>
+                    </figcaption>
+                </figure>
+            </section>
+        </section>
     </section>
 </main>
 {% endblock %}
