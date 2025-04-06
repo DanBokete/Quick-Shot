@@ -11,7 +11,7 @@ import { player } from "../../game.js";
 const handleCollisions = () => {
     for (let enemy of Game.enemies) {
         if (Game.bullets.length) {
-            Game.bullets.filter((bullet) => {
+            Game.bullets = Game.bullets.filter((bullet) => {
                 if (!collision(bullet, enemy)) {
                     return bullet;
                 }
@@ -46,7 +46,7 @@ const handleCollisions = () => {
 
         // console.log(enemy instanceof Enemy);
 
-        if (collision(enemy, player)) {
+        if (!enemy.killedAt && collision(enemy, player)) {
             player.health -= player.unlimitedHealth ? 0 : enemy.damage ?? 1;
             updateHealthUi({ player });
             enemy.repelFromPlayer({ player });
@@ -73,7 +73,7 @@ const handleCollisions = () => {
         }
     });
 
-    Game.enemyBullets.filter((bullet) => {
+    Game.enemyBullets = Game.enemyBullets.filter((bullet) => {
         if (!collision(bullet, player)) {
             return bullet;
         }

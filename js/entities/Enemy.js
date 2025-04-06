@@ -6,7 +6,7 @@ import Game from "./Game.js";
 import { player } from "../../game.js";
 
 class Enemy {
-    constructor({ x, y, canShoot, canAttack, speed, health, maxHealth }) {
+    constructor({ x, y, speed, health, maxHealth }) {
         this.x = x;
         this.y = y;
         this.dx = 0;
@@ -16,8 +16,10 @@ class Enemy {
         this.height = 64;
 
         this.speed = speed ?? 1;
-        this.health = health ?? 3;
-        this.maxHealth = this.maxHealth ?? 3;
+        this.health = health ?? Game.round.number / 5;
+        this.maxHealth = health ?? Game.round.number / 5;
+
+        /** Money awarded for kill */
         this.cash = 10;
         this.reboundDistance = 50;
 
@@ -94,12 +96,7 @@ class Enemy {
             );
     }
 
-    /**
-     * @param {object} param
-     * @param {Player} param.player
-     * @param {Game} param.Game
-     */
-    setRandomSpawnLocation({ player, Game }) {
+    setRandomSpawnLocation() {
         const { canvas } = Game;
         const lowerXSpawnLocation = randomInt(
             0,

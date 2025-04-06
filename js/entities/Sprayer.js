@@ -11,6 +11,11 @@ class Sprayer extends Enemy {
         this.fireDelay = fireDelay ?? 200;
         this.bulletSpeed = 3.0;
         this.damage = 0.5;
+
+        this.health = health ?? Game.round.number;
+        this.maxHealth = health ?? Game.round.number;
+
+        this.cash = 40;
     }
 
     update({ player, Pointer, Game }) {

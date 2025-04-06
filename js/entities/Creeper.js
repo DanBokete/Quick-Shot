@@ -15,6 +15,11 @@ class Creeper extends Enemy {
         this.angle = null;
         this.isAttached = false;
 
+        this.health = health ?? Game.round.number / 3;
+        this.maxHealth = health ?? Game.round.number / 3;
+
+        this.cash = 20;
+
         this.width = 81;
         this.height = 71;
     }

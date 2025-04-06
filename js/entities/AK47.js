@@ -19,6 +19,10 @@ class AK47 extends Weapon {
             imageWidth: 1152,
             imageHeight: 32,
         });
+
+        this.ammoPrice = 80;
+        this.fireRatePrice = 50;
+        this.reloadTimePrice = 200;
     }
 
     draw() {

@@ -179,6 +179,8 @@ export const updateWeaponUi = () => {
         ak47Btn.classList.add("active-weapon");
     else if (player.activeWeapon instanceof RPG)
         rpgBtn.classList.add("active-weapon");
+
+    console.log(player.activeWeapon);
 };
 
 export const updateUpgradeWeaponUi = () => {

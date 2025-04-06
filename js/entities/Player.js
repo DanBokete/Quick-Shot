@@ -125,19 +125,9 @@ class Player {
 
         this.activeWeapon = weapon;
 
-        if (this.activeWeapon instanceof Glock) {
-            storeData.upgradesOnSale[1].price = 10;
-            storeData.upgradesOnSale[2].price = 20;
-            storeData.upgradesOnSale[3].price = 10;
-        } else if (this.activeWeapon instanceof AK47) {
-            storeData.upgradesOnSale[1].price = 15;
-            storeData.upgradesOnSale[2].price = 10;
-            storeData.upgradesOnSale[3].price = 10;
-        } else if (this.activeWeapon instanceof RPG) {
-            storeData.upgradesOnSale[1].price = 100;
-            storeData.upgradesOnSale[2].price = 100;
-            storeData.upgradesOnSale[3].price = 20;
-        }
+        storeData.upgradesOnSale[1].price = this.activeWeapon.ammoPrice;
+        storeData.upgradesOnSale[2].price = this.activeWeapon.fireRatePrice;
+        storeData.upgradesOnSale[3].price = this.activeWeapon.reloadTimePrice;
 
         updateWeaponUi({ weapon });
         updateAmmoUi({ player: this, Game });

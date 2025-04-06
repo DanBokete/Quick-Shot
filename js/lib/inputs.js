@@ -76,13 +76,16 @@ export const activate = ({ e, Keys, player, Game }) => {
     }
 
     const weapons = player.weapons;
+    const HAS_WEAPON = false;
 
     for (let weapon of weapons) {
         if (weapon.key === key) {
             player.changeWeapon({ weapon });
-        } else if (key === "1" || key === "2" || key === "3") {
-            makePurchase({ weaponId: key });
+            HAS_WEAPON = true;
         }
+    }
+    if (!HAS_WEAPON && (key === "1" || key === "2" || key === "3")) {
+        makePurchase({ weaponId: key });
     }
 };
 

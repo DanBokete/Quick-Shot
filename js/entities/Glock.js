@@ -19,6 +19,10 @@ class Glock extends Weapon {
             imageWidth: 768,
             imageHeight: 32,
         });
+
+        this.ammoPrice = 10;
+        this.fireRatePrice = 80;
+        this.reloadTimePrice = 30;
     }
 
     draw() {

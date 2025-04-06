@@ -36,13 +36,13 @@ const drawBullets = () => {
 
     if (bullets.length) {
         for (let bullet of bullets) {
-            context.fillStyle = "black";
-            context.fillRect(
-                bullet.x - bullet.size / 2,
-                bullet.y - bullet.size / 2,
-                bullet.size,
-                bullet.size
-            );
+            // context.fillStyle = "black";
+            // context.fillRect(
+            //     bullet.x - bullet.size / 2,
+            //     bullet.y - bullet.size / 2,
+            //     bullet.size,
+            //     bullet.size
+            // );
 
             context.drawImage(
                 Game.assets.bullet,

@@ -1,18 +1,16 @@
 import Game from "../entities/Game.js";
 import Enemy from "../entities/Enemy.js";
-import Player from "../entities/Player.js";
 import Creeper from "../entities/Creeper.js";
 import Sprayer from "../entities/Sprayer.js";
 import { updateRoundUi } from "../ui/uiElements.js";
 import randomInt from "../utils/randomInt.js";
-
+import { player } from "../../game.js";
 /**
  * Assigning parameter types
  * @param {Object} param
  * @param {Game} param.Game
- * @param {Player} param.player
  */
-const increaseRound = ({ Game, player }) => {
+const increaseRound = ({ Game }) => {
     Game.round.number++;
 
     const { round } = Game;
@@ -23,43 +21,25 @@ const increaseRound = ({ Game, player }) => {
     // console.log(roundNumber);
 
     if (roundNumber === 1) {
-        // createEasyEnemies({
-        //     Game,
-        //     player,
-        //     numberOfEnemies: 6,
-        //     enemySpeed: 0.5,
-        // });
-        createHardEnemies({
-            Game,
-            numberOfEnemies: 2,
-            enemySpeed: 0.55,
-            player,
+        createEasyEnemies({
+            numberOfEnemies: 5,
+            enemySpeed: 0.5,
         });
-        Game.round.timeLimit = 90;
-        // createEasyEnemies({
-        //     Game,
-        //     player,
-        //     numberOfEnemies: 3,
-        //     enemySpeed: 0.5,
-        // });
+        Game.round.timeLimit = 60;
     } else if (roundNumber === 2) {
         createMediumEnemies({
-            Game,
-            player,
             numberOfEnemies: 3,
             enemySpeed: 0.5,
             fireDelay: 55,
             chanceOfFiring: 0.02,
         });
-        Game.round.timeLimit = 90;
+        Game.round.timeLimit = 60;
     } else if (roundNumber === 3) {
         createHardEnemies({
-            Game,
             numberOfEnemies: 2,
             enemySpeed: 0.55,
-            player,
         });
-        Game.round.timeLimit = 90;
+        Game.round.timeLimit = 60;
     } else {
         let value = 2 * round.number;
         while (value > 0) {
@@ -68,18 +48,14 @@ const increaseRound = ({ Game, player }) => {
             if (randomNumber > 70 - roundNumber) {
                 value -= 15;
                 createHardEnemies({
-                    Game,
                     numberOfEnemies: 2,
                     enemySpeed: 0.55,
-                    player,
                     fireDelay: -roundNumber * 0.5,
                 });
                 value -= 5;
             } else if (randomNumber > 50 - roundNumber) {
                 value -= 10;
                 createMediumEnemies({
-                    Game,
-                    player,
                     numberOfEnemies: 3,
                     enemySpeed: 0.5,
                     fireDelay: 55 - roundNumber * 0.5,
@@ -88,8 +64,6 @@ const increaseRound = ({ Game, player }) => {
             } else {
                 value -= 5;
                 createEasyEnemies({
-                    Game,
-                    player,
                     numberOfEnemies: 6,
                     enemySpeed: 0.5,
                 });
@@ -106,11 +80,10 @@ const increaseRound = ({ Game, player }) => {
 /**
  * Assigning parameter types
  * @param {Object} param
- * @param {Game} param.Game
  * @param {number} param.numberOfEnemies
  * @param {number} param.enemySpeed
  */
-const createEasyEnemies = ({ Game, numberOfEnemies, enemySpeed, player }) => {
+const createEasyEnemies = ({ numberOfEnemies, enemySpeed }) => {
     for (let i = 0; i < numberOfEnemies; i++) {
         const enemy = new Enemy({
             x: randomInt(Game.canvas.width / 2, Game.canvas.width),
@@ -130,13 +103,11 @@ const createEasyEnemies = ({ Game, numberOfEnemies, enemySpeed, player }) => {
 /**
  * Assigning parameter types
  * @param {Object} param
- * @param {Game} param.Game
  * @param {number} param.numberOfEnemies
  * @param {number} param.enemySpeed
  * @param {number} param.fireDelay
  */
 const createMediumEnemies = ({
-    Game,
     numberOfEnemies,
     enemySpeed,
     player,
@@ -161,13 +132,7 @@ const createMediumEnemies = ({
     console.log();
 };
 
-const createHardEnemies = ({
-    Game,
-    numberOfEnemies,
-    enemySpeed,
-    player,
-    fireDelay,
-}) => {
+const createHardEnemies = ({ numberOfEnemies, enemySpeed, fireDelay }) => {
     for (let i = 0; i < numberOfEnemies; i++) {
         const hardEnemy = new Sprayer({
             x: randomInt(Game.canvas.width / 2, Game.canvas.width),

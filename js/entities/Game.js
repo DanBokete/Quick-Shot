@@ -1,3 +1,7 @@
+import Creeper from "./Creeper.js";
+import Enemy from "./Enemy.js";
+import Sprayer from "./Sprayer.js";
+
 export const Game = {
     canvas: null,
     /**  @type {CanvasRenderingContext2D | null} */
@@ -14,6 +18,8 @@ export const Game = {
     /** Player bullets @type {{}[]} */
     bullets: [],
     enemyBullets: [],
+
+    /** Enemies @type {Enemy[] | Sprayer[]| Creeper[] | []} */
     enemies: [],
 
     explosions: [],

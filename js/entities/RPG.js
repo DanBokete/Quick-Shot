@@ -27,6 +27,10 @@ class RPG extends Weapon {
 
         this.splashDamage = splashDamage;
         this.splashRadius = 200;
+
+        this.ammoPrice = 500;
+        this.fireRatePrice = 500;
+        this.reloadTimePrice = 400;
     }
 
     _createBullet({ player, Pointer }) {

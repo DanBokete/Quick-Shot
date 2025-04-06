@@ -13,7 +13,7 @@ body {
 }
 
 canvas {
-    background-color: gray;
+    background-image: radial-gradient(rgb(94, 94, 94), rgb(80, 80, 80), black);
 }
 
 .upgrade-menu-container {
@@ -281,5 +281,17 @@ canvas {
     }
     100% {
         transform: translate(1px, -2px) rotate(-1deg);
+    }
+}
+
+#guide {
+    text-align: center;
+    color: black;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 1em;
+    h1 {
+        width: 100%;
     }
 }
