@@ -1,11 +1,6 @@
 import { player } from "../../game.js";
 import { storeData } from "../entities/storeData.js";
-import {
-    updateAmmoUi,
-    updateCashUi,
-    updateHealthUi,
-    updateUpgradeWeaponUi,
-} from "../ui/uiElements.js";
+import { updateCashUi } from "../ui/uiElements.js";
 
 export const makePurchase = ({ upgradeId = null, weaponId = null }) => {
     if (upgradeId) {

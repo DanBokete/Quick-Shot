@@ -1,0 +1,12 @@
+{% extends "base.html" %} {% block head %} <title>Home</title> {% endblock %} {%
+block content %}
+<main>
+    <section>
+        If you want to appear on the leaderboard: <a href="">Create Account</a>
+    </section>
+    <section>
+        <a href="{{ url_for('game') }}">Play Game</a>
+        <a href="{{ url_for('guide') }}">How to play</a>
+    </section>
+</main>
+{% endblock %}

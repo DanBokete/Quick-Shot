@@ -13,7 +13,18 @@ import Camera from "./js/entities/Camera.js";
 import { resolveAnimations } from "./js/lib/animations.js";
 import { init } from "./js/lib/initialise.js";
 
-document.addEventListener("DOMContentLoaded", init, false);
+// document.addEventListener("DOMContentLoaded", init, false);
+
+const startBtn = document.querySelector("#startBtn");
+
+startBtn.addEventListener(
+    "click",
+    () => {
+        init();
+        startBtn.disabled = true;
+    },
+    false
+);
 
 export const Keys = {
     moveUp: false,
@@ -98,9 +109,9 @@ export const gameLoop = () => {
         increaseRound({ player, Game });
     }
 
-    // if (player.health <= 0) {
-    //     endGame();
-    // }
+    if (player.health <= 0) {
+        endGame();
+    }
 };
 
 function endGame() {

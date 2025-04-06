@@ -21,6 +21,9 @@ export function init() {
     player.x = 250;
     player.y = 250;
 
+    Pointer.x = player.x + player.width * 2;
+    Pointer.y = player.y;
+
     document.addEventListener(
         "keydown",
         (e) => activate({ e, Keys, player, Game }),
@@ -79,55 +82,55 @@ export function init() {
         [
             {
                 var: Game.assets.akCrosshair,
-                url: "assets/cursor/ak_crosshair.png",
+                url: "/static/assets/cursor/ak_crosshair.png",
             },
             {
                 var: Game.assets.glockCrosshair,
-                url: "assets/cursor/glock_crosshair.png",
+                url: "/static/assets/cursor/glock_crosshair.png",
             },
             {
                 var: Game.assets.rpgCrosshair,
-                url: "assets/cursor/rpg_crosshair.png",
+                url: "/static/assets/cursor/rpg_crosshair.png",
             },
             {
                 var: Game.assets.sprite.player,
-                url: "assets/sprites/player/player_sprite_no_hands.png",
+                url: "/static/assets/sprites/player/player_sprite_no_hands.png",
             },
             {
                 var: Game.assets.weapons.ak,
-                url: "assets/weapons/AK47.png",
+                url: "/static/assets/weapons/AK47.png",
             },
             {
                 var: Game.assets.weapons.glock,
-                url: "assets/weapons/GLOCK.png",
+                url: "/static/assets/weapons/GLOCK.png",
             },
             {
                 var: Game.assets.weapons.rpg,
-                url: "assets/weapons/RPG.png",
+                url: "/static/assets/weapons/RPG.png",
             },
             {
                 var: Game.assets.bullet,
-                url: "assets/bullets/bullets.png",
+                url: "/static/assets/bullets/bullets.png",
             },
             {
                 var: Game.assets.backgroundImage,
-                url: "assets/tileset/background.png",
+                url: "/static/assets/tileset/background.png",
             },
             {
                 var: Game.assets.enemies.demonImage,
-                url: "assets/sprites/enemy/demon.png",
+                url: "/static/assets/sprites/enemy/demon.png",
             },
             {
                 var: Game.assets.enemies.batImage,
-                url: "assets/sprites/enemy/bat.png",
+                url: "/static/assets/sprites/enemy/bat.png",
             },
             {
                 var: Game.assets.enemies.sprayerImage,
-                url: "assets/sprites/enemy/sprayer.png",
+                url: "/static/assets/sprites/enemy/sprayer.png",
             },
             {
                 var: Game.assets.fx.explosion,
-                url: "assets/fx/explosion.png",
+                url: "/static/assets/fx/explosion.png",
             },
         ],
         gameLoop

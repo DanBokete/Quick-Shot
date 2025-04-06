@@ -11,7 +11,7 @@ from flask import (
     session,
     abort,
 )
-
+from database import close_db, get_db
 import flask
 import requests
 from flask_session import Session
@@ -30,3 +30,18 @@ app.config["SECRET_KEY"] = (
 )
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
+
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
+@app.route("/play")
+def game():
+    return render_template("game.html")
+
+
+@app.route("/guide")
+def guide():
+    return render_template("guide.html")
