@@ -97,7 +97,6 @@ const createEasyEnemies = ({ numberOfEnemies, enemySpeed }) => {
         enemy.setRandomSpawnLocation({ player, Game });
         Game.enemies.push(enemy);
     }
-    console.log();
 };
 
 /**
@@ -129,7 +128,6 @@ const createMediumEnemies = ({
         mediumEnemy.setRandomSpawnLocation({ player, Game });
         Game.enemies.push(mediumEnemy);
     }
-    console.log();
 };
 
 const createHardEnemies = ({ numberOfEnemies, enemySpeed, fireDelay }) => {
@@ -147,7 +145,6 @@ const createHardEnemies = ({ numberOfEnemies, enemySpeed, fireDelay }) => {
         hardEnemy.setRandomSpawnLocation({ player, Game });
         Game.enemies.push(hardEnemy);
     }
-    console.log();
 };
 
 export default increaseRound;
