@@ -9,9 +9,8 @@ export const makePurchase = ({ upgradeId = null, weaponId = null }) => {
 
         if (player.cash < item.price && !player.unlimitedCash) return;
 
-        player.cash -= player.unlimitedCash ? 0 : item.price;
+        player.updateCash(-item.price);
         item.upgrade();
-        updateCashUi();
     }
 
     if (weaponId) {
@@ -19,8 +18,7 @@ export const makePurchase = ({ upgradeId = null, weaponId = null }) => {
 
         if (player.cash < item.price && !player.unlimitedCash) return;
 
-        player.cash -= player.unlimitedCash ? 0 : item.price;
-        item.purchase();
-        updateCashUi();
+        player.updateCash(-item.price);
+        item.upgrade();
     }
 };

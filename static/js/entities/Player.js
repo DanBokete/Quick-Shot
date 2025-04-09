@@ -1,5 +1,8 @@
 import {
     updateAmmoUi,
+    updateCashUi,
+    updateHealthUi,
+    updateScoreUi,
     updateUpgradeWeaponUi,
     updateWeaponUi,
 } from "../ui/uiElements.js";
@@ -7,32 +10,26 @@ import AK47 from "./Ak47.js";
 import Glock from "./Glock.js";
 import RPG from "./RPG.js";
 import Game from "./Game.js";
-import { Keys, Pointer, sfx } from "../../game.js";
-import Creeper from "./Creeper.js";
+import { Keys, player, Pointer, sfx } from "../../game.js";
 import { storeData } from "./storeData.js";
 import { isValidPlayerMove } from "../utils/isValidPlayerMove.js";
 import normaliseVector from "../utils/normaliseVector.js";
 
 class Player {
+    #health = 1;
+    #maxHealth = 1;
+    #cash = 0;
+    #score = 0;
+    size = 40;
+    height = 32;
+    width = 32;
+    frameX = 0;
+    frameY = 0;
+    dy = 0;
+    dx = 0;
+    speed = 1;
+
     constructor() {
-        this.x = null;
-        this.y = null;
-        this.speed = 1;
-        this.dx = 0;
-        this.dy = 0;
-        this.size = 40;
-
-        this.width = 32;
-        this.height = 32;
-        this.frameX = 0;
-        this.frameY = 0;
-
-        this.health = 1;
-        this.maxHealth = 1;
-
-        this.cash = 0;
-        this.score = 0;
-
         this.dashForce = 12;
 
         /**
@@ -59,10 +56,55 @@ class Player {
         this.safeZoneRadius = 50;
     }
 
+    // common ui elements repeated
+
+    get health() {
+        return this.#health;
+    }
+
+    get maxHealth() {
+        return this.#maxHealth;
+    }
+
     /**
      * @param {object} param
-     * @param {Game} param.Game
-     */
+     * @param {number | null} param.health
+     *
+     * For Heath Purchases
+     * @param {number | null} param.maxHealth
+     * */
+    updateHealth({ health = null, maxHealth = null }) {
+        if ((!health && !maxHealth) || (health && maxHealth)) {
+            return console.error("Only 1 parameter is required");
+        }
+
+        if (health) this.#health += health;
+        if (maxHealth) {
+            this.#health += maxHealth;
+            this.#maxHealth += maxHealth;
+        }
+        updateHealthUi();
+    }
+
+    get cash() {
+        return this.#cash;
+    }
+
+    /** @param {number} cash */
+    updateCash(cash) {
+        player.#cash += cash;
+        updateCashUi();
+    }
+
+    get score() {
+        return this.#score;
+    }
+
+    /** @param {number} score */
+    updateScore(score) {
+        player.#score += score;
+        updateScoreUi();
+    }
 
     update() {
         const { elapsedFrames } = Game.meta;

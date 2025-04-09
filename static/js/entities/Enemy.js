@@ -29,7 +29,7 @@ class Enemy {
 
         this.attackOffset = randomInt(-100, 100);
         this.killedAt = null;
-        // this.
+        this.damage = 1;
     }
 
     update() {

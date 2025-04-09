@@ -49,8 +49,7 @@ const handleCollisions = () => {
 
         if (!enemy.killedAt && collision(enemy, player)) {
             sfx.playPlayerHit();
-            player.health -= player.unlimitedHealth ? 0 : enemy.damage ?? 1;
-            updateHealthUi({ player });
+            player.updateHealth({ health: -enemy.damage });
             enemy.repelFromPlayer({ player });
         }
     }
@@ -59,10 +58,8 @@ const handleCollisions = () => {
         if (enemy.health <= 0 && !enemy.killedAt) {
             // enemy.health = 0;
             enemy.enableDeathState();
-            player.score++;
-            player.cash += enemy.cash;
-            updateScoreUi(player);
-            updateCashUi({ player });
+            player.updateScore(1);
+            player.updateCash(enemy.cash);
         }
         // console.log(enemy);
 
@@ -80,8 +77,7 @@ const handleCollisions = () => {
             return bullet;
         }
         sfx.playPlayerHit();
-        player.health -= player.unlimitedHealth ? 0 : bullet.damage ?? 1;
-        updateHealthUi({ player });
+        player.updateHealth({ health: -bullet.damage });
     });
 };
 

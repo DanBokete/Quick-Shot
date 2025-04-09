@@ -87,10 +87,8 @@ export const storeData = {
             price: 10,
             img: "",
             upgrade: () => {
-                player.health += 1;
-                player.maxHealth += 1;
+                player.updateHealth({ maxHealth: 1 });
                 storeData.upgradesOnSale[4].price += 5;
-                updateHealthUi();
             },
         },
     },

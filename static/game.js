@@ -121,7 +121,4 @@ function endGame() {
     window.cancelAnimationFrame(Game.requestId);
     document.exitPointerLock();
     document.querySelector("canvas").style.cursor = "default";
-    // player.health = 3;
-    // player.maxHealth = 3;
-    // init();
 }
