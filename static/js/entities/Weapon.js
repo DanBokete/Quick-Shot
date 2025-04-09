@@ -31,6 +31,8 @@ class Weapon {
         this.key = key;
         this.damage = damage;
 
+        this.recoilForce = 2;
+
         // frames
         this.fireDelay = fireDelay;
         this.lastShotAt = lastShotAt;

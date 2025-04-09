@@ -7,10 +7,11 @@ import AK47 from "./Ak47.js";
 import Glock from "./Glock.js";
 import RPG from "./RPG.js";
 import Game from "./Game.js";
-import { Keys, Pointer } from "../../game.js";
+import { Keys, Pointer, sfx } from "../../game.js";
 import Creeper from "./Creeper.js";
 import { storeData } from "./storeData.js";
 import { isValidPlayerMove } from "../utils/isValidPlayerMove.js";
+import normaliseVector from "../utils/normaliseVector.js";
 
 class Player {
     constructor() {
@@ -163,9 +164,26 @@ class Player {
                 if (!this.unlimitedAmmo) this.activeWeapon.ammo--;
                 updateAmmoUi({ player: this, Game });
                 Game.bullets.push(bullet);
+
+                if (this.activeWeapon instanceof Glock) sfx.playGunshot();
+                else if (this.activeWeapon instanceof AK47) sfx.playAk47shot();
+                else if (this.activeWeapon instanceof RPG) sfx.playRpgShot();
+
+                this._recoil();
                 updateAmmoUi({ player: this, Game });
             }
         }
+    }
+
+    _recoil() {
+        const recoilForce = this.activeWeapon.recoilForce;
+        const side1 = Pointer.x - (this.x + this.size / 2);
+        const side2 = Pointer.y - (this.y + this.size / 2);
+
+        const { a, b } = normaliseVector(side1, side2);
+
+        this.dx += -a * recoilForce;
+        this.dy += -b * recoilForce;
     }
 
     reloadWeapon({ Game }) {

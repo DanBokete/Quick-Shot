@@ -12,10 +12,13 @@ import Game from "./js/entities/Game.js";
 import Camera from "./js/entities/Camera.js";
 import { resolveAnimations } from "./js/lib/animations.js";
 import { init } from "./js/lib/initialise.js";
+import Sfx from "./js/entities/Sfx.js";
 
 // document.addEventListener("DOMContentLoaded", init, false);
 
 const startBtn = document.querySelector("#startBtn");
+
+export const sfx = new Sfx();
 
 startBtn.addEventListener(
     "click",
@@ -118,4 +121,7 @@ function endGame() {
     window.cancelAnimationFrame(Game.requestId);
     document.exitPointerLock();
     document.querySelector("canvas").style.cursor = "default";
+    // player.health = 3;
+    // player.maxHealth = 3;
+    // init();
 }

@@ -4,7 +4,7 @@ import Creeper from "../entities/Creeper.js";
 import Sprayer from "../entities/Sprayer.js";
 import { updateRoundUi } from "../ui/uiElements.js";
 import randomInt from "../utils/randomInt.js";
-import { player } from "../../game.js";
+import { player, sfx } from "../../game.js";
 /**
  * Assigning parameter types
  * @param {Object} param
@@ -19,6 +19,8 @@ const increaseRound = ({ Game }) => {
     // Game.enemyBullets = [];
 
     // console.log(roundNumber);
+
+    sfx.playAchievement();
 
     if (roundNumber === 1) {
         createEasyEnemies({
@@ -86,8 +88,8 @@ const increaseRound = ({ Game }) => {
 const createEasyEnemies = ({ numberOfEnemies, enemySpeed }) => {
     for (let i = 0; i < numberOfEnemies; i++) {
         const enemy = new Enemy({
-            x: randomInt(Game.canvas.width / 2, Game.canvas.width),
-            y: randomInt(0, Game.canvas.height),
+            x: 0,
+            y: 0,
             speed:
                 Math.random() +
                 enemySpeed +

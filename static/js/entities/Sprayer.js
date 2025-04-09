@@ -12,8 +12,8 @@ class Sprayer extends Enemy {
         this.bulletSpeed = 3.0;
         this.damage = 0.5;
 
-        this.health = health ?? Game.round.number;
-        this.maxHealth = health ?? Game.round.number;
+        this.health = health ?? Game.round.number * 0.5;
+        this.maxHealth = health ?? Game.round.number * 0.5;
 
         this.cash = 40;
     }

@@ -27,6 +27,7 @@ class RPG extends Weapon {
 
         this.splashDamage = splashDamage;
         this.splashRadius = 200;
+        this.recoilForce = 10;
 
         this.ammoPrice = 500;
         this.fireRatePrice = 500;

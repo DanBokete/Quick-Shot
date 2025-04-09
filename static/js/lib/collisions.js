@@ -6,18 +6,19 @@ import {
 import collision from "../utils/collision.js";
 import Game from "../entities/Game.js";
 import getDistance from "../utils/getDistance.js";
-import { player } from "../../game.js";
+import { player, sfx } from "../../game.js";
 
 const handleCollisions = () => {
     for (let enemy of Game.enemies) {
         if (Game.bullets.length) {
+            if (enemy.killedAt) continue;
             Game.bullets = Game.bullets.filter((bullet) => {
                 if (!collision(bullet, enemy)) {
                     return bullet;
                 }
-
+                sfx.playEnemyHit();
                 if (bullet.splashDamage) {
-                    // add explosion objects
+                    sfx.playExplosion();
                     Game.explosions.push({
                         x: bullet.x,
                         y: bullet.y,
@@ -47,6 +48,7 @@ const handleCollisions = () => {
         // console.log(enemy instanceof Enemy);
 
         if (!enemy.killedAt && collision(enemy, player)) {
+            sfx.playPlayerHit();
             player.health -= player.unlimitedHealth ? 0 : enemy.damage ?? 1;
             updateHealthUi({ player });
             enemy.repelFromPlayer({ player });
@@ -77,6 +79,7 @@ const handleCollisions = () => {
         if (!collision(bullet, player)) {
             return bullet;
         }
+        sfx.playPlayerHit();
         player.health -= player.unlimitedHealth ? 0 : bullet.damage ?? 1;
         updateHealthUi({ player });
     });

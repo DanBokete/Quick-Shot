@@ -38,6 +38,7 @@ export const Game = {
         onUpgradeMenu: true,
     },
     purchasedWeaponsId: [],
+
     assets: {
         akCrosshair: null,
         glockCrosshair: null,
@@ -55,9 +56,11 @@ export const Game = {
             batImage: null,
             sprayerImage: null,
         },
+
         fx: {
             explosion: null,
         },
+
         bullet: null,
         backgroundImage: null,
         tileSize: 16,

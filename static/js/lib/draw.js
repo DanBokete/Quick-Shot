@@ -12,6 +12,8 @@ export const drawGame = () => {
     drawBackground();
     drawEnemies();
 
+    drawBullets();
+
     // Gun and Player draw order
     if (player.x < Pointer.x) {
         player.draw();
@@ -21,7 +23,6 @@ export const drawGame = () => {
         player.draw();
     }
 
-    drawBullets();
     drawCursor();
     drawExplosions();
 };

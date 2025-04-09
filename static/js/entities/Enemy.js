@@ -99,53 +99,30 @@ class Enemy {
     setRandomSpawnLocation() {
         const { canvas } = Game;
         const lowerXSpawnLocation = randomInt(
-            0,
+            player.x - 500,
             player.x + player.size / 2 - player.safeZoneRadius
         );
 
         const higherXSpawnLocation = randomInt(
             player.x + player.size / 2 + player.safeZoneRadius,
-            Game.canvas.width - this.size
+            player.x + 500
         );
 
-        if (player.x - player.safeZoneRadius < 0) {
-            this.x = higherXSpawnLocation;
-        } else if (
-            player.x + player.size + player.safeZoneRadius >
-            canvas.width
-        ) {
-            this.x = lowerXSpawnLocation;
-        } else {
-            this.x =
-                Math.random() > 0.5
-                    ? lowerXSpawnLocation
-                    : higherXSpawnLocation;
-        }
+        this.x =
+            Math.random() > 0.5 ? lowerXSpawnLocation : higherXSpawnLocation;
 
         const lowerYSpawnLocation = randomInt(
-            0,
+            player.y - 500,
             player.y + player.size / 2 - player.safeZoneRadius
         );
 
         const higherYSpawnLocation = randomInt(
             player.y + player.size / 2 + player.safeZoneRadius,
-            Game.canvas.height - this.size
+            player.y + 500
         );
 
-        if (player.y - player.safeZoneRadius < 0) {
-            this.y = higherYSpawnLocation;
-            console.log(this.x, this.y);
-        } else if (
-            player.y + player.size + player.safeZoneRadius >
-            canvas.height
-        ) {
-            this.y = lowerYSpawnLocation;
-        } else {
-            this.y =
-                Math.random() > 0.5
-                    ? lowerYSpawnLocation
-                    : higherYSpawnLocation;
-        }
+        this.y =
+            Math.random() > 0.5 ? lowerYSpawnLocation : higherYSpawnLocation;
     }
 
     canBeRemoved() {
