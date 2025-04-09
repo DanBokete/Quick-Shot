@@ -1,8 +1,5 @@
 import {
     updateAmmoUi,
-    updateCashUi,
-    updateHealthUi,
-    updateScoreUi,
     updateUpgradeWeaponUi,
     updateWeaponUi,
 } from "../ui/uiElements.js";
@@ -11,15 +8,15 @@ import Glock from "./Glock.js";
 import RPG from "./RPG.js";
 import Game from "./Game.js";
 import { Keys, player, Pointer, sfx } from "../../game.js";
-import { storeData } from "./storeData.js";
 import { isValidPlayerMove } from "../utils/isValidPlayerMove.js";
 import normaliseVector from "../utils/normaliseVector.js";
+import { updateStoreData } from "../helpers/helpers.js";
 
 class Player {
-    #health = 1;
-    #maxHealth = 1;
-    #cash = 0;
-    #score = 0;
+    health = 1;
+    maxHealth = 1;
+    cash = 0;
+    score = 0;
     size = 40;
     height = 32;
     width = 32;
@@ -28,10 +25,11 @@ class Player {
     dy = 0;
     dx = 0;
     speed = 1;
+    safeZoneRadius = 50;
 
+    unlimitedHealth = false;
     constructor() {
         this.dashForce = 12;
-
         /**
          * Equipped Weapon
          * @type {AK47 | Glock | RPG | null}
@@ -45,65 +43,11 @@ class Player {
         this.weapons = [];
 
         this.isShooting = false;
-
         this.autoReload = true;
 
-        this.unlimitedHealth = false;
         this.unlimitedAmmo = false;
         this.noFireDelay = false;
         this.unlimitedCash = false;
-
-        this.safeZoneRadius = 50;
-    }
-
-    // common ui elements repeated
-
-    get health() {
-        return this.#health;
-    }
-
-    get maxHealth() {
-        return this.#maxHealth;
-    }
-
-    /**
-     * @param {object} param
-     * @param {number | null} param.health
-     *
-     * For Heath Purchases
-     * @param {number | null} param.maxHealth
-     * */
-    updateHealth({ health = null, maxHealth = null }) {
-        if ((!health && !maxHealth) || (health && maxHealth)) {
-            return console.error("Only 1 parameter is required");
-        }
-
-        if (health) this.#health += health;
-        if (maxHealth) {
-            this.#health += maxHealth;
-            this.#maxHealth += maxHealth;
-        }
-        updateHealthUi();
-    }
-
-    get cash() {
-        return this.#cash;
-    }
-
-    /** @param {number} cash */
-    updateCash(cash) {
-        player.#cash += cash;
-        updateCashUi();
-    }
-
-    get score() {
-        return this.#score;
-    }
-
-    /** @param {number} score */
-    updateScore(score) {
-        player.#score += score;
-        updateScoreUi();
     }
 
     update() {
@@ -161,6 +105,7 @@ class Player {
     }
 
     changeWeapon({ weapon }) {
+        /** Cancel reload */
         if (this.activeWeapon) {
             this.activeWeapon.state.isReloading = false;
             this.activeWeapon.lastReloaded = 0;
@@ -168,10 +113,7 @@ class Player {
 
         this.activeWeapon = weapon;
 
-        storeData.upgradesOnSale[1].price = this.activeWeapon.ammoPrice;
-        storeData.upgradesOnSale[2].price = this.activeWeapon.fireRatePrice;
-        storeData.upgradesOnSale[3].price = this.activeWeapon.reloadTimePrice;
-
+        updateStoreData({ weapon });
         updateWeaponUi({ weapon });
         updateAmmoUi({ player: this, Game });
         updateUpgradeWeaponUi();

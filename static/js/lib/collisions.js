@@ -7,6 +7,11 @@ import collision from "../utils/collision.js";
 import Game from "../entities/Game.js";
 import getDistance from "../utils/getDistance.js";
 import { player, sfx } from "../../game.js";
+import {
+    handlePlayerDamage,
+    updatePlayerCash,
+    updatePlayerScore,
+} from "../helpers/helpers.js";
 
 const handleCollisions = () => {
     for (let enemy of Game.enemies) {
@@ -48,8 +53,7 @@ const handleCollisions = () => {
         // console.log(enemy instanceof Enemy);
 
         if (!enemy.killedAt && collision(enemy, player)) {
-            sfx.playPlayerHit();
-            player.updateHealth({ health: -enemy.damage });
+            handlePlayerDamage({ player, obj: enemy });
             enemy.repelFromPlayer({ player });
         }
     }
@@ -58,8 +62,8 @@ const handleCollisions = () => {
         if (enemy.health <= 0 && !enemy.killedAt) {
             // enemy.health = 0;
             enemy.enableDeathState();
-            player.updateScore(1);
-            player.updateCash(enemy.cash);
+            updatePlayerScore({ player, score: 1 });
+            updatePlayerCash({ player, cash: enemy.cash });
         }
         // console.log(enemy);
 
@@ -76,8 +80,8 @@ const handleCollisions = () => {
         if (!collision(bullet, player)) {
             return bullet;
         }
-        sfx.playPlayerHit();
-        player.updateHealth({ health: -bullet.damage });
+
+        handlePlayerDamage({ player, obj: bullet });
     });
 };
 

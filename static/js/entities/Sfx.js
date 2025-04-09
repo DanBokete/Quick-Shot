@@ -1,3 +1,4 @@
+import { player } from "../../game.js";
 import Game from "./Game.js";
 
 class Sfx {

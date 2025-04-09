@@ -1,4 +1,5 @@
 import { player } from "../../game.js";
+import { updatePlayerHealth } from "../helpers/helpers.js";
 import {
     updateAmmoUi,
     updateHealthUi,
@@ -87,7 +88,7 @@ export const storeData = {
             price: 10,
             img: "",
             upgrade: () => {
-                player.updateHealth({ maxHealth: 1 });
+                updatePlayerHealth({ maxHealth: 1 });
                 storeData.upgradesOnSale[4].price += 5;
             },
         },
