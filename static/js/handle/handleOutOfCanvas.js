@@ -1,14 +1,14 @@
-import Game from "../entities/Game.js";
+import { game } from "../../game.js";
 const mapWidth = 100 * 16;
 const mapHeight = 100 * 16;
 const offScreenMargin = 200;
 
 const handleOutOfCanvas = ({ player }) => {
-    const canvas = Game.canvas;
+    const canvas = game.canvas;
 
-    const { bullets, enemyBullets } = Game;
+    const { bullets, enemyBullets } = game;
 
-    Game.bullets = bullets.filter((bullet) => {
+    game.bullets = bullets.filter((bullet) => {
         if (
             bullet.x - bullet.size > -offScreenMargin &&
             bullet.y - bullet.size > -offScreenMargin &&
@@ -19,7 +19,7 @@ const handleOutOfCanvas = ({ player }) => {
         }
     });
 
-    Game.enemyBullets = enemyBullets.filter((bullet) => {
+    game.enemyBullets = enemyBullets.filter((bullet) => {
         if (
             bullet.x > -offScreenMargin &&
             bullet.y > -offScreenMargin &&

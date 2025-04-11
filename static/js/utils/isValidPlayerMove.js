@@ -1,15 +1,15 @@
 import { Keys, player } from "../../game.js";
-import Game from "../entities/Game.js";
+import { game } from "../../game.js";
 import { background } from "../lib/background.js";
 
 /* Evaluates if player can dash */
 export const isValidPlayerMove = () => {
     const validMoves = [562, 561, 560, 226];
     const playerBoardX = Math.floor(
-        (player.x + player.dx) / Game.assets.tileSize
+        (player.x + player.dx) / game.assets.tileSize
     );
     const playerBoardY = Math.floor(
-        (player.y + player.height + player.dx) / Game.assets.tileSize
+        (player.y + player.height + player.dx) / game.assets.tileSize
     );
     let leftCell;
     let rightCell;

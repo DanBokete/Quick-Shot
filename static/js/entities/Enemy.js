@@ -2,7 +2,7 @@ import randomInt from "../utils/randomInt.js";
 import Player from "./Player.js";
 import getDistance from "../utils/getDistance.js";
 import normaliseVector from "../utils/normaliseVector.js";
-import Game from "./Game.js";
+import { game } from "../../game.js";
 import { player } from "../../game.js";
 
 class Enemy {
@@ -16,8 +16,8 @@ class Enemy {
         this.height = 64;
 
         this.speed = speed ?? 1;
-        this.health = health ?? Game.round.number / 5;
-        this.maxHealth = health ?? Game.round.number / 5;
+        this.health = health ?? game.round.number / 5;
+        this.maxHealth = health ?? game.round.number / 5;
 
         /** Money awarded for kill */
         this.cash = 10;
@@ -36,7 +36,7 @@ class Enemy {
         if (!this.killedAt) {
             const distanceBetweenPlayerAndEnemy = getDistance(player, this);
 
-            if (Game.meta.elapsedFrames % 2 === 0) {
+            if (game.meta.elapsedFrames % 2 === 0) {
                 this.frameX = (this.frameX + 1) % 8;
             }
 
@@ -66,7 +66,7 @@ class Enemy {
             this.x += this.dx;
             this.y += this.dy;
         } else {
-            if (Game.meta.elapsedFrames % 3 === 0) {
+            if (game.meta.elapsedFrames % 3 === 0) {
                 this.frameX += 1;
             }
         }
@@ -97,7 +97,7 @@ class Enemy {
     }
 
     setRandomSpawnLocation() {
-        const { canvas } = Game;
+        const { canvas } = game;
         const lowerXSpawnLocation = randomInt(
             player.x - 500,
             player.x + player.size / 2 - player.safeZoneRadius
@@ -128,7 +128,7 @@ class Enemy {
     canBeRemoved() {
         if (!this.killedAt) return false;
 
-        if (Game.meta.elapsedFrames - 30 < this.killedAt) return false;
+        if (game.meta.elapsedFrames - 30 < this.killedAt) return false;
 
         return true;
     }
@@ -136,12 +136,12 @@ class Enemy {
     enableDeathState() {
         this.x > player.x ? (this.frameY = 3) : (this.frameY = 2);
         this.frameX = 0;
-        this.killedAt = Game.meta.elapsedFrames;
+        this.killedAt = game.meta.elapsedFrames;
     }
 
     draw() {
-        const batImage = Game.assets.enemies.batImage;
-        const context = Game.context;
+        const batImage = game.assets.enemies.batImage;
+        const context = game.context;
         // context.fillStyle = "lightblue";
 
         context.drawImage(

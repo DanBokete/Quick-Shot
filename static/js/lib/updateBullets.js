@@ -1,5 +1,5 @@
-const updateBullets = ({ Game }) => {
-    const { bullets, context, enemyBullets } = Game;
+const updateBullets = ({ game }) => {
+    const { bullets, context, enemyBullets } = game;
     for (let bullet of bullets) {
         bullet.x += bullet.dx;
         bullet.y += bullet.dy;

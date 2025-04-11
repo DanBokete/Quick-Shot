@@ -1,5 +1,5 @@
 import Player from "../entities/Player.js";
-import Game from "../entities/Game.js";
+import { game } from "../../game.js";
 import Glock from "../entities/Glock.js";
 import AK47 from "../entities/Ak47.js";
 import RPG from "../entities/RPG.js";
@@ -10,11 +10,11 @@ import { storeData } from "../entities/storeData.js";
  * Assigning parameter types
  * @param {Object} param
  * @param {Player} param.player
- * @param {Game} param.Game
+ * @param {game} param.game
  */
 export const updateAmmoUi = () => {
     const ammoElement = document.getElementById("ammo");
-    const { elapsedFrames } = Game.meta;
+    const { elapsedFrames } = game.meta;
     const { activeWeapon } = player;
     if (!activeWeapon) return;
     if (activeWeapon.state.isReloading) {
@@ -25,7 +25,7 @@ export const updateAmmoUi = () => {
                         activeWeapon.lastReloaded -
                         (activeWeapon.reloadTime +
                             activeWeapon.autoReloadDelay)) /
-                        Game.meta.fps) *
+                        game.meta.fps) *
                         100
                 ) / 100
             )}s`;
@@ -35,7 +35,7 @@ export const updateAmmoUi = () => {
                     (elapsedFrames -
                         activeWeapon.lastReloaded -
                         activeWeapon.reloadTime) /
-                        Game.meta.fps
+                        game.meta.fps
                 ) *
                     100) /
                 100
@@ -81,13 +81,13 @@ export const updateHealthUi = () => {
 };
 
 export const updateRoundUpdateTimerUi = () => {
-    const { startTime, timeLimit } = Game.round;
-    const { elapsedFrames, fps } = Game.meta;
+    const { startTime, timeLimit } = game.round;
+    const { elapsedFrames, fps } = game.meta;
     const roundTimerElement = document.getElementById("roundTimer");
 
     const remainingTime = -Math.ceil(
-        Game.meta.elapsedFrames / Game.meta.fps -
-            (Game.round.startTime / Game.meta.fps + Game.round.timeLimit)
+        game.meta.elapsedFrames / game.meta.fps -
+            (game.round.startTime / game.meta.fps + game.round.timeLimit)
     );
 
     roundTimerElement.innerText = `Next wave: ${remainingTime}s`;
@@ -96,10 +96,10 @@ export const updateRoundUpdateTimerUi = () => {
 /**
  * Assigning parameter types
  * @param {Object} param
- * @param {Game} param.Game
+ * @param {game} param.game
  */
 export const updateRoundUi = () => {
-    const { round } = Game;
+    const { round } = game;
     const scoreElement = document.getElementById("round");
     scoreElement.innerText = `Round: ${round.number}`;
 };
@@ -119,13 +119,13 @@ export const updateWeaponUi = () => {
     const activeWeaponElement = document.getElementById("activeWeapon");
 
     const activeWeapon = player.activeWeapon ?? null;
-    const { elapsedFrames } = Game.meta;
+    const { elapsedFrames } = game.meta;
 
     if (activeWeapon) {
         activeWeaponElement.innerText = `Reload Time:${
-            Math.ceil((activeWeapon.reloadTime / Game.meta.fps) * 100) / 100
+            Math.ceil((activeWeapon.reloadTime / game.meta.fps) * 100) / 100
         }s Fire Rate:${
-            Math.ceil((activeWeapon.fireDelay / Game.meta.fps) * 100) / 100
+            Math.ceil((activeWeapon.fireDelay / game.meta.fps) * 100) / 100
         }bullets/s`;
     }
 

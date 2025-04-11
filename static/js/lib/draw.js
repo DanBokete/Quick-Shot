@@ -1,4 +1,3 @@
-import Game from "../entities/Game.js";
 import AK47 from "../entities/Ak47.js";
 import Glock from "../entities/Glock.js";
 import RPG from "../entities/RPG.js";
@@ -6,7 +5,7 @@ import Enemy from "../entities/Enemy.js";
 import Creeper from "../entities/Creeper.js";
 import Sprayer from "../entities/Sprayer.js";
 import { background } from "./background.js";
-import { player, Pointer } from "../../game.js";
+import { player, Pointer, game } from "../../game.js";
 
 export const drawGame = () => {
     drawBackground();
@@ -19,7 +18,7 @@ export const drawGame = () => {
         player.draw();
         drawLeftWeapon();
     } else {
-        drawRightWeapon({ player, Game, Pointer });
+        drawRightWeapon({ player, game, Pointer });
         player.draw();
     }
 
@@ -30,10 +29,10 @@ export const drawGame = () => {
 /**
  * Assigning parameter types
  * @param {Object} param
- * @param {Game} param.Game
+ * @param {game} param.game
  */
 const drawBullets = () => {
-    const { bullets, context, enemyBullets } = Game;
+    const { bullets, context, enemyBullets } = game;
 
     if (bullets.length) {
         for (let bullet of bullets) {
@@ -46,7 +45,7 @@ const drawBullets = () => {
             // );
 
             context.drawImage(
-                Game.assets.bullet,
+                game.assets.bullet,
                 16 * bullet.frameX,
                 17,
                 16,
@@ -57,8 +56,8 @@ const drawBullets = () => {
                 bullet.size
             );
 
-            if (Game.meta.elapsedFrames % 2 === 0) {
-                Game.bullets.filter((bullet) => {
+            if (game.meta.elapsedFrames % 2 === 0) {
+                game.bullets.filter((bullet) => {
                     bullet.frameX > 3 ? (bullet.frameX = 0) : bullet.frameX++;
                     return { ...bullet, bullet: bullet.frameX };
                 });
@@ -67,9 +66,9 @@ const drawBullets = () => {
     }
 
     if (enemyBullets.length) {
-        for (let bullet of Game.enemyBullets) {
+        for (let bullet of game.enemyBullets) {
             context.drawImage(
-                Game.assets.bullet,
+                game.assets.bullet,
                 bullet.size * bullet.frameX,
                 bullet.frameY ? bullet.frameY * bullet.size : 17,
                 bullet.size,
@@ -81,8 +80,8 @@ const drawBullets = () => {
             );
         }
 
-        if (Game.meta.elapsedFrames % 2 === 0) {
-            Game.enemyBullets.filter((bullet) => {
+        if (game.meta.elapsedFrames % 2 === 0) {
+            game.enemyBullets.filter((bullet) => {
                 bullet.frameX > 3 ? (bullet.frameX = 0) : bullet.frameX++;
                 return { ...bullet, bullet: bullet.frameX };
             });
@@ -91,7 +90,7 @@ const drawBullets = () => {
 };
 
 const drawCursor = () => {
-    const { context, canvas } = Game;
+    const { context, canvas } = game;
 
     // cursor image size
     const imageWidth = 64;
@@ -102,11 +101,11 @@ const drawCursor = () => {
         let crosshair;
 
         if (activeWeapon instanceof Glock) {
-            crosshair = Game.assets.glockCrosshair;
+            crosshair = game.assets.glockCrosshair;
         } else if (activeWeapon instanceof AK47) {
-            crosshair = Game.assets.akCrosshair;
+            crosshair = game.assets.akCrosshair;
         } else if (activeWeapon instanceof RPG) {
-            crosshair = Game.assets.rpgCrosshair;
+            crosshair = game.assets.rpgCrosshair;
         }
 
         context.drawImage(
@@ -124,7 +123,7 @@ const drawCursor = () => {
 };
 
 const drawEnemies = () => {
-    const { enemies, context } = Game;
+    const { enemies, context } = game;
 
     if (!enemies.length) return;
 
@@ -149,7 +148,7 @@ const drawEnemies = () => {
 // https://www.youtube.com/watch?v=cB6paLHebb4
 // Code can be found at 05:00
 const drawLeftWeapon = () => {
-    const { context } = Game;
+    const { context } = game;
 
     const activeWeapon = player.activeWeapon;
     if (!activeWeapon) return;
@@ -168,7 +167,7 @@ const drawRightWeapon = () => {
     // let size = 96;
     // let imageWidth = 96;
     // let imageHeight = 96;
-    const { context } = Game;
+    const { context } = game;
 
     const activeWeapon = player.activeWeapon;
     if (!activeWeapon) return;
@@ -188,8 +187,8 @@ const drawRightWeapon = () => {
 };
 
 const drawBackground = () => {
-    const { context, canvas } = Game;
-    const { backgroundImage } = Game.assets;
+    const { context, canvas } = game;
+    const { backgroundImage } = game.assets;
     const tilesPerRow = 28;
     const tilesPerCol = 28;
     const tileSize = 16;
@@ -216,12 +215,12 @@ const drawBackground = () => {
 };
 
 const drawExplosions = () => {
-    if (!Game.explosions.length) return;
+    if (!game.explosions.length) return;
 
-    const explosionImg = Game.assets.fx.explosion;
+    const explosionImg = game.assets.fx.explosion;
 
-    const context = Game.context;
-    for (let explosion of Game.explosions) {
+    const context = game.context;
+    for (let explosion of game.explosions) {
         context.drawImage(
             explosionImg,
             explosion.frameX * explosion.size,

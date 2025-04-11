@@ -2,7 +2,7 @@ import { player } from "../../game.js";
 import getDistance from "../utils/getDistance.js";
 import normaliseVector from "../utils/normaliseVector.js";
 import Enemy from "./Enemy.js";
-import Game from "./Game.js";
+import { game } from "../../game.js";
 
 class Sprayer extends Enemy {
     constructor({ x, y, speed, health, maxHealth, fireDelay }) {
@@ -12,13 +12,13 @@ class Sprayer extends Enemy {
         this.bulletSpeed = 3.0;
         this.damage = 0.5;
 
-        this.health = health ?? Game.round.number * 0.5;
-        this.maxHealth = health ?? Game.round.number * 0.5;
+        this.health = health ?? game.round.number * 0.5;
+        this.maxHealth = health ?? game.round.number * 0.5;
 
         this.cash = 40;
     }
 
-    update({ player, Pointer, Game }) {
+    update({ player, Pointer, game }) {
         const distanceBetweenPlayerAndEnemy = getDistance(player, this);
         if (!this.killedAt) {
             let attackOffset = 0;
@@ -29,7 +29,7 @@ class Sprayer extends Enemy {
                 this.frameY = 0;
             }
 
-            if (Game.meta.elapsedFrames % 2 === 0) {
+            if (game.meta.elapsedFrames % 2 === 0) {
                 this.frameX = (this.frameX + 1) % 8;
             }
 
@@ -51,9 +51,9 @@ class Sprayer extends Enemy {
             this.x += this.dx;
             this.y += this.dy;
 
-            this._shoot({ Game, player });
+            this._shoot({ game, player });
         } else {
-            if (Game.meta.elapsedFrames % 3 === 0) {
+            if (game.meta.elapsedFrames % 3 === 0) {
                 this.frameX += 1;
             }
         }
@@ -109,8 +109,8 @@ class Sprayer extends Enemy {
         ];
     }
 
-    _shoot({ Game, player }) {
-        const { elapsedFrames } = Game.meta;
+    _shoot({ game, player }) {
+        const { elapsedFrames } = game.meta;
         if (
             elapsedFrames > this.lastShotAt + this.fireDelay ||
             this.lastShotAt === 0
@@ -120,23 +120,23 @@ class Sprayer extends Enemy {
 
             if (bullets) {
                 for (let bullet of bullets) {
-                    Game.enemyBullets.push(bullet);
+                    game.enemyBullets.push(bullet);
                 }
             }
 
-            // console.log(Game.enemyBullets);
+            // console.log(game.enemyBullets);
         }
     }
 
     enableDeathState() {
         this.x > player.x ? (this.frameY = 3) : (this.frameY = 2);
         this.frameX = 0;
-        this.killedAt = Game.meta.elapsedFrames;
+        this.killedAt = game.meta.elapsedFrames;
     }
 
     draw() {
-        const sprayerImage = Game.assets.enemies.sprayerImage;
-        const context = Game.context;
+        const sprayerImage = game.assets.enemies.sprayerImage;
+        const context = game.context;
         // context.fillStyle = "lightblue";
 
         context.drawImage(

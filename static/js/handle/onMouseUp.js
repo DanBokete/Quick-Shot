@@ -1,15 +1,15 @@
 import Player from "../entities/Player.js";
-import Game from "../entities/Game.js";
+import game from "../entities/game.js";
 
 /**
  * Assigning parameter types
  * @param {Object} param
  * @param {MouseEvent} param.e
  * @param {Player} param.player
- * @param {Game} param.Game
+ * @param {game} param.game
  * @returns
  */
-const onMouseUp = ({ e, player, Game }) => {
+const onMouseUp = ({ e, player, game }) => {
     player.isShooting = false;
 };
 

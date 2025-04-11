@@ -1,14 +1,14 @@
 import { Keys, player, Pointer } from "../../game.js";
-import Game from "../entities/Game.js";
+import { game } from "../../game.js";
 import { background } from "./background.js";
 
 const handleActiveKeys = () => {
     const validMoves = [562, 561, 560, 226];
     const playerBoardX = Math.floor(
-        (player.x + player.dx) / Game.assets.tileSize
+        (player.x + player.dx) / game.assets.tileSize
     );
     const playerBoardY = Math.floor(
-        (player.y + player.height + player.dx) / Game.assets.tileSize
+        (player.y + player.height + player.dx) / game.assets.tileSize
     );
     if (Keys.moveLeft) {
         try {
@@ -58,7 +58,7 @@ const handleActiveKeys = () => {
             // Keys.moveDown = false;
         }
     }
-    if (Game.meta.elapsedFrames % 2 > 0) return;
+    if (game.meta.elapsedFrames % 2 > 0) return;
     if (Keys.moveLeft || Keys.moveRight || Keys.moveUp || Keys.moveDown) {
         player.frameY = 0;
         player.frameX = (player.frameX + 1) % 8;

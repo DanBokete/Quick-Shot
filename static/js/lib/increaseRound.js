@@ -1,22 +1,21 @@
-import Game from "../entities/Game.js";
 import Enemy from "../entities/Enemy.js";
 import Creeper from "../entities/Creeper.js";
 import Sprayer from "../entities/Sprayer.js";
 import { updateRoundUi } from "../ui/uiElements.js";
 import randomInt from "../utils/randomInt.js";
-import { player, sfx } from "../../game.js";
+import { player, sfx, game } from "../../game.js";
 /**
  * Assigning parameter types
  * @param {Object} param
- * @param {Game} param.Game
+ * @param {game} param.game
  */
-const increaseRound = ({ Game }) => {
-    Game.round.number++;
+const increaseRound = ({ game }) => {
+    game.round.number++;
 
-    const { round } = Game;
+    const { round } = game;
     const roundNumber = round.number;
-    // Game.bullets = [];
-    // Game.enemyBullets = [];
+    // game.bullets = [];
+    // game.enemyBullets = [];
 
     // console.log(roundNumber);
 
@@ -27,7 +26,7 @@ const increaseRound = ({ Game }) => {
             numberOfEnemies: 5,
             enemySpeed: 0.5,
         });
-        Game.round.timeLimit = 60;
+        game.round.timeLimit = 60;
     } else if (roundNumber === 2) {
         createMediumEnemies({
             numberOfEnemies: 3,
@@ -35,13 +34,13 @@ const increaseRound = ({ Game }) => {
             fireDelay: 55,
             chanceOfFiring: 0.02,
         });
-        Game.round.timeLimit = 60;
+        game.round.timeLimit = 60;
     } else if (roundNumber === 3) {
         createHardEnemies({
             numberOfEnemies: 2,
             enemySpeed: 0.55,
         });
-        Game.round.timeLimit = 60;
+        game.round.timeLimit = 60;
     } else {
         let value = 2 * round.number;
         while (value > 0) {
@@ -71,12 +70,12 @@ const increaseRound = ({ Game }) => {
                 });
             }
         }
-        Game.round.timeLimit = 60;
+        game.round.timeLimit = 60;
     }
 
-    Game.round.startTime = Game.meta.elapsedFrames;
-    updateRoundUi({ Game });
-    // updateRoundUpdateTimerUi({ Game });
+    game.round.startTime = game.meta.elapsedFrames;
+    updateRoundUi({ game });
+    // updateRoundUpdateTimerUi({ game });
 };
 
 /**
@@ -93,11 +92,11 @@ const createEasyEnemies = ({ numberOfEnemies, enemySpeed }) => {
             speed:
                 Math.random() +
                 enemySpeed +
-                Math.min(Game.round.number / 10, 2),
+                Math.min(game.round.number / 10, 2),
         });
 
-        enemy.setRandomSpawnLocation({ player, Game });
-        Game.enemies.push(enemy);
+        enemy.setRandomSpawnLocation({ player, game });
+        game.enemies.push(enemy);
     }
 };
 
@@ -117,35 +116,35 @@ const createMediumEnemies = ({
 }) => {
     for (let i = 0; i < numberOfEnemies; i++) {
         const mediumEnemy = new Creeper({
-            x: randomInt(Game.canvas.width / 2, Game.canvas.width),
-            y: randomInt(0, Game.canvas.height),
+            x: randomInt(game.canvas.width / 2, game.canvas.width),
+            y: randomInt(0, game.canvas.height),
             speed:
                 Math.random() +
                 enemySpeed +
-                Math.min(Game.round.number / 10, 2),
+                Math.min(game.round.number / 10, 2),
             fireDelay,
             chanceOfFiring,
         });
 
-        mediumEnemy.setRandomSpawnLocation({ player, Game });
-        Game.enemies.push(mediumEnemy);
+        mediumEnemy.setRandomSpawnLocation({ player, game });
+        game.enemies.push(mediumEnemy);
     }
 };
 
 const createHardEnemies = ({ numberOfEnemies, enemySpeed, fireDelay }) => {
     for (let i = 0; i < numberOfEnemies; i++) {
         const hardEnemy = new Sprayer({
-            x: randomInt(Game.canvas.width / 2, Game.canvas.width),
-            y: randomInt(0, Game.canvas.height),
+            x: randomInt(game.canvas.width / 2, game.canvas.width),
+            y: randomInt(0, game.canvas.height),
             speed:
                 Math.random() +
                 enemySpeed +
-                Math.min(Game.round.number / 10, 1.5),
-            fireDelay: 55 - Game.round.number * 0.5,
+                Math.min(game.round.number / 10, 1.5),
+            fireDelay: 55 - game.round.number * 0.5,
         });
 
-        hardEnemy.setRandomSpawnLocation({ player, Game });
-        Game.enemies.push(hardEnemy);
+        hardEnemy.setRandomSpawnLocation({ player, game });
+        game.enemies.push(hardEnemy);
     }
 };
 

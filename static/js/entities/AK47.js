@@ -1,4 +1,4 @@
-import Game from "./Game.js";
+import { game } from "../../game.js";
 import Weapon from "./Weapon.js";
 
 class AK47 extends Weapon {
@@ -28,7 +28,7 @@ class AK47 extends Weapon {
     draw() {
         const imageWidth = this.imageWidth / 12;
         const imageHeight = 48;
-        const context = Game.context;
+        const context = game.context;
 
         context.drawImage(
             this.image,

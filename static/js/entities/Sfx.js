@@ -1,5 +1,5 @@
 import { player } from "../../game.js";
-import Game from "./Game.js";
+import { game } from "../../game.js";
 
 class Sfx {
     constructor() {

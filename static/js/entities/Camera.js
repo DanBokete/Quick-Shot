@@ -1,5 +1,5 @@
 import { player } from "../../game.js";
-import Game from "./Game.js";
+import { game } from "../../game.js";
 
 class Camera {
     constructor() {
@@ -9,8 +9,8 @@ class Camera {
 
     /** Moves Camera Position */
     update() {
-        const canvasWidth = Game.canvas.width;
-        const canvasHeight = Game.canvas.height;
+        const canvasWidth = game.canvas.width;
+        const canvasHeight = game.canvas.height;
         const playerWidth = player.width;
         const playerHeight = player.height;
         this.x = -player.x + canvasWidth / 2;

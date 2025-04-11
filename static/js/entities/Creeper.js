@@ -2,7 +2,7 @@ import getDistance from "../utils/getDistance.js";
 import normaliseVector from "../utils/normaliseVector.js";
 import randomInt from "../utils/randomInt.js";
 import Enemy from "./Enemy.js";
-import Game from "./Game.js";
+import { game } from "../../game.js";
 
 class Creeper extends Enemy {
     constructor({ x, y, speed, health, maxHealth, fireDelay, chanceOfFiring }) {
@@ -15,8 +15,8 @@ class Creeper extends Enemy {
         this.angle = null;
         this.isAttached = false;
 
-        this.health = health ?? Game.round.number / 3;
-        this.maxHealth = health ?? Game.round.number / 3;
+        this.health = health ?? game.round.number / 3;
+        this.maxHealth = health ?? game.round.number / 3;
 
         this.cash = 20;
 
@@ -36,7 +36,7 @@ class Creeper extends Enemy {
                 this.frameY = 2;
             }
 
-            if (Game.meta.elapsedFrames % 2 === 0) {
+            if (game.meta.elapsedFrames % 2 === 0) {
                 this.frameX = (this.frameX + 1) % 8;
             }
 
@@ -82,9 +82,9 @@ class Creeper extends Enemy {
                 this.y += this.dy;
             }
 
-            this._shoot({ Game, player });
+            this._shoot({ game, player });
         } else {
-            if (Game.meta.elapsedFrames % 3 === 0) {
+            if (game.meta.elapsedFrames % 3 === 0) {
                 this.frameX += 1;
             }
         }
@@ -111,8 +111,8 @@ class Creeper extends Enemy {
         ];
     }
 
-    _shoot({ Game, player }) {
-        const { elapsedFrames } = Game.meta;
+    _shoot({ game, player }) {
+        const { elapsedFrames } = game.meta;
         if (
             elapsedFrames > this.lastShotAt + this.fireDelay ||
             this.lastShotAt === 0
@@ -125,23 +125,23 @@ class Creeper extends Enemy {
 
             if (bullets) {
                 for (let bullet of bullets) {
-                    Game.enemyBullets.push(bullet);
+                    game.enemyBullets.push(bullet);
                 }
             }
 
-            // console.log(Game.enemyBullets);
+            // console.log(game.enemyBullets);
         }
     }
 
     enableDeathState() {
         this.frameY = 1;
         this.frameX = 0;
-        this.killedAt = Game.meta.elapsedFrames;
+        this.killedAt = game.meta.elapsedFrames;
     }
 
     draw() {
-        const demonImage = Game.assets.enemies.demonImage;
-        const context = Game.context;
+        const demonImage = game.assets.enemies.demonImage;
+        const context = game.context;
         context.fillStyle = "lightblue";
 
         context.drawImage(

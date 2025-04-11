@@ -21,6 +21,10 @@ canvas {
     font-size: 1.5em;
 }
 
+.gameContainer {
+    font-size: 1.5em;
+}
+
 .upgrade-menu-container {
     position: absolute;
     padding: 0.5em;
@@ -83,6 +87,7 @@ canvas {
     right: 0.5em;
     width: 100%;
     height: fit-content;
+    color: white;
 }
 
 #stats {
@@ -131,11 +136,12 @@ canvas {
         display: flex;
         column-gap: 0.4em;
         background-color: rgba(0, 255, 0, 0.8);
-        font-weight: bold;
+        font-weight: 500;
         border: none;
         border-radius: 5px;
         align-items: center;
         justify-content: end;
+        padding: 0.1em 0.5em;
 
         position: relative;
         .price {
@@ -164,6 +170,7 @@ canvas {
             padding: 0 4px;
             border-radius: 3px;
             border: solid black 3px;
+            height: fit-content;
         }
 
         &.disable-purchase {

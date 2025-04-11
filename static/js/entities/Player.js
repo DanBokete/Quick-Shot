@@ -6,7 +6,7 @@ import {
 import AK47 from "./Ak47.js";
 import Glock from "./Glock.js";
 import RPG from "./RPG.js";
-import Game from "./Game.js";
+import { game } from "../../game.js";
 import { Keys, player, Pointer, sfx } from "../../game.js";
 import { isValidPlayerMove } from "../utils/isValidPlayerMove.js";
 import normaliseVector from "../utils/normaliseVector.js";
@@ -28,6 +28,9 @@ class Player {
     safeZoneRadius = 50;
 
     unlimitedHealth = false;
+
+    x = 250;
+    y = 250;
     constructor() {
         this.dashForce = 12;
         /**
@@ -51,7 +54,7 @@ class Player {
     }
 
     update() {
-        const { elapsedFrames } = Game.meta;
+        const { elapsedFrames } = game.meta;
 
         this.x += this.dx;
         this.y += this.dy;
@@ -91,7 +94,7 @@ class Player {
             ) {
                 weapon.state.isReloading = false;
                 weapon.ammo = weapon.maxAmmo;
-                updateAmmoUi({ player: this, Game });
+                updateAmmoUi({ player: this, game });
             } else if (
                 this.autoReload &&
                 elapsedFrames - weapon.lastReloaded >
@@ -99,7 +102,7 @@ class Player {
             ) {
                 weapon.state.isReloading = false;
                 weapon.ammo = weapon.maxAmmo;
-                updateAmmoUi({ player: this, Game });
+                updateAmmoUi({ player: this, game });
             }
         }
     }
@@ -116,25 +119,25 @@ class Player {
         updateStoreData({ weapon: this.activeWeapon });
         updateUpgradeWeaponUi();
         updateWeaponUi({ weapon });
-        updateAmmoUi({ player: this, Game });
+        updateAmmoUi({ player: this, game });
     }
 
     /**
      * @param {object} param
-     * @param {Game} param.Game
+     * @param {game} param.game
      * @param {Glock | AK47 | null} param.weapon
      */
     addWeapon({ weapon }) {
         if (!this.weapons.includes(weapon)) {
             this.weapons.push(weapon);
-            this.changeWeapon({ weapon, Game });
+            this.changeWeapon({ weapon, game });
         } else console.error("Weapon has already been added");
     }
 
     shoot() {
         if (!this.activeWeapon) return;
 
-        const { elapsedFrames } = Game.meta;
+        const { elapsedFrames } = game.meta;
 
         if (this.activeWeapon && this.activeWeapon.ammo) {
             const bullet = this.activeWeapon.shoot({
@@ -146,15 +149,15 @@ class Player {
             if (bullet) {
                 this.activeWeapon.frameX = 1;
                 if (!this.unlimitedAmmo) this.activeWeapon.ammo--;
-                updateAmmoUi({ player: this, Game });
-                Game.bullets.push(bullet);
+                updateAmmoUi({ player: this, game });
+                game.bullets.push(bullet);
 
                 if (this.activeWeapon instanceof Glock) sfx.playGunshot();
                 else if (this.activeWeapon instanceof AK47) sfx.playAk47shot();
                 else if (this.activeWeapon instanceof RPG) sfx.playRpgShot();
 
                 this._recoil();
-                updateAmmoUi({ player: this, Game });
+                updateAmmoUi({ player: this, game });
             }
         }
     }
@@ -170,14 +173,14 @@ class Player {
         this.dy += -b * recoilForce;
     }
 
-    reloadWeapon({ Game }) {
-        const { elapsedFrames } = Game.meta;
+    reloadWeapon({ game }) {
+        const { elapsedFrames } = game.meta;
         const weapon = this.activeWeapon;
         if (weapon.maxAmmo === weapon.ammo) return;
         if (weapon.state.isReloading) return;
         weapon.state.isReloading = true;
         weapon.lastReloaded = elapsedFrames;
-        updateAmmoUi({ player: this, Game });
+        updateAmmoUi({ player: this, game });
     }
 
     dash({ Keys }) {
@@ -196,7 +199,7 @@ class Player {
             }
         }
 
-        Game.enemies = Game.enemies.map((enemy) => {
+        game.enemies = game.enemies.map((enemy) => {
             enemy.isAttached = false;
             enemy.angle = null;
             return enemy;
@@ -204,8 +207,8 @@ class Player {
     }
 
     draw() {
-        const { context } = Game;
-        const PlayerSpriteImage = Game.assets.sprite.player;
+        const { context } = game;
+        const PlayerSpriteImage = game.assets.sprite.player;
         // context.fillStyle = "red";
         // context.fillRect(player.x, player.y, player.size, player.size);
         context.drawImage(

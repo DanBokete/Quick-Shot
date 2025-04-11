@@ -1,6 +1,6 @@
 import Weapon from "./Weapon.js";
 import normaliseVector from "../utils/normaliseVector.js";
-import Game from "./Game.js";
+import { game } from "../../game.js";
 
 class RPG extends Weapon {
     constructor({ image }) {
@@ -51,13 +51,13 @@ class RPG extends Weapon {
             health: this.bullet.health,
             splashDamage: this.splashDamage,
             splashRadius: this.splashRadius,
-            shotAt: Game.meta.elapsedFrames,
+            shotAt: game.meta.elapsedFrames,
             frameX: 0,
         };
     }
 
     draw() {
-        const context = Game.context;
+        const context = game.context;
         const imageWidth = this.imageWidth / 8;
         const imageHeight = 32;
 

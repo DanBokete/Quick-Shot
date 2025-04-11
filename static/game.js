@@ -8,7 +8,7 @@ import increaseRound from "./js/lib/increaseRound.js";
 import { updateAmmoUi, updateRoundUpdateTimerUi } from "./js/ui/uiElements.js";
 import updateBullets from "./js/lib/updateBullets.js";
 import AK47 from "./js/entities/Ak47.js";
-import Game from "./js/entities/Game.js";
+import Game from "./js/entities/game.js";
 import Camera from "./js/entities/Camera.js";
 import { resolveAnimations } from "./js/lib/animations.js";
 import { init } from "./js/lib/initialise.js";
@@ -18,13 +18,10 @@ import Sfx from "./js/entities/Sfx.js";
 
 const startBtn = document.querySelector("#startBtn");
 
-export const sfx = new Sfx();
-
 startBtn.addEventListener(
     "click",
     () => {
-        init();
-        startBtn.disabled = true;
+        resetGame();
     },
     false
 );
@@ -42,74 +39,88 @@ export const Pointer = {
     rotationFromPlayer: null,
 };
 
-export const player = new Player();
+/** @type {Player | null} */
+export let player;
+
+/** @type {Game | null} */
+export let game = new Game();
+
+export const sfx = new Sfx();
+
+function initPlayer() {
+    player = new Player();
+}
+
+function initGame() {
+    game = new Game();
+}
 
 const camera = new Camera();
 
 export const gameLoop = () => {
-    Game.requestId = window.requestAnimationFrame(gameLoop);
+    game.requestId = window.requestAnimationFrame(gameLoop);
 
-    Game.meta.now = Date.now();
-    Game.meta.elapsed = Game.meta.now - Game.meta.then;
+    game.meta.now = Date.now();
+    game.meta.elapsed = game.meta.now - game.meta.then;
 
-    if (Game.meta.elapsed <= Game.meta.fpsInterval) {
+    if (game.meta.elapsed <= game.meta.fpsInterval) {
         return;
     }
 
     resolveAnimations();
     camera.update();
-    updateRoundUpdateTimerUi({ Game });
+    updateRoundUpdateTimerUi({ game });
 
     // To show reloading time countdown
     if (player.activeWeapon && player.activeWeapon.state.isReloading) {
-        updateAmmoUi({ player, Game });
+        updateAmmoUi({ player, game });
     }
 
-    Game.meta.then =
-        Game.meta.now - (Game.meta.elapsed % Game.meta.fpsInterval);
+    game.meta.then =
+        game.meta.now - (game.meta.elapsed % game.meta.fpsInterval);
 
-    Game.context.clearRect(0, 0, Game.canvas.width, Game.canvas.height);
+    game.context.clearRect(0, 0, game.canvas.width, game.canvas.height);
 
-    Game.meta.elapsedFrames += 1;
+    game.meta.elapsedFrames += 1;
 
-    Game.context.save();
-    Game.context.translate(camera.x, camera.y);
+    game.context.save();
+    game.context.translate(camera.x, camera.y);
     drawGame();
-    Game.context.restore();
+    game.context.restore();
 
     handleActiveKeys();
 
     if (player.isShooting && player.activeWeapon instanceof AK47) {
-        player.shoot({ Pointer, Game });
+        player.shoot({ Pointer, game });
     }
     if (
         player.autoReload &&
         player.activeWeapon &&
         player.activeWeapon.ammo === 0
     ) {
-        player.reloadWeapon({ Game });
+        player.reloadWeapon({ game });
     }
 
     player.update();
 
-    for (let enemy of Game.enemies) {
-        enemy.update({ player, Game });
+    for (let enemy of game.enemies) {
+        enemy.update({ player, game });
     }
 
-    updateBullets({ Game });
+    updateBullets({ game });
     physics({ player });
-    handleCollisions({ player, Game });
-    handleOutOfCanvas({ player, Game });
+    handleCollisions({ player, game });
+    handleOutOfCanvas({ player, game });
 
     // if round timer = 0 or there is no enemies
     if (
         -Math.ceil(
-            Game.meta.elapsedFrames / Game.meta.fps -
-                (Game.round.startTime / Game.meta.fps + Game.round.timeLimit)
+            game.meta.elapsedFrames / game.meta.fps -
+                (game.round.startTime / game.meta.fps + game.round.timeLimit)
         ) === 0 ||
-        Game.enemies.length === 0
+        game.enemies.length === 0
     ) {
-        increaseRound({ player, Game });
+        increaseRound({ player, game });
     }
 
     if (player.health <= 0) {
@@ -118,7 +129,15 @@ export const gameLoop = () => {
 };
 
 function endGame() {
-    window.cancelAnimationFrame(Game.requestId);
+    window.cancelAnimationFrame(game.requestId);
     document.exitPointerLock();
     document.querySelector("canvas").style.cursor = "default";
+    resetGame();
+}
+
+function resetGame() {
+    initPlayer();
+    initGame();
+    init();
+    startBtn.disabled = true;
 }

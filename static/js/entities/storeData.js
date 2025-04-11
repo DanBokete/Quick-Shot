@@ -7,7 +7,7 @@ import {
     updateWeaponUi,
 } from "../ui/uiElements.js";
 import AK47 from "./Ak47.js";
-import Game from "./Game.js";
+import { game } from "../../game.js";
 import Glock from "./Glock.js";
 import RPG from "./RPG.js";
 
@@ -21,7 +21,7 @@ export const storeData = {
                 for (let weapon of player.weapons) {
                     if (weapon instanceof Glock) return;
                 }
-                const weapon = new Glock({ image: Game.assets.weapons.glock });
+                const weapon = new Glock({ image: game.assets.weapons.glock });
                 player.addWeapon({ weapon });
             },
         },
@@ -33,7 +33,7 @@ export const storeData = {
                 for (let weapon of player.weapons) {
                     if (weapon instanceof AK47) return;
                 }
-                const weapon = new AK47({ image: Game.assets.weapons.ak });
+                const weapon = new AK47({ image: game.assets.weapons.ak });
                 console.log("purchase weapon");
 
                 player.addWeapon({ weapon });
@@ -47,7 +47,7 @@ export const storeData = {
                 for (let weapon of player.weapons) {
                     if (weapon instanceof RPG) return;
                 }
-                const weapon = new RPG({ image: Game.assets.weapons.rpg });
+                const weapon = new RPG({ image: game.assets.weapons.rpg });
                 player.addWeapon({ weapon });
             },
         },

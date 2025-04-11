@@ -1,5 +1,5 @@
 import { gameLoop, Keys, player, Pointer, sfx } from "../../game.js";
-import Game from "../entities/Game.js";
+import { game } from "../../game.js";
 import Glock from "../entities/Glock.js";
 import onPointerMove from "../handle/onPointerMove.js";
 import {
@@ -15,8 +15,8 @@ import { activate, deactivate } from "./inputs.js";
 import load_assets from "./load_assets.js";
 
 export function init() {
-    Game.canvas = document.querySelector("canvas");
-    Game.context = Game.canvas.getContext("2d");
+    game.canvas = document.querySelector("canvas");
+    game.context = game.canvas.getContext("2d");
 
     player.x = 250;
     player.y = 250;
@@ -26,19 +26,19 @@ export function init() {
 
     document.addEventListener(
         "keydown",
-        (e) => activate({ e, Keys, player, Game }),
+        (e) => activate({ e, Keys, player, game }),
         false
     );
     document.addEventListener("keyup", (e) => deactivate({ e, Keys }), false);
 
     document.addEventListener(
         "pointermove",
-        (e) => onPointerMove({ e, Pointer, player, Game }),
+        (e) => onPointerMove({ e, Pointer, player, game }),
         false
     );
 
     document.addEventListener("click", function () {
-        if (Game.meta.elapsedFrames) {
+        if (game.meta.elapsedFrames) {
             player.shoot();
         }
         document.body.requestPointerLock();
@@ -58,19 +58,19 @@ export function init() {
 
     initialiseUi();
 
-    Game.assets.akCrosshair = new Image();
-    Game.assets.glockCrosshair = new Image();
-    Game.assets.rpgCrosshair = new Image();
-    Game.assets.sprite.player = new Image();
-    Game.assets.weapons.glock = new Image();
-    Game.assets.weapons.ak = new Image();
-    Game.assets.weapons.rpg = new Image();
-    Game.assets.bullet = new Image();
-    Game.assets.backgroundImage = new Image();
-    Game.assets.enemies.demonImage = new Image();
-    Game.assets.enemies.batImage = new Image();
-    Game.assets.enemies.sprayerImage = new Image();
-    Game.assets.fx.explosion = new Image();
+    game.assets.akCrosshair = new Image();
+    game.assets.glockCrosshair = new Image();
+    game.assets.rpgCrosshair = new Image();
+    game.assets.sprite.player = new Image();
+    game.assets.weapons.glock = new Image();
+    game.assets.weapons.ak = new Image();
+    game.assets.weapons.rpg = new Image();
+    game.assets.bullet = new Image();
+    game.assets.backgroundImage = new Image();
+    game.assets.enemies.demonImage = new Image();
+    game.assets.enemies.batImage = new Image();
+    game.assets.enemies.sprayerImage = new Image();
+    game.assets.fx.explosion = new Image();
 
     sfx.explosion = new Audio();
     sfx.achievement = new Audio();
@@ -81,62 +81,62 @@ export function init() {
     sfx.rocketShot = new Audio();
 
     player.addWeapon({
-        Game,
-        weapon: new Glock({ image: Game.assets.weapons.glock }),
+        game,
+        weapon: new Glock({ image: game.assets.weapons.glock }),
     });
 
     load_assets(
         [
             {
-                var: Game.assets.akCrosshair,
+                var: game.assets.akCrosshair,
                 url: "/static/assets/cursor/ak_crosshair.png",
             },
             {
-                var: Game.assets.glockCrosshair,
+                var: game.assets.glockCrosshair,
                 url: "/static/assets/cursor/glock_crosshair.png",
             },
             {
-                var: Game.assets.rpgCrosshair,
+                var: game.assets.rpgCrosshair,
                 url: "/static/assets/cursor/rpg_crosshair.png",
             },
             {
-                var: Game.assets.sprite.player,
+                var: game.assets.sprite.player,
                 url: "/static/assets/sprites/player/player_sprite_no_hands.png",
             },
             {
-                var: Game.assets.weapons.ak,
+                var: game.assets.weapons.ak,
                 url: "/static/assets/weapons/AK47.png",
             },
             {
-                var: Game.assets.weapons.glock,
+                var: game.assets.weapons.glock,
                 url: "/static/assets/weapons/GLOCK.png",
             },
             {
-                var: Game.assets.weapons.rpg,
+                var: game.assets.weapons.rpg,
                 url: "/static/assets/weapons/RPG.png",
             },
             {
-                var: Game.assets.bullet,
+                var: game.assets.bullet,
                 url: "/static/assets/bullets/bullets.png",
             },
             {
-                var: Game.assets.backgroundImage,
+                var: game.assets.backgroundImage,
                 url: "/static/assets/tileset/background.png",
             },
             {
-                var: Game.assets.enemies.demonImage,
+                var: game.assets.enemies.demonImage,
                 url: "/static/assets/sprites/enemy/demon.png",
             },
             {
-                var: Game.assets.enemies.batImage,
+                var: game.assets.enemies.batImage,
                 url: "/static/assets/sprites/enemy/bat.png",
             },
             {
-                var: Game.assets.enemies.sprayerImage,
+                var: game.assets.enemies.sprayerImage,
                 url: "/static/assets/sprites/enemy/sprayer.png",
             },
             {
-                var: Game.assets.fx.explosion,
+                var: game.assets.fx.explosion,
                 url: "/static/assets/fx/explosion.png",
             },
 

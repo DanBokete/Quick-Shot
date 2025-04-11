@@ -4,7 +4,7 @@ import {
     updateScoreUi,
 } from "../ui/uiElements.js";
 import collision from "../utils/collision.js";
-import Game from "../entities/Game.js";
+import { game } from "../../game.js";
 import getDistance from "../utils/getDistance.js";
 import { player, sfx } from "../../game.js";
 import {
@@ -14,25 +14,25 @@ import {
 } from "../helpers/helpers.js";
 
 const handleCollisions = () => {
-    for (let enemy of Game.enemies) {
-        if (Game.bullets.length) {
+    for (let enemy of game.enemies) {
+        if (game.bullets.length) {
             if (enemy.killedAt) continue;
-            Game.bullets = Game.bullets.filter((bullet) => {
+            game.bullets = game.bullets.filter((bullet) => {
                 if (!collision(bullet, enemy)) {
                     return bullet;
                 }
                 sfx.playEnemyHit();
                 if (bullet.splashDamage) {
                     sfx.playExplosion();
-                    Game.explosions.push({
+                    game.explosions.push({
                         x: bullet.x,
                         y: bullet.y,
-                        explodedAt: Game.meta.elapsedFrames,
+                        explodedAt: game.meta.elapsedFrames,
                         frameX: 1,
                         size: 64,
                     });
 
-                    for (let otherEnemy of Game.enemies) {
+                    for (let otherEnemy of game.enemies) {
                         if (enemy === otherEnemy) continue;
 
                         const distanceBetweenEnemies = getDistance(
@@ -58,7 +58,7 @@ const handleCollisions = () => {
         }
     }
 
-    Game.enemies = Game.enemies.map((enemy) => {
+    game.enemies = game.enemies.map((enemy) => {
         if (enemy.health <= 0 && !enemy.killedAt) {
             // enemy.health = 0;
             enemy.enableDeathState();
@@ -70,13 +70,13 @@ const handleCollisions = () => {
         return enemy;
     });
 
-    Game.enemies = Game.enemies.filter((enemy) => {
+    game.enemies = game.enemies.filter((enemy) => {
         if (!enemy.canBeRemoved()) {
             return enemy;
         }
     });
 
-    Game.enemyBullets = Game.enemyBullets.filter((bullet) => {
+    game.enemyBullets = game.enemyBullets.filter((bullet) => {
         if (!collision(bullet, player)) {
             return bullet;
         }

@@ -1,14 +1,12 @@
-import Game from "../entities/Game.js";
 import Player from "../entities/Player.js";
 
 /**
  * Assigning parameter types
  * @param {Object} param
- * @param {Game} param.Game
  * @param {MouseEvent} param.e
  * @param {Player} param.player
  */
-const onPointerMove = ({ e, Pointer, player, Game }) => {
+const onPointerMove = ({ e, Pointer, player }) => {
     if (document.pointerLockElement !== document.body) return;
     Pointer.x += e.movementX;
     Pointer.y += e.movementY;

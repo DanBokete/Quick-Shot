@@ -1,5 +1,5 @@
 import Player from "../entities/Player.js";
-import Game from "../entities/Game.js";
+import game from "../entities/game.js";
 import createOnSaleWeapons from "../lib/createOnSaleWeapons.js";
 
 export const storeData = {
@@ -50,13 +50,13 @@ export const storeData = {
  * Assigning parameter types
  * @param {Object} param
  * @param {Player} param.player
- * @param {Game} param.Game
+ * @param {game} param.game
  * @param {number|null} param.purchasedWeaponsId
  */
-const upgradeMenuUi = ({ Game, player }) => {
+const upgradeMenuUi = ({ game, player }) => {
     const { weaponsOnSale, upgradesOnSale } = storeData;
-    const { purchasedWeaponsId } = Game;
-    const { isPaused, onUpgradeMenu } = Game.state;
+    const { purchasedWeaponsId } = game;
+    const { isPaused, onUpgradeMenu } = game.state;
 
     const upgradeMenuContainerElement = document.getElementById(
         "upgradeMenuContainer"
