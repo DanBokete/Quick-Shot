@@ -5,15 +5,20 @@
     margin: 0;
 }
 
+/* 
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     font-size: 1.5em;
     color: white;
-}
+} */
 
 canvas {
     background-image: radial-gradient(rgb(94, 94, 94), rgb(80, 80, 80), black);
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    font-size: 1.5em;
 }
 
 .upgrade-menu-container {
@@ -112,23 +117,30 @@ canvas {
     position: absolute;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: end;
+    align-items: end;
     top: 0;
     right: 0.5em;
-    row-gap: 12px;
-    bottom: 0;
+    row-gap: 0.2em;
+    bottom: 3em;
     button {
-        font-size: 12px;
+        font-size: 16px;
         opacity: 0.5;
-        width: 96px;
-        height: 86px;
-        background-color: aliceblue;
+        width: fit-content;
+        /* height: 86px; */
+        display: flex;
+        column-gap: 0.4em;
+        background-color: rgba(0, 255, 0, 0.8);
+        font-weight: bold;
         border: none;
         border-radius: 5px;
+        align-items: center;
+        justify-content: end;
 
         position: relative;
-        div:first-child {
+        .price {
             color: red;
+            /* background-color: rgb(255, 0, 0, 0.3); */
             /* background-color: rgba(0, 0, 0, 0.4); */
             font-weight: bold;
             font-size: 32px;
@@ -152,6 +164,11 @@ canvas {
             padding: 0 4px;
             border-radius: 3px;
             border: solid black 3px;
+        }
+
+        &.disable-purchase {
+            background-color: rgb(255, 0, 0, 0.5);
+            font-weight: normal;
         }
     }
 }

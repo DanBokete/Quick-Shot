@@ -41,7 +41,7 @@ export const storeData = {
         },
         3: {
             name: "RPG",
-            price: 999,
+            price: 900,
             img: "",
             purchase: () => {
                 for (let weapon of player.weapons) {
@@ -64,6 +64,7 @@ export const storeData = {
                 updateAmmoUi();
                 updateUpgradeWeaponUi();
             },
+            shortCut: "v",
         },
         2: {
             title: "+5% Fire Rate",
@@ -73,6 +74,7 @@ export const storeData = {
                 player.activeWeapon.fireDelay *= 0.95;
                 // storeData.upgradesOnSale[2].price += 5;
             },
+            shortCut: "b",
         },
         3: {
             title: "-5% Reload Time",
@@ -82,6 +84,7 @@ export const storeData = {
                 player.activeWeapon.reloadTime *= 0.95;
                 // storeData.upgradesOnSale[3].price += 5;
             },
+            shortCut: "n",
         },
         4: {
             title: "Health +1",
@@ -91,6 +94,7 @@ export const storeData = {
                 updatePlayerHealth({ maxHealth: 1 });
                 storeData.upgradesOnSale[4].price += 5;
             },
+            shortCut: "m",
         },
     },
 };

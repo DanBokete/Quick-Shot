@@ -182,28 +182,23 @@ export const updateWeaponUi = () => {
 };
 
 export const updateUpgradeWeaponUi = () => {
-    const upgrades = document.querySelectorAll(`[data-upgrade-id]`);
+    const rightElement = document.querySelector("#right");
+    let html = ``;
+    const itemsIdOnSale = Object.keys(storeData.upgradesOnSale);
+    const weapon = player.activeWeapon ?? Glock;
+    itemsIdOnSale.forEach((id) => {
+        const item = storeData.upgradesOnSale[id];
 
-    for (let i = 0; i < upgrades.length; i++) {
-        upgrades[i].lastElementChild.innerHTML = `${
-            storeData.upgradesOnSale[i + 1]["title"]
-        } ${
-            player.cash < storeData.upgradesOnSale[i + 1]["price"] ||
-            player.unlimitedCash
-                ? ""
-                : `<b>Cost:${storeData.upgradesOnSale[i + 1]["price"]}</b>`
-        }`;
-
-        if (
-            player.cash < storeData.upgradesOnSale[i + 1]["price"] &&
-            !player.unlimitedCash
-        ) {
-            upgrades[i].firstElementChild.innerText =
-                storeData.upgradesOnSale[i + 1]["price"];
-
-            upgrades[i].firstElementChild.disabled = true;
-        } else {
-            upgrades[i].firstElementChild.innerText = "";
-        }
-    }
+        const isPriceVisible =
+            item.price > player.cash && !player.unlimitedCash;
+        html += `
+        <button class="upgrade ${
+            isPriceVisible ? "disable-purchase" : ""
+        }" data-upgrade-id="${id}">
+            <div>$${item.price}</div>
+            <div class="upgrade-shortcut">${item.shortCut}</div>
+            <div class="upgrade-title">${item.title}</div>
+        </button>`;
+    });
+    rightElement.innerHTML = html;
 };

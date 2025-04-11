@@ -1,42 +1,50 @@
 {% extends "base.html" %} {% block head %} <title>Guide</title> {% endblock %}
 {% block content %}
-<main>
-    <section>
-        <h1>How to play</h1>
+<main class="text-center">
+    <section class="flex flex-col items-center gap-y-2">
+        <h1 class="text-xl font-bold">How to play</h1>
 
-        <section>
-            <h2>Movement</h2>
-            <ul>
-                <li>w - move up</li>
-                <li>d - move right</li>
-                <li>s - move down</li>
-                <li>a - move left</li>
-                <li>[space bar] - dash</li>
+        <section class="bg-gray-100 w-2xl p-2 rounded-sm w-full max-w-2xl">
+            <h2 class="text-xl font-medium">Movement</h2>
+            <ul
+                class="flex flex-wrap font-medium gap-x-2 justify-center items-center border-t-2 pt-2"
+            >
+                <li class="bg-gray-200 p-2 rounded-sm">w - move up</li>
+                <li class="bg-gray-200 p-2 rounded-sm">d - move right</li>
+                <li class="bg-gray-200 p-2 rounded-sm">s - move down</li>
+                <li class="bg-gray-200 p-2 rounded-sm">a - move left</li>
+                <li class="bg-gray-200 p-2 rounded-sm">[space bar] - dash</li>
             </ul>
         </section>
-        <section>
-            <h2>Purchase</h2>
-            <section>
+        <section class="bg-gray-100 w-2xl p-2 rounded-sm w-full max-w-2xl">
+            <h2 class="text-xl font-medium">Purchase</h2>
+            <section
+                class="flex flex-col font-medium gap-x-2 justify-center items-center border-t-2 pt-2"
+            >
                 <h3>How to purchase a weapon.</h3>
                 <p>
                     Once you have enough cash to purchase a weapon, the price
-                    will turn form <b class="text-red">red</b> to
-                    <b class="text-green">green</b>.
+                    will turn form <b class="text-red-700">red</b> to
+                    <b class="text-green-700">green</b>.
                 </p>
                 <p>
                     Clicking the corresponding key bind will purchase that
                     weapon.
                 </p>
-                <ul>
-                    <li>2 -> AK47</li>
-                    <li>3 -> RPG</li>
+                <ul
+                    class="flex flex-wrap font-medium gap-x-2 justify-center items-center pt-2"
+                >
+                    <li class="bg-gray-200 p-2 rounded-sm"><b>2</b> AK47</li>
+                    <li class="bg-gray-200 p-2 rounded-sm"><b>3</b> RPG</li>
                 </ul>
             </section>
-            <section>
+            <section
+                class="flex flex-col font-medium gap-x-2 justify-center items-center border-t-2 pt-2"
+            >
                 <h3>How to purchase an upgrade</h3>
                 <p>
                     The upgrade price for
-                    <b
+                    <b class="text-blue-800"
                         >each upgrade cost varies depending on your current
                         weapon.</b
                     >
@@ -49,28 +57,40 @@
                     Clicking the corresponding key binds will purchase that
                     upgrade.
                 </p>
-                <ul>
-                    <li>v -> Increase Ammo</li>
-                    <li>b -> Decrease Fire Rate</li>
-                    <li>n -> Decrease Reload Time</li>
-                    <li>m -> Increase Player Health</li>
+                <ul
+                    class="flex flex-wrap font-medium gap-x-2 justify-center items-center pt-2"
+                >
+                    <li class="bg-gray-200 p-2 rounded-sm">
+                        <b>v</b> Increase Ammo
+                    </li>
+                    <li class="bg-gray-200 p-2 rounded-sm">
+                        <b>b</b> Decrease Fire Rate
+                    </li>
+                    <li class="bg-gray-200 p-2 rounded-sm">
+                        <b>n</b> Decrease Reload Time
+                    </li>
+                    <li class="bg-gray-200 p-2 rounded-sm">
+                        <b>m</b> Increase Player Health
+                    </li>
                 </ul>
             </section>
         </section>
     </section>
-    <section>
+    <section class="flex flex-col items-center gap-y-2">
         <h1>Guide</h1>
 
-        <section>
-            <h2>Strategy</h2>
+        <section class="bg-gray-100 w-2xl p-2 rounded-sm w-full max-w-2xl">
+            <h2 class="text-xl font-medium">Strategy</h2>
             <p>Survive as long as possible.</p>
             <p>Purchasing health (m) will go a long way.</p>
             <p>Other then that, <b>you decide your strategy</b>.</p>
         </section>
 
-        <section>
-            <h2>Enemy</h2>
-            <table>
+        <section class="bg-gray-100 w-2xl p-2 rounded-sm w-full max-w-2xl">
+            <h2 class="text-xl font-medium">Enemy</h2>
+            <table
+                class="flex flex-col font-medium gap-x-2 justify-center items-center border-t-2 pt-2"
+            >
                 <caption>
                     Enemy Summary
                 </caption>
@@ -114,19 +134,19 @@
                 </tbody>
             </table>
 
-            <section>
-                <figure>
+            <section class="flex flex-col gap-y-2">
+                <figure class="bg-gray-200 p-2 rounded-sm">
                     <img src="" alt="" />
                     <figcaption>
-                        <h3>Bat</h3>
+                        <h3 class="font-medium">Bat</h3>
                         <p>Inflicts damage every time it touches you.</p>
                     </figcaption>
                 </figure>
 
-                <figure>
+                <figure class="bg-gray-200 p-2 rounded-sm">
                     <img src="" alt="" />
                     <figcaption>
-                        <h3>Creeper</h3>
+                        <h3 class="font-medium">Creeper</h3>
                         <p>
                             Once close to you, it will circle you perfectly no
                             matter where you go.
@@ -137,10 +157,11 @@
                         </p>
                     </figcaption>
                 </figure>
-                <figure>
+
+                <figure class="bg-gray-200 p-2 rounded-sm">
                     <img src="" alt="" />
                     <figcaption>
-                        <h3>Sprayer</h3>
+                        <h3 class="font-medium">Sprayer</h3>
                         <p>
                             A relentless shooter. Shooting in all direction
                             making it's presence known.

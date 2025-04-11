@@ -2,6 +2,10 @@ import Game from "./Game.js";
 import Weapon from "./Weapon.js";
 
 class Glock extends Weapon {
+    ammoPrice = 10;
+    fireRatePrice = 80;
+    reloadTimePrice = 30;
+
     constructor({ image }) {
         super({
             ammo: 1,
@@ -19,10 +23,6 @@ class Glock extends Weapon {
             imageWidth: 768,
             imageHeight: 32,
         });
-
-        this.ammoPrice = 10;
-        this.fireRatePrice = 80;
-        this.reloadTimePrice = 30;
     }
 
     draw() {

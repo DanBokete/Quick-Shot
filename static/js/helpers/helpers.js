@@ -1,9 +1,10 @@
 import { player, sfx } from "../../game.js";
-import { storeData } from "../ui/storeUi.js";
+import { storeData } from "../entities/storeData.js";
 import {
     updateCashUi,
     updateHealthUi,
     updateScoreUi,
+    updateUpgradeWeaponUi,
 } from "../ui/uiElements.js";
 
 // Handles updating player's stats && ui
@@ -25,11 +26,15 @@ export const updatePlayerScore = ({ score }) => {
 };
 
 export const updatePlayerCash = ({ cash }) => {
+    if (player.unlimitedCash) return;
     player.cash += cash;
     updateCashUi();
 };
 
 export const updateStoreData = ({ weapon }) => {
+    console.log(weapon);
+    console.log(weapon.ammoPrice);
+
     storeData.upgradesOnSale[1].price = weapon.ammoPrice;
     storeData.upgradesOnSale[2].price = weapon.fireRatePrice;
     storeData.upgradesOnSale[3].price = weapon.reloadTimePrice;

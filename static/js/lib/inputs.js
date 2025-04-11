@@ -76,7 +76,7 @@ export const activate = ({ e, Keys, player, Game }) => {
     }
 
     const weapons = player.weapons;
-    const HAS_WEAPON = false;
+    let HAS_WEAPON = false;
 
     for (let weapon of weapons) {
         if (weapon.key === key) {

@@ -113,10 +113,10 @@ class Player {
 
         this.activeWeapon = weapon;
 
-        updateStoreData({ weapon });
+        updateStoreData({ weapon: this.activeWeapon });
+        updateUpgradeWeaponUi();
         updateWeaponUi({ weapon });
         updateAmmoUi({ player: this, Game });
-        updateUpgradeWeaponUi();
     }
 
     /**
