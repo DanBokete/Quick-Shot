@@ -1,0 +1,37 @@
+{% extends 'base.html' %} {% block content %}
+<main class="flex flex-col items-center">
+    <h1 class="text-2xl font-medium">Leaderboard</h1>
+    <small class="mb-2">Your best score is recorded here</small>
+
+    {% if leaderboard %}
+    <table class="border-separate border-spacing-2 bg-orange-50 rounded-sm">
+        <thead>
+            <tr>
+                <th scope="col" class="w-lg">Username</th>
+                <th scope="col" class="w-24">Score</th>
+                <th scope="col" class="w-24">Date</th>
+                <th scope="col" class="w-24">Time</th>
+                <th scope="col" class="w-24">Cheated?</th>
+            </tr>
+        </thead>
+        {% for data in leaderboard %}
+        <tbody>
+            <tr class="font-medium">
+                <td class="bg-orange-100 p-1">{{ data.username }}</td>
+                <td class="text-center bg-orange-100 p-1">{{ data.score }}</td>
+                <td class="text-center bg-orange-100 p-1">
+                    {{ data.created_at }}
+                </td>
+                <td class="text-center bg-orange-100 p-1">{{ data.time }}</td>
+                <td class="text-center bg-orange-100">
+                    {% if data.cheated %}Yes{% else %}No{% endif %}
+                </td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No one has been good enough.</p>
+    {% endif %}
+</main>
+{% endblock %}

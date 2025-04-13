@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block head %}<title>Signup</title>
+<link rel="stylesheet" href=" {{ url_for('static', filename='form.css')}}" />
+{% endblock %} {% block content %}
+<h1 class="text-center">Login</h1>
+
+<form action="" method="post" class="max-w-lg m-auto">
+    {% for field in form %} {% if field.type != "SubmitField" %}{% if field.id
+    != "csrf_token" %}
+    <section>{{field.label}}{% endif %}{% endif %} {{field}}</section>
+
+    {% if field.errors %} {% for error in field.errors %}
+
+    <span class="text-danger">{{ error }}</span>
+
+    {% endfor %} {% endif %} {% endfor %}
+</form>
+
+{% endblock %}

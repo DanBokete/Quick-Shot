@@ -1,0 +1,12 @@
+section {
+    display: flex;
+    gap: 1em;
+    margin-top: 0.5em;
+    label {
+        width: 25%;
+    }
+    input {
+        flex: 1;
+        border: solid black 1px;
+    }
+}

@@ -72,6 +72,7 @@ export const storeData = {
             img: "",
             upgrade: () => {
                 player.activeWeapon.fireDelay *= 0.95;
+                updateWeaponUi();
                 // storeData.upgradesOnSale[2].price += 5;
             },
             shortCut: "b",
@@ -83,12 +84,13 @@ export const storeData = {
             upgrade: () => {
                 player.activeWeapon.reloadTime *= 0.95;
                 // storeData.upgradesOnSale[3].price += 5;
+                updateWeaponUi();
             },
             shortCut: "n",
         },
         4: {
             title: "Health +1",
-            price: 10,
+            price: 0,
             img: "",
             upgrade: () => {
                 updatePlayerHealth({ maxHealth: 1 });

@@ -59,10 +59,21 @@
     </div>
     <canvas width="1024" height="640"></canvas>
 </div>
-<button id="startBtn">Start game</button>
+<!-- <div class="flex justify-center">
+    <button class="px-4 py-2 rounded bg-green-500" id="startBtn">
+        Start game
+    </button>
+</div> -->
 <section id="guide">
     <h1>Cheats</h1>
     <p>"c" = unlimited cash</p>
     <p>"h" = unlimited health</p>
 </section>
-{% endblock %}
+
+{% if not g.user%}
+<div
+    class="bg-red-100 border border-red-400 text-red-700 px-3 py-1.5 rounded absolute right-10 bottom-5"
+>
+    You are Not logged in, attept will not be logged ⚠️⚠️⚠️
+</div>
+{% endif %} {% endblock %}

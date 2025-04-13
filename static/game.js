@@ -11,20 +11,29 @@ import AK47 from "./js/entities/Ak47.js";
 import Game from "./js/entities/game.js";
 import Camera from "./js/entities/Camera.js";
 import { resolveAnimations } from "./js/lib/animations.js";
-import { init } from "./js/lib/initialise.js";
+import { init, initialiseEventListeners } from "./js/lib/initialise.js";
 import Sfx from "./js/entities/Sfx.js";
+import onPointerMove from "./js/handle/onPointerMove.js";
+import { storeData } from "./js/entities/storeData.js";
 
-// document.addEventListener("DOMContentLoaded", init, false);
-
-const startBtn = document.querySelector("#startBtn");
-
-startBtn.addEventListener(
-    "click",
+document.addEventListener(
+    "DOMContentLoaded",
     () => {
+        initialiseEventListeners();
         resetGame();
     },
     false
 );
+
+// const startBtn = document.querySelector("#startBtn");
+
+// startBtn.addEventListener(
+//     "click",
+//     () => {
+//         resetGame();
+//     },
+//     false
+// );
 
 export const Keys = {
     moveUp: false,
@@ -130,8 +139,9 @@ export const gameLoop = () => {
 
 function endGame() {
     window.cancelAnimationFrame(game.requestId);
-    document.exitPointerLock();
-    document.querySelector("canvas").style.cursor = "default";
+    sendData();
+    // document.exitPointerLock();
+    // document.querySelector("canvas").style.cursor = "default";
     resetGame();
 }
 
@@ -139,5 +149,50 @@ function resetGame() {
     initPlayer();
     initGame();
     init();
-    startBtn.disabled = true;
+    // startBtn.disabled = true;
 }
+
+/** @type {FormData | undefined} */
+let http;
+
+function sendData() {
+    const score = player.score;
+    const cheated = player.cheated ?? false;
+
+    let url = window.location.pathname;
+
+    const data = new FormData();
+    data.append("score", score);
+    data.append("cheated", cheated ? 1 : 0);
+
+    http = new XMLHttpRequest();
+    http.addEventListener("readystatechange", handleResponse, false);
+    http.open("POST", url, true);
+    http.send(data);
+}
+
+function handleResponse() {
+    if (http.readyState === 4) {
+        if (http.status === 200) {
+            if (document.querySelector("#popup")) {
+                document.querySelector("#popup").remove();
+            }
+            const container = document.createElement("div");
+            container.className =
+                "bg-slate-100 border border-slate-400 text-slate-700 px-3 py-1.5 rounded absolute right-10 top-5 animate-pulse";
+            const popup = document.createElement("div");
+            container.id = "popup";
+            popup.innerText = http.responseText;
+            container.appendChild(popup);
+            document.querySelector("body").appendChild(container);
+
+            setInterval(() => {
+                if (document.querySelector("#popup")) {
+                    document.querySelector("#popup").remove();
+                }
+            }, 8000);
+        }
+    }
+}
+
+console.log(window.location.pathname);

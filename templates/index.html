@@ -1,10 +1,13 @@
 {% extends "base.html" %} {% block head %} <title>Home</title> {% endblock %} {%
 block content %}
 <main class="flex flex-col items-center gap-y-3 justify-center h-full">
+    {% if not g.user %}
     <section>
         If you want to appear on the leaderboard:
-        <a class="font-bold" href="">Create Account</a>
+        <a class="font-bold" href=" {{ url_for('signup') }}">Create Account</a>
+        / <a class="font-bold" href="{{ url_for('login') }}">Login</a>
     </section>
+    {% endif %}
     <section class="font-bold">
         <a class="bg-red-500 p-2 rounded-sm" href="{{ url_for('game') }}"
             >Play game</a

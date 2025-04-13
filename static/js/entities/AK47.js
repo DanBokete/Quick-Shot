@@ -21,7 +21,7 @@ class AK47 extends Weapon {
         });
 
         this.ammoPrice = 80;
-        this.fireRatePrice = 50;
+        this.fireRatePrice = 20;
         this.reloadTimePrice = 200;
     }
 

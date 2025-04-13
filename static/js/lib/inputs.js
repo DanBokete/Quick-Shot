@@ -1,5 +1,5 @@
 import Player from "../entities/Player.js";
-import game from "../entities/game.js";
+import { game } from "../../game.js";
 import AK47 from "../entities/Ak47.js";
 import Glock from "../entities/Glock.js";
 import RPG from "../entities/RPG.js";
@@ -16,10 +16,9 @@ import { makePurchase } from "./purchases.js";
  * Assigning parameter types
  * @param {object} param
  * @param {Player} param.player
- * @param {game} param.game
  * @param {number|null} param.purchasedWeaponsId
  */
-export const activate = ({ e, Keys, player, game }) => {
+export const activate = ({ e, Keys, player }) => {
     const key = e.key;
 
     if (
@@ -56,10 +55,12 @@ export const activate = ({ e, Keys, player, game }) => {
 
     if (key === "h") {
         player.unlimitedHealth = !player.unlimitedHealth;
+        player.cheated = true;
         updateHealthUi({ player });
     }
     if (key === "c") {
         player.unlimitedCash = !player.unlimitedCash;
+        player.cheated = true;
         updateCashUi({ player });
     }
     if (key === "v") {

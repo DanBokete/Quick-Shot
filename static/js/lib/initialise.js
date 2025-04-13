@@ -1,6 +1,7 @@
 import { gameLoop, Keys, player, Pointer, sfx } from "../../game.js";
 import { game } from "../../game.js";
 import Glock from "../entities/Glock.js";
+import { storeData } from "../entities/storeData.js";
 import onPointerMove from "../handle/onPointerMove.js";
 import {
     updateAmmoUi,
@@ -23,38 +24,7 @@ export function init() {
 
     Pointer.x = player.x + player.width * 2;
     Pointer.y = player.y;
-
-    document.addEventListener(
-        "keydown",
-        (e) => activate({ e, Keys, player, game }),
-        false
-    );
-    document.addEventListener("keyup", (e) => deactivate({ e, Keys }), false);
-
-    document.addEventListener(
-        "pointermove",
-        (e) => onPointerMove({ e, Pointer, player, game }),
-        false
-    );
-
-    document.addEventListener("click", function () {
-        if (game.meta.elapsedFrames) {
-            player.shoot();
-        }
-        document.body.requestPointerLock();
-    });
-
-    document.addEventListener(
-        "mousedown",
-        () => (player.isShooting = true),
-        false
-    );
-
-    window.addEventListener(
-        "mouseup",
-        (e) => (player.isShooting = false),
-        false
-    );
+    storeData.upgradesOnSale[4].price = 0;
 
     initialiseUi();
 
@@ -182,3 +152,37 @@ const initialiseUi = () => {
     updateRoundUi();
     updateUpgradeWeaponUi();
 };
+
+export function initialiseEventListeners() {
+    document.addEventListener(
+        "keydown",
+        (e) => activate({ e, Keys, player, game }),
+        false
+    );
+    document.addEventListener("keyup", (e) => deactivate({ e, Keys }), false);
+
+    document.addEventListener(
+        "pointermove",
+        (e) => onPointerMove({ e, Pointer, player, game }),
+        false
+    );
+
+    document.addEventListener("click", function () {
+        if (game.meta.elapsedFrames) {
+            player.shoot();
+        }
+        document.body.requestPointerLock();
+    });
+
+    document.addEventListener(
+        "mousedown",
+        () => (player.isShooting = true),
+        false
+    );
+
+    window.addEventListener(
+        "mouseup",
+        (e) => (player.isShooting = false),
+        false
+    );
+}

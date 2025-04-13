@@ -16,6 +16,8 @@ export const updateAmmoUi = () => {
     const ammoElement = document.getElementById("ammo");
     const { elapsedFrames } = game.meta;
     const { activeWeapon } = player;
+    console.log(player, activeWeapon);
+
     if (!activeWeapon) return;
     if (activeWeapon.state.isReloading) {
         if (player.autoReload) {
@@ -122,9 +124,9 @@ export const updateWeaponUi = () => {
     const { elapsedFrames } = game.meta;
 
     if (activeWeapon) {
-        activeWeaponElement.innerText = `Reload Time:${
-            Math.ceil((activeWeapon.reloadTime / game.meta.fps) * 100) / 100
-        }s Fire Rate:${
+        const reloadTime =
+            Math.ceil((activeWeapon.reloadTime / game.meta.fps) * 100) / 100;
+        activeWeaponElement.innerText = `Reload Time:${reloadTime}s Fire Rate:${
             Math.ceil((activeWeapon.fireDelay / game.meta.fps) * 100) / 100
         }bullets/s`;
     }
@@ -156,6 +158,14 @@ export const updateWeaponUi = () => {
         rpgBtn.firstElementChild.classList.add("can-purchase");
     }
 
+    glockBtn.classList.remove("unlocked-weapon");
+    ak47Btn.classList.remove("unlocked-weapon");
+    rpgBtn.classList.remove("unlocked-weapon");
+
+    glockBtn.firstElementChild.classList.remove("hide");
+    ak47Btn.firstElementChild.classList.remove("hide");
+    rpgBtn.firstElementChild.classList.remove("hide");
+
     for (let weapon of player.weapons) {
         if (weapon instanceof Glock) {
             glockBtn.classList.add("unlocked-weapon");
@@ -185,7 +195,7 @@ export const updateUpgradeWeaponUi = () => {
     const rightElement = document.querySelector("#right");
     let html = ``;
     const itemsIdOnSale = Object.keys(storeData.upgradesOnSale);
-    const weapon = player.activeWeapon ?? Glock;
+    const weapon = player.activeWeapon;
     itemsIdOnSale.forEach((id) => {
         const item = storeData.upgradesOnSale[id];
 
