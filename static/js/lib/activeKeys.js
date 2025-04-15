@@ -3,60 +3,25 @@ import { game } from "../../game.js";
 import { background } from "./background.js";
 
 const handleActiveKeys = () => {
-    const validMoves = [562, 561, 560, 226];
-    const playerBoardX = Math.floor(
-        (player.x + player.dx) / game.assets.tileSize
-    );
-    const playerBoardY = Math.floor(
-        (player.y + player.height + player.dx) / game.assets.tileSize
-    );
+    // const validMoves = [562, 561, 560, 226];
+    // const playerBoardX = Math.floor(
+    //     (player.x + player.dx) / game.assets.tileSize
+    // );
+    // const playerBoardY = Math.floor(
+    //     (player.y + player.height + player.dx) / game.assets.tileSize
+    // );
+
     if (Keys.moveLeft) {
-        try {
-            const leftCell = background[playerBoardY][playerBoardX - 2];
-            if (validMoves.includes(leftCell)) {
-                player.dx -= player.speed;
-            } else {
-                // Keys.moveLeft = false;
-            }
-        } catch {
-            // Keys.moveLeft = false;
-        }
+        player.dx -= player.speed;
     }
     if (Keys.moveRight) {
-        try {
-            const leftCell = background[playerBoardY][playerBoardX + 4];
-            if (validMoves.includes(leftCell)) {
-                player.dx += player.speed;
-            } else {
-                // Keys.moveRight = false;
-            }
-        } catch {
-            // Keys.moveRight = false;
-        }
+        player.dx += player.speed;
     }
     if (Keys.moveUp) {
-        try {
-            const bottomCell = background[playerBoardY - 2][playerBoardX];
-            if (validMoves.includes(bottomCell)) {
-                player.dy -= player.speed;
-            } else {
-                // Keys.moveUp = false;
-            }
-        } catch {
-            // Keys.moveUp = false;
-        }
+        player.dy -= player.speed;
     }
     if (Keys.moveDown) {
-        try {
-            const bottomCell = background[playerBoardY + 3][playerBoardX];
-            if (validMoves.includes(bottomCell)) {
-                player.dy += player.speed;
-            } else {
-                // Keys.moveDown = false;
-            }
-        } catch {
-            // Keys.moveDown = false;
-        }
+        player.dy += player.speed;
     }
     if (game.meta.elapsedFrames % 2 > 0) return;
     if (Keys.moveLeft || Keys.moveRight || Keys.moveUp || Keys.moveDown) {

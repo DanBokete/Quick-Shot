@@ -8,7 +8,7 @@ import Glock from "./Glock.js";
 import RPG from "./RPG.js";
 import { game } from "../../game.js";
 import { Keys, player, Pointer, sfx } from "../../game.js";
-import { isValidPlayerMove } from "../utils/isValidPlayerMove.js";
+// import { isValidPlayerMove } from "../utils/isValidPlayerMove.js";
 import normaliseVector from "../utils/normaliseVector.js";
 import { updateStoreData } from "../helpers/helpers.js";
 
@@ -192,19 +192,17 @@ class Player {
     }
 
     dash({ Keys }) {
-        if (isValidPlayerMove()) {
-            if (Keys.moveLeft) {
-                this.dx -= this.speed * this.dashForce;
-            }
-            if (Keys.moveRight) {
-                this.dx += this.speed * this.dashForce;
-            }
-            if (Keys.moveUp) {
-                this.dy -= this.speed * this.dashForce;
-            }
-            if (Keys.moveDown) {
-                this.dy += this.speed * this.dashForce;
-            }
+        if (Keys.moveLeft) {
+            this.dx -= this.speed * this.dashForce;
+        }
+        if (Keys.moveRight) {
+            this.dx += this.speed * this.dashForce;
+        }
+        if (Keys.moveUp) {
+            this.dy -= this.speed * this.dashForce;
+        }
+        if (Keys.moveDown) {
+            this.dy += this.speed * this.dashForce;
         }
 
         game.enemies = game.enemies.map((enemy) => {

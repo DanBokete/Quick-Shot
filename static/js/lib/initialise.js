@@ -23,6 +23,11 @@ export function init() {
     player.x = 250;
     player.y = 250;
 
+    player.lastPosition = {
+        x: player.x,
+        y: player.x,
+    };
+
     Pointer.x = player.x + player.width * 2;
     Pointer.y = player.y;
     storeData.upgradesOnSale[4].price = 0;

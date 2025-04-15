@@ -168,7 +168,7 @@ def leaderboard():
     db = get_db()
     leaderboard = db.execute(
         """
-        SELECT u.username, l.score, l.cheated, strftime('%d.%m.%Y', l.created_at) AS created_at, strftime('%H:%M', l.created_at) AS time
+        SELECT DISTINCT u.username, l.score, l.cheated, strftime('%d.%m.%Y', l.created_at) AS created_at, strftime('%H:%M', l.created_at) AS time
         FROM leaderboard AS l
         JOIN users AS u on u.id = l.user_id
         WHERE score IN (

@@ -138,6 +138,11 @@ export const gameLoop = () => {
     if (player.health <= 0) {
         endGame();
     }
+
+    player.lastPosition = {
+        x: player.x,
+        y: player.y,
+    };
 };
 
 function endGame() {

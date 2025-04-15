@@ -4,7 +4,7 @@ import {
     updateScoreUi,
 } from "../ui/uiElements.js";
 import collision from "../utils/collision.js";
-import { game } from "../../game.js";
+import { game, Keys } from "../../game.js";
 import getDistance from "../utils/getDistance.js";
 import { player, sfx } from "../../game.js";
 import {
@@ -12,6 +12,7 @@ import {
     updatePlayerCash,
     updatePlayerScore,
 } from "../helpers/helpers.js";
+import { background } from "./background.js";
 
 const handleCollisions = () => {
     for (let enemy of game.enemies) {
@@ -83,6 +84,60 @@ const handleCollisions = () => {
 
         handlePlayerDamage({ player, obj: bullet });
     });
+
+    // testing
+
+    // const validMoves = [562, 561, 560, 226];
+    // const playerBoardX = Math.floor(
+    //     (player.x + player.dx) / game.assets.tileSize
+    // );
+    // const playerBoardY = Math.floor(
+    //     (player.y + player.height + player.dx) / game.assets.tileSize
+    // );
+
+    // const currentCell = background[playerBoardY][playerBoardY];
+
+    // if (!validMoves.includes(currentCell)) {
+    //     player.x = player.lastPosition.x;
+    //     player.dx = 0;
+    //     player.y = player.lastPosition.y;
+    //     player.dy = 0;
+    // }
+
+    // if (Keys.moveLeft) {
+    //     try {
+    //         const leftCell = background[playerBoardY][playerBoardX - 2];
+    //         if (validMoves.includes(leftCell)) {
+    //         } else {
+    //             player.x = player.lastPosition.x;
+    //         }
+    //     } catch {
+    //         player.x = player.lastPosition.x;
+    //         player.dx = 0;
+    //     }
+    // }
+    // if (Keys.moveRight) {
+    //     try {
+    //         const leftCell = background[playerBoardY][playerBoardX + 4];
+    //         if (validMoves.includes(leftCell)) {
+    //         }
+    //     } catch {}
+    // }
+    // if (Keys.moveUp) {
+    //     try {
+    //         const bottomCell = background[playerBoardY - 2][playerBoardX];
+    //         if (validMoves.includes(bottomCell)) {
+    //         }
+    //     } catch {}
+    // }
+    // if (Keys.moveDown) {
+    //     try {
+    //         const bottomCell = background[playerBoardY + 3][playerBoardX];
+    //         if (validMoves.includes(bottomCell)) {
+    //         } else {
+    //         }
+    //     } catch {}
+    // }
 };
 
 export default handleCollisions;
