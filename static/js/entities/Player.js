@@ -32,6 +32,11 @@ class Player {
 
     blind = null;
 
+    lastPosition = {
+        x: null,
+        y: null,
+    };
+
     x = 250;
     y = 250;
     constructor() {

@@ -2,7 +2,7 @@ import Player from "./js/entities/Player.js";
 import { drawGame } from "./js/lib/draw.js";
 import handleCollisions from "./js/lib/collisions.js";
 import handleActiveKeys from "./js/lib/activeKeys.js";
-import handleOutOfCanvas from "./js/handle/handleOutOfCanvas.js";
+import handleOutOfCanvas from "./js/lib/despawn.js";
 import physics from "./js/lib/physics.js";
 import increaseRound from "./js/lib/increaseRound.js";
 import {
@@ -17,8 +17,6 @@ import Camera from "./js/entities/Camera.js";
 import { resolveAnimations } from "./js/lib/animations.js";
 import { init, initialiseEventListeners } from "./js/lib/initialise.js";
 import Sfx from "./js/entities/Sfx.js";
-import onPointerMove from "./js/handle/onPointerMove.js";
-import { storeData } from "./js/entities/storeData.js";
 import { sendData } from "./js/lib/backend.js";
 
 document.addEventListener(
