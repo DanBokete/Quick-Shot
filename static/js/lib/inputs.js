@@ -1,5 +1,5 @@
 import Player from "../entities/Player.js";
-import { game } from "../../game.js";
+import { game, resetGame } from "../../game.js";
 import AK47 from "../entities/Ak47.js";
 import Glock from "../entities/Glock.js";
 import RPG from "../entities/RPG.js";
@@ -74,6 +74,10 @@ export const activate = ({ e, Keys, player }) => {
     }
     if (key === "m") {
         makePurchase({ upgradeId: 4 });
+    }
+
+    if (key === "p") {
+        resetGame();
     }
 
     const weapons = player.weapons;

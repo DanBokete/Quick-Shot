@@ -107,6 +107,7 @@ class Creeper extends Enemy {
                 frameY: 9,
                 speed: this.bulletSpeed,
                 damage: this.damage,
+                blind: 60,
             },
         ];
     }

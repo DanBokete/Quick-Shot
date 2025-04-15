@@ -6,6 +6,7 @@ import onPointerMove from "../handle/onPointerMove.js";
 import {
     updateAmmoUi,
     updateCashUi,
+    updateEndGameUi,
     updateHealthUi,
     updateRoundUi,
     updateRoundUpdateTimerUi,
@@ -151,6 +152,7 @@ const initialiseUi = () => {
     updateRoundUpdateTimerUi();
     updateRoundUi();
     updateUpgradeWeaponUi();
+    updateEndGameUi();
 };
 
 export function initialiseEventListeners() {

@@ -1,4 +1,4 @@
-import { player, sfx } from "../../game.js";
+import { game, player, sfx } from "../../game.js";
 import { storeData } from "../entities/storeData.js";
 import {
     updateCashUi,
@@ -14,6 +14,13 @@ export const handlePlayerDamage = ({ obj }) => {
             "Object causing damage does not have a damage attribute"
         );
     }
+
+    console.log(obj);
+
+    if (obj.blind) {
+        player.blind = game.meta.elapsedFrames + obj.blind;
+    }
+
     updatePlayerHealth({ health: -obj.damage });
     updateHealthUi();
 

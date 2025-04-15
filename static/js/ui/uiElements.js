@@ -212,3 +212,14 @@ export const updateUpgradeWeaponUi = () => {
     });
     rightElement.innerHTML = html;
 };
+
+export const updateEndGameUi = () => {
+    const endGameElement = document.getElementById("endGameContainer");
+
+    if (player.health > 0) {
+        endGameElement.style.display = "none";
+    } else {
+        endGameElement.innerHTML = `<p>Enter "p" to play new game.</p> <p>You scored: ${player.score}</p>`;
+        endGameElement.style.display = "flex";
+    }
+};

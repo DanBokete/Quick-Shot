@@ -27,7 +27,7 @@ export const storeData = {
         },
         2: {
             name: "AK47",
-            price: 500,
+            price: 400,
             img: "",
             purchase: () => {
                 for (let weapon of player.weapons) {
@@ -41,7 +41,7 @@ export const storeData = {
         },
         3: {
             name: "RPG",
-            price: 900,
+            price: 600,
             img: "",
             purchase: () => {
                 for (let weapon of player.weapons) {

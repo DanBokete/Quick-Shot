@@ -30,6 +30,8 @@ class Player {
 
     unlimitedHealth = false;
 
+    blind = null;
+
     x = 250;
     y = 250;
     constructor() {

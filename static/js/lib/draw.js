@@ -8,6 +8,8 @@ import { background } from "./background.js";
 import { player, Pointer, game } from "../../game.js";
 
 export const drawGame = () => {
+    const gameContainerElement = document.getElementById("gameContainer");
+
     drawBackground();
     drawEnemies();
 
@@ -24,6 +26,15 @@ export const drawGame = () => {
 
     drawCursor();
     drawExplosions();
+
+    if (player.blind > game.meta.elapsedFrames) {
+        gameContainerElement.classList.add("blur");
+        console.log("blurred");
+    } else {
+        if (gameContainerElement.classList.contains("blur")) {
+            gameContainerElement.classList.remove("blur");
+        }
+    }
 };
 
 /**
