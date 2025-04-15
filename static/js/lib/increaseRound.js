@@ -46,18 +46,17 @@ const increaseRound = ({ game }) => {
         while (value > 0) {
             const randomNumber = randomInt(1, 100);
 
-            if (randomNumber > 70 - roundNumber) {
+            if (randomNumber > 80 - roundNumber) {
                 value -= 15;
                 createHardEnemies({
-                    numberOfEnemies: 2,
+                    // numberOfEnemies: 2,
                     enemySpeed: 0.55,
                     fireDelay: -roundNumber * 0.5,
                 });
-                value -= 5;
             } else if (randomNumber > 50 - roundNumber) {
                 value -= 10;
                 createMediumEnemies({
-                    numberOfEnemies: 3,
+                    // numberOfEnemies: 3,
                     enemySpeed: 0.5,
                     fireDelay: 55 - roundNumber * 0.5,
                     chanceOfFiring: 0.02,
@@ -65,7 +64,7 @@ const increaseRound = ({ game }) => {
             } else {
                 value -= 5;
                 createEasyEnemies({
-                    numberOfEnemies: 6,
+                    // numberOfEnemies: 6,
                     enemySpeed: 0.5,
                 });
             }
@@ -84,7 +83,7 @@ const increaseRound = ({ game }) => {
  * @param {number} param.numberOfEnemies
  * @param {number} param.enemySpeed
  */
-const createEasyEnemies = ({ numberOfEnemies, enemySpeed }) => {
+const createEasyEnemies = ({ numberOfEnemies = 1, enemySpeed }) => {
     for (let i = 0; i < numberOfEnemies; i++) {
         const enemy = new Enemy({
             x: 0,
@@ -108,7 +107,7 @@ const createEasyEnemies = ({ numberOfEnemies, enemySpeed }) => {
  * @param {number} param.fireDelay
  */
 const createMediumEnemies = ({
-    numberOfEnemies,
+    numberOfEnemies = 1,
     enemySpeed,
     player,
     fireDelay,
@@ -131,7 +130,7 @@ const createMediumEnemies = ({
     }
 };
 
-const createHardEnemies = ({ numberOfEnemies, enemySpeed, fireDelay }) => {
+const createHardEnemies = ({ numberOfEnemies = 1, enemySpeed, fireDelay }) => {
     for (let i = 0; i < numberOfEnemies; i++) {
         const hardEnemy = new Sprayer({
             x: randomInt(game.canvas.width / 2, game.canvas.width),
