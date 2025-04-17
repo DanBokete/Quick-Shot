@@ -1,7 +1,7 @@
 import Player from "../entities/Player.js";
 import { game } from "../../game.js";
 import Glock from "../entities/Glock.js";
-import AK47 from "../entities/Ak47.js";
+import AK47 from "../entities/ak47.js";
 import RPG from "../entities/RPG.js";
 import { player } from "../../game.js";
 import { storeData } from "../entities/storeData.js";

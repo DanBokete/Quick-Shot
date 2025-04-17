@@ -11,7 +11,7 @@ import {
     updateRoundUpdateTimerUi,
 } from "./js/ui/uiElements.js";
 import updateBullets from "./js/lib/updateBullets.js";
-import AK47 from "./js/entities/Ak47.js";
+import AK47 from "./js/entities/ak47.js";
 import Game from "./js/entities/game.js";
 import Camera from "./js/entities/Camera.js";
 import { resolveAnimations } from "./js/lib/animations.js";

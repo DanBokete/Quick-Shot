@@ -1,6 +1,6 @@
 import Player from "../entities/Player.js";
 import { game, resetGame } from "../../game.js";
-import AK47 from "../entities/Ak47.js";
+import AK47 from "../entities/ak47.js";
 import Glock from "../entities/Glock.js";
 import RPG from "../entities/RPG.js";
 import {

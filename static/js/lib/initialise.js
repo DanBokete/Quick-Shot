@@ -65,55 +65,55 @@ export function init() {
         [
             {
                 var: game.assets.akCrosshair,
-                url: "/static/assets/cursor/ak_crosshair.png",
+                url: "static/assets/cursor/ak_crosshair.png",
             },
             {
                 var: game.assets.glockCrosshair,
-                url: "/static/assets/cursor/glock_crosshair.png",
+                url: "static/assets/cursor/glock_crosshair.png",
             },
             {
                 var: game.assets.rpgCrosshair,
-                url: "/static/assets/cursor/rpg_crosshair.png",
+                url: "static/assets/cursor/rpg_crosshair.png",
             },
             {
                 var: game.assets.sprite.player,
-                url: "/static/assets/sprites/player/player_sprite_no_hands.png",
+                url: "static/assets/sprites/player/player_sprite_no_hands.png",
             },
             {
                 var: game.assets.weapons.ak,
-                url: "/static/assets/weapons/AK47.png",
+                url: "static/assets/weapons/AK47.png",
             },
             {
                 var: game.assets.weapons.glock,
-                url: "/static/assets/weapons/GLOCK.png",
+                url: "static/assets/weapons/GLOCK.png",
             },
             {
                 var: game.assets.weapons.rpg,
-                url: "/static/assets/weapons/RPG.png",
+                url: "static/assets/weapons/RPG.png",
             },
             {
                 var: game.assets.bullet,
-                url: "/static/assets/bullets/bullets.png",
+                url: "static/assets/bullets/bullets.png",
             },
             {
                 var: game.assets.backgroundImage,
-                url: "/static/assets/tileset/background.png",
+                url: "static/assets/tileset/background.png",
             },
             {
                 var: game.assets.enemies.demonImage,
-                url: "/static/assets/sprites/enemy/demon.png",
+                url: "static/assets/sprites/enemy/demon.png",
             },
             {
                 var: game.assets.enemies.batImage,
-                url: "/static/assets/sprites/enemy/bat.png",
+                url: "static/assets/sprites/enemy/bat.png",
             },
             {
                 var: game.assets.enemies.sprayerImage,
-                url: "/static/assets/sprites/enemy/sprayer.png",
+                url: "static/assets/sprites/enemy/sprayer.png",
             },
             {
                 var: game.assets.fx.explosion,
-                url: "/static/assets/fx/explosion.png",
+                url: "static/assets/fx/explosion.png",
             },
 
             {
@@ -175,9 +175,8 @@ export function initialiseEventListeners() {
     );
 
     document.addEventListener("click", function () {
-        if (game.meta.elapsedFrames) {
-            player.shoot();
-        }
+        player.shoot();
+
         document.body.requestPointerLock();
     });
 

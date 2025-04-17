@@ -6,7 +6,7 @@ import {
     updateUpgradeWeaponUi,
     updateWeaponUi,
 } from "../ui/uiElements.js";
-import AK47 from "./Ak47.js";
+import AK47 from "./ak47.js";
 import { game } from "../../game.js";
 import Glock from "./Glock.js";
 import RPG from "./RPG.js";

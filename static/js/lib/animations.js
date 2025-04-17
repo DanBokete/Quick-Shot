@@ -1,5 +1,5 @@
 import { player } from "../../game.js";
-import AK47 from "../entities/Ak47.js";
+import AK47 from "../entities/ak47.js";
 import { game } from "../../game.js";
 import Glock from "../entities/Glock.js";
 import RPG from "../entities/RPG.js";

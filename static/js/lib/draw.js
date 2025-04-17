@@ -1,9 +1,6 @@
-import AK47 from "../entities/Ak47.js";
+import AK47 from "../entities/ak47.js";
 import Glock from "../entities/Glock.js";
 import RPG from "../entities/RPG.js";
-import Enemy from "../entities/Enemy.js";
-import Creeper from "../entities/Creeper.js";
-import Sprayer from "../entities/Sprayer.js";
 import { background } from "./background.js";
 import { player, Pointer, game } from "../../game.js";
 

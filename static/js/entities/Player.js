@@ -3,7 +3,7 @@ import {
     updateUpgradeWeaponUi,
     updateWeaponUi,
 } from "../ui/uiElements.js";
-import AK47 from "./Ak47.js";
+import AK47 from "./ak47.js";
 import Glock from "./Glock.js";
 import RPG from "./RPG.js";
 import { game } from "../../game.js";
@@ -144,6 +144,10 @@ class Player {
 
     shoot() {
         if (!this.activeWeapon) return;
+        // prevents shots during the game end screen
+        if (this.health <= 0) return;
+        // prevents shots before pointer is locked
+        if (!document.pointerLockElement) return;
 
         const { elapsedFrames } = game.meta;
 
@@ -155,15 +159,21 @@ class Player {
             });
 
             if (bullet) {
-                this.activeWeapon.frameX = 1;
+                const activeWeapon = this.activeWeapon;
+
                 if (!this.unlimitedAmmo) this.activeWeapon.ammo--;
                 updateAmmoUi({ player: this, game });
                 game.bullets.push(bullet);
 
-                if (this.activeWeapon instanceof Glock) sfx.playGunshot();
-                else if (this.activeWeapon instanceof AK47) sfx.playAk47shot();
-                else if (this.activeWeapon instanceof RPG) sfx.playRpgShot();
+                if (activeWeapon instanceof Glock) sfx.playGunshot();
+                else if (activeWeapon instanceof AK47) sfx.playAk47shot();
+                else if (activeWeapon instanceof RPG) sfx.playRpgShot();
 
+                // additional recoil if constantly shooting before weapon animation is resolved
+                Pointer.y -=
+                    activeWeapon.recoilForce * activeWeapon.frameX ? 10 : 1;
+
+                this.activeWeapon.frameX = 1;
                 this._recoil();
                 updateAmmoUi({ player: this, game });
             }
