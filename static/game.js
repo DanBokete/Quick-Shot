@@ -149,7 +149,7 @@ function endGame() {
     window.cancelAnimationFrame(game.requestId);
     sendData();
     updateEndGameUi();
-    // document.exitPointerLock();
+    document.exitPointerLock();
     // document.querySelector("canvas").style.cursor = "default";
     // resetGame();
 }

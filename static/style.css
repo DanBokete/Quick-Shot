@@ -2,7 +2,7 @@
 *::after,
 *::before {
     box-sizing: border-box;
-    margin: 0;
+    /* margin: 0; */
 }
 
 /* 
@@ -187,6 +187,7 @@ canvas {
     bottom: 0.5em;
     left: 0.5em;
     right: 0.5em;
+    color: white;
     /* div:first-child {
         font-size: 12px;
     } */

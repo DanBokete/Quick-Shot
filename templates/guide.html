@@ -4,7 +4,9 @@
     <section class="flex flex-col items-center gap-y-2">
         <h1 class="text-xl font-bold">How to play</h1>
 
-        <section class="bg-orange-100 w-2xl p-2 rounded-sm w-full max-w-2xl">
+        <section
+            class="bg-orange-100 w-2xl p-2 rounded-sm w-full max-w-screen-xl"
+        >
             <h2 class="text-xl font-medium">Movement</h2>
             <ul
                 class="flex flex-wrap font-medium gap-x-2 justify-center items-center border-t-2 pt-2"
@@ -16,12 +18,14 @@
                 <li class="bg-orange-200 p-2 rounded-sm">[space bar] - dash</li>
             </ul>
         </section>
-        <section class="bg-orange-100 w-2xl p-2 rounded-sm w-full max-w-2xl">
+        <section
+            class="bg-orange-100 w-2xl p-2 rounded-sm w-full max-w-screen-xl"
+        >
             <h2 class="text-xl font-medium">Purchase</h2>
             <section
                 class="flex flex-col font-medium gap-x-2 justify-center items-center border-t-2 pt-2"
             >
-                <h3>How to purchase a weapon.</h3>
+                <h3 class="text-lg">How to purchase a weapon.</h3>
                 <p>
                     Once you have enough cash to purchase a weapon, the price
                     will turn form <b class="text-red-700">red</b> to
@@ -41,7 +45,7 @@
             <section
                 class="flex flex-col font-medium gap-x-2 justify-center items-center border-t-2 pt-2"
             >
-                <h3>How to purchase an upgrade</h3>
+                <h3 class="text-lg">How to purchase an upgrade</h3>
                 <p>
                     The upgrade price for
                     <b class="text-blue-800"
@@ -58,7 +62,7 @@
                     upgrade.
                 </p>
                 <ul
-                    class="flex flex-wrap font-medium gap-x-2 justify-center items-center pt-2"
+                    class="flex flex-wrap font-medium gap-2 justify-center items-center pt-2"
                 >
                     <li class="bg-orange-200 p-2 rounded-sm">
                         <b>v</b> Increase Ammo
@@ -79,14 +83,18 @@
     <section class="flex flex-col items-center gap-y-2">
         <h1>Guide</h1>
 
-        <section class="bg-orange-100 w-2xl p-2 rounded-sm w-full max-w-2xl">
+        <section
+            class="bg-orange-100 w-2xl p-2 rounded-sm w-full max-w-screen-xl"
+        >
             <h2 class="text-xl font-medium">Strategy</h2>
             <p>Survive as long as possible.</p>
             <p>Purchasing health (m) will go a long way.</p>
             <p>Other then that, <b>you decide your strategy</b>.</p>
         </section>
 
-        <section class="bg-orange-100 w-2xl p-2 rounded-sm w-full max-w-2xl">
+        <section
+            class="bg-orange-100 w-2xl p-2 rounded-sm w-full max-w-screen-xl"
+        >
             <h2 class="text-xl font-medium">Enemy</h2>
             <table
                 class="flex flex-col font-medium gap-x-2 justify-center items-center border-t-2 pt-2"
@@ -135,16 +143,26 @@
             </table>
 
             <section class="flex flex-col gap-y-2">
-                <figure class="bg-orange-200 p-2 rounded-sm">
-                    <img src="" alt="" />
+                <figure
+                    class="bg-orange-200 p-2 rounded-sm flex flex-col items-center"
+                >
+                    <img
+                        src="{{ url_for('static', filename='images/bat.png') }}"
+                        alt="bat"
+                    />
                     <figcaption>
                         <h3 class="font-medium">Bat</h3>
                         <p>Inflicts damage every time it touches you.</p>
                     </figcaption>
                 </figure>
 
-                <figure class="bg-orange-200 p-2 rounded-sm">
-                    <img src="" alt="" />
+                <figure
+                    class="bg-orange-200 p-2 rounded-sm flex flex-col items-center"
+                >
+                    <img
+                        src="{{ url_for('static', filename='images/creeper.png') }}"
+                        alt=""
+                    />
                     <figcaption>
                         <h3 class="font-medium">Creeper</h3>
                         <p>
@@ -161,8 +179,13 @@
                     </figcaption>
                 </figure>
 
-                <figure class="bg-orange-200 p-2 rounded-sm">
-                    <img src="" alt="" />
+                <figure
+                    class="bg-orange-200 p-2 rounded-sm flex flex-col items-center"
+                >
+                    <img
+                        src="{{ url_for('static', filename='images/sprayer.png') }}"
+                        alt=""
+                    />
                     <figcaption>
                         <h3 class="font-medium">Sprayer</h3>
                         <p>
