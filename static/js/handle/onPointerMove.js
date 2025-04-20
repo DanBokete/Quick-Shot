@@ -7,7 +7,9 @@ import Player from "../entities/Player.js";
  * @param {MouseEvent} param.e
  */
 const onPointerMove = ({ e }) => {
-    if (document.pointerLockElement !== document.body) return;
+    if (document.pointerLockElement !== document.querySelector("canvas")) {
+        return;
+    }
     Pointer.x += e.movementX;
     Pointer.y += e.movementY;
     Pointer.rotationFromPlayer = Math.atan2(

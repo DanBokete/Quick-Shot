@@ -55,6 +55,7 @@ export function init() {
     sfx.enemyHit = new Audio();
     sfx.playerHit = new Audio();
     sfx.rocketShot = new Audio();
+    sfx.backgroundMusic = new Audio();
 
     player.addWeapon({
         game,
@@ -144,6 +145,10 @@ export function init() {
                 var: sfx.rocketShot,
                 url: "static/assets/sfx/rocketshot.mp3",
             },
+            {
+                var: sfx.backgroundMusic,
+                url: "static/assets/music/background-music.mp3",
+            },
         ],
         gameLoop
     );
@@ -174,10 +179,12 @@ export function initialiseEventListeners() {
         false
     );
 
-    document.addEventListener("click", function () {
+    document.querySelector("canvas").addEventListener("click", function () {
         player.shoot();
 
-        document.body.requestPointerLock();
+        if (!document.pointerLockElement) {
+            document.querySelector("canvas").requestPointerLock();
+        }
     });
 
     document.addEventListener(

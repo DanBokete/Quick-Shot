@@ -18,25 +18,25 @@ import { resolveAnimations } from "./js/lib/animations.js";
 import { init, initialiseEventListeners } from "./js/lib/initialise.js";
 import Sfx from "./js/entities/Sfx.js";
 import { sendData } from "./js/lib/backend.js";
+import { displayMenu } from "./js/ui/menuUI.js";
 
 document.addEventListener(
     "DOMContentLoaded",
     () => {
-        initialiseEventListeners();
-        resetGame();
+        displayMenu();
+        const startBtn = document.querySelector("#startBtn");
+        startBtn.addEventListener(
+            "click",
+            () => {
+                initialiseEventListeners();
+                resetGame();
+                document.getElementById("menu").remove();
+            },
+            false
+        );
     },
     false
 );
-
-// const startBtn = document.querySelector("#startBtn");
-
-// startBtn.addEventListener(
-//     "click",
-//     () => {
-//         resetGame();
-//     },
-//     false
-// );
 
 export const Keys = {
     moveUp: false,
@@ -146,6 +146,10 @@ export const gameLoop = () => {
 };
 
 function endGame() {
+    // in the event player screen is blurred
+    const gameContainerElement = document.getElementById("gameContainer");
+    gameContainerElement.classList.remove("blur");
+
     window.cancelAnimationFrame(game.requestId);
     sendData();
     updateEndGameUi();
@@ -155,9 +159,15 @@ function endGame() {
 }
 
 export function resetGame() {
+    if (sfx.backgroundMusic) {
+        sfx.backgroundMusic.pause();
+    }
     initPlayer();
     initGame();
     init();
+    if (!document.pointerLockElement) {
+        document.querySelector("canvas").requestPointerLock();
+    }
     // startBtn.disabled = true;
 }
 

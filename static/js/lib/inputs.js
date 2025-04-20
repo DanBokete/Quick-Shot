@@ -1,5 +1,5 @@
 import Player from "../entities/Player.js";
-import { game, resetGame } from "../../game.js";
+import { game, resetGame, sfx } from "../../game.js";
 import AK47 from "../entities/ak47.js";
 import Glock from "../entities/Glock.js";
 import RPG from "../entities/RPG.js";
@@ -78,6 +78,16 @@ export const activate = ({ e, Keys, player }) => {
 
     if (key === "p") {
         resetGame();
+    }
+
+    if (key === "0") {
+        sfx.disableBackgroundMusic = !sfx.disableBackgroundMusic;
+
+        if (sfx.disableBackgroundMusic) {
+            sfx.backgroundMusic.volume = 0;
+        } else {
+            sfx.playBackgroundMusic();
+        }
     }
 
     const weapons = player.weapons;

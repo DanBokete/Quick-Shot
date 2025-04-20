@@ -10,6 +10,11 @@ import { player, sfx, game } from "../../game.js";
  * @param {game} param.game
  */
 const increaseRound = ({ game }) => {
+    sfx.backgroundMusic.pause();
+    if (!sfx.disableBackgroundMusic) {
+        sfx.playBackgroundMusic();
+    }
+
     game.round.number++;
 
     const { round } = game;

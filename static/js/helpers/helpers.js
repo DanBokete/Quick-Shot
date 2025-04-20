@@ -9,10 +9,23 @@ import {
 
 // Handles updating player's stats && ui
 export const handlePlayerDamage = ({ obj }) => {
+    const gameContainerElement = document.getElementById("gameContainer");
     if (!obj.damage) {
         return console.error(
             "Object causing damage does not have a damage attribute"
         );
+    }
+
+    const temp = () => {
+        gameContainerElement.removeEventListener("animationend", temp, false);
+        gameContainerElement.classList.remove("flash");
+    };
+
+    // gameContainerElement.classList.remove("flash");
+    if (!gameContainerElement.classList.contains("flash")) {
+        gameContainerElement.classList.add("flash");
+
+        gameContainerElement.addEventListener("animationend", temp, false);
     }
 
     console.log(obj);

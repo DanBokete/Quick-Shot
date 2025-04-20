@@ -2,6 +2,7 @@ import { player } from "../../game.js";
 import { game } from "../../game.js";
 
 class Sfx {
+    disableBackgroundMusic = false;
     constructor() {
         this.explosion = null;
         this.achievement = null;
@@ -10,6 +11,7 @@ class Sfx {
         this.enemyHit = null;
         this.ak47Shot = null;
         this.rocketShot = null;
+        this.backgroundMusic = null;
     }
 
     playAchievement() {
@@ -63,6 +65,14 @@ class Sfx {
         this.playerHit.pause();
         this.playerHit.currentTime = 0;
         this.playerHit.play();
+    }
+
+    playBackgroundMusic() {
+        if (this.disableBackgroundMusic) return;
+        this.backgroundMusic.volume = 0.1;
+        this.backgroundMusic.pause();
+        this.backgroundMusic.currentTime = 0;
+        this.backgroundMusic.play();
     }
 }
 
