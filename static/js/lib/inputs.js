@@ -6,6 +6,7 @@ import RPG from "../entities/RPG.js";
 import {
     updateAmmoUi,
     updateCashUi,
+    updateDashUi,
     updateHealthUi,
     updateWeaponUi,
 } from "../ui/uiElements.js";
@@ -62,6 +63,11 @@ export const activate = ({ e, Keys, player }) => {
         player.unlimitedCash = !player.unlimitedCash;
         player.cheated = true;
         updateCashUi({ player });
+    }
+    if (key === "l") {
+        player.unlimitedDash = !player.unlimitedDash;
+        player.cheated = true;
+        updateDashUi({ player });
     }
     if (key === "v") {
         makePurchase({ upgradeId: 1 });

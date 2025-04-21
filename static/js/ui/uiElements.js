@@ -226,6 +226,24 @@ export const updateEndGameUi = () => {
     }
 };
 
+export const updateDashUi = () => {
+    const dashForceElement = document.getElementById("dashForce");
+
+    if (!player.unlimitedDash) {
+        dashForceElement.style.backgroundColor = "blue";
+        dashForceElement.style.height = `${
+            (player.dashForce / player.maxDashForce) * 100
+        }%`;
+    } else {
+        dashForceElement.style.backgroundColor = "orange";
+        dashForceElement.style.height = "100%";
+    }
+
+    if (!player.unlimitedDash && player.dashForce === player.maxDashForce) {
+        dashForceElement.style.backgroundColor = "purple";
+    }
+};
+
 export const drawMiniMap = () => {
     const { canvas, context } = game;
     const mapSize = 150;

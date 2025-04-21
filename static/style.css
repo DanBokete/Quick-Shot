@@ -374,3 +374,29 @@ section {
         border: solid azure 1px;
     }
 }
+
+#left {
+    position: absolute;
+    left: 0.5em;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    #dashForceContainer {
+        height: 400px;
+        width: 10px;
+        border-radius: 1em;
+        background-color: lightblue;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+
+        #dashForce {
+            border-radius: 1em;
+            background-color: blue;
+            height: 50%;
+        }
+    }
+}

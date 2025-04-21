@@ -8,6 +8,7 @@ import increaseRound from "./js/lib/increaseRound.js";
 import {
     drawMiniMap,
     updateAmmoUi,
+    updateDashUi,
     updateEndGameUi,
     updateRoundUpdateTimerUi,
 } from "./js/ui/uiElements.js";
@@ -83,6 +84,7 @@ export const gameLoop = () => {
     resolveAnimations();
     camera.update();
     updateRoundUpdateTimerUi({ game });
+    updateDashUi();
 
     // To show reloading time countdown
     if (player.activeWeapon && player.activeWeapon.state.isReloading) {

@@ -1,5 +1,6 @@
 import {
     updateAmmoUi,
+    updateHealthUi,
     updateUpgradeWeaponUi,
     updateWeaponUi,
 } from "../ui/uiElements.js";
@@ -27,10 +28,15 @@ class Player {
     speed = 1;
     safeZoneRadius = 50;
     cheated = false;
+    lastDashed = null;
 
     unlimitedHealth = false;
+    unlimitedDash = false;
 
     blind = null;
+
+    dashForce = 12;
+    maxDashForce = 12;
 
     lastPosition = {
         x: null,
@@ -40,7 +46,6 @@ class Player {
     x = 250;
     y = 250;
     constructor() {
-        this.dashForce = 12;
         /**
          * Equipped Weapon
          * @type {AK47 | Glock | RPG | null}
@@ -86,14 +91,19 @@ class Player {
 
         if (weapon && weapon instanceof RPG) {
             this.speed = 0.5;
-            this.dashForce = 8;
+            this.dashForce = Math.min(this.dashForce + 0.1, 8);
+            this.maxDashForce = 8;
         } else if (weapon && weapon instanceof AK47) {
             this.speed = 0.8;
-            this.dashForce = 10;
+            this.dashForce = Math.min(this.dashForce + 0.3, 10);
+            this.maxDashForce = 10;
         } else {
             this.speed = 1;
-            this.dashForce = 12;
+            this.dashForce = Math.min(this.dashForce + 0.5, 12);
+            this.maxDashForce = 12;
         }
+
+        console.log(this.dashForce);
 
         if (weapon.state.isReloading) {
             if (
@@ -220,6 +230,10 @@ class Player {
             enemy.angle = null;
             return enemy;
         });
+
+        if (!this.unlimitedDash) this.dashForce = 0;
+
+        this.lastDashed = game.meta.elapsedFrames;
     }
 
     draw() {
