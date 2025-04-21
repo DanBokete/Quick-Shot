@@ -6,6 +6,7 @@ import handleOutOfCanvas from "./js/lib/despawn.js";
 import physics from "./js/lib/physics.js";
 import increaseRound from "./js/lib/increaseRound.js";
 import {
+    drawMiniMap,
     updateAmmoUi,
     updateEndGameUi,
     updateRoundUpdateTimerUi,
@@ -99,6 +100,7 @@ export const gameLoop = () => {
     game.context.translate(camera.x, camera.y);
     drawGame();
     game.context.restore();
+    drawMiniMap();
 
     handleActiveKeys();
 

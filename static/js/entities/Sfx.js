@@ -73,6 +73,7 @@ class Sfx {
         this.backgroundMusic.pause();
         this.backgroundMusic.currentTime = 0;
         this.backgroundMusic.play();
+        this.backgroundMusic.loop = true;
     }
 }
 

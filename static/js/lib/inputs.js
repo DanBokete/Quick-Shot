@@ -76,7 +76,7 @@ export const activate = ({ e, Keys, player }) => {
         makePurchase({ upgradeId: 4 });
     }
 
-    if (key === "p") {
+    if (key === "Enter") {
         resetGame();
     }
 

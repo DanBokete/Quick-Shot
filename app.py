@@ -184,3 +184,8 @@ def leaderboard():
     ).fetchall()
 
     return render_template("leaderboard.html", leaderboard=leaderboard)
+
+
+@app.route("/credits")
+def credits():
+    return render_template("credits.html")

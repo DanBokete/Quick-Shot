@@ -1,7 +1,7 @@
 import Enemy from "../entities/Enemy.js";
 import Creeper from "../entities/Creeper.js";
 import Sprayer from "../entities/Sprayer.js";
-import { updateRoundUi } from "../ui/uiElements.js";
+import { updateHealthUi, updateRoundUi } from "../ui/uiElements.js";
 import randomInt from "../utils/randomInt.js";
 import { player, sfx, game } from "../../game.js";
 /**
@@ -16,6 +16,9 @@ const increaseRound = ({ game }) => {
     }
 
     game.round.number++;
+
+    player.health = Math.min(player.health + 0.5, player.maxHealth);
+    updateHealthUi();
 
     const { round } = game;
     const roundNumber = round.number;

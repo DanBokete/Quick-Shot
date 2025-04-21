@@ -3,6 +3,7 @@ import Glock from "../entities/Glock.js";
 import RPG from "../entities/RPG.js";
 import { background } from "./background.js";
 import { player, Pointer, game } from "../../game.js";
+import { drawMiniMap } from "../ui/uiElements.js";
 
 export const drawGame = () => {
     const gameContainerElement = document.getElementById("gameContainer");
@@ -138,8 +139,9 @@ const drawEnemies = () => {
     for (let enemy of enemies) {
         context.fillStyle = "lightGreen";
         context.fillRect(enemy.x, enemy.y - enemy.size, enemy.size, 5);
-
-        context.fillStyle = "darkGreen";
+        if (enemy.health - player.activeWeapon.damage <= 0) {
+            context.fillStyle = "red";
+        } else context.fillStyle = "darkGreen";
         context.fillRect(
             enemy.x,
             enemy.y - enemy.size,

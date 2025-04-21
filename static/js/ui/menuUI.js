@@ -11,7 +11,11 @@ export const displayMenu = () => {
     startBtn.innerText = "Start Game";
     startBtn.id = "startBtn";
 
+    const text = document.createElement("small");
+    text.innerText = "Please read the guide before continuing";
+
     menuElement.appendChild(startBtn);
+    menuElement.appendChild(text);
 
     document.querySelector("#gameContainer").appendChild(menuElement);
 };
