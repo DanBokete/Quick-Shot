@@ -28,7 +28,6 @@ export const drawGame = () => {
 
     if (player.blind > game.meta.elapsedFrames) {
         gameContainerElement.classList.add("blur");
-        console.log("blurred");
     } else {
         if (gameContainerElement.classList.contains("blur")) {
             gameContainerElement.classList.remove("blur");
@@ -259,8 +258,6 @@ export const drawMiniMap = () => {
         mapBuffer + mapXPosition + player.x / (1600 / mapSize + 1);
     const playerMapYPosition = mapBuffer + 4 + player.y / (1600 / mapSize + 1);
 
-    console.log(player.x);
-
     game.context.beginPath();
     game.context.arc(playerMapXPosition, playerMapYPosition, 1, 0, 2 * Math.PI);
     game.context.fill();
@@ -275,8 +272,6 @@ export const drawMiniMap = () => {
             mapBuffer + mapXPosition + enemy.x / (1600 / mapSize + 1);
         const enemyMapYPosition =
             mapBuffer + 4 + enemy.y / (1600 / mapSize + 1);
-
-        console.log(enemy.x);
 
         game.context.beginPath();
         game.context.arc(

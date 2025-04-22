@@ -122,15 +122,12 @@ class Creeper extends Enemy {
 
             this.lastShotAt = elapsedFrames;
             const bullets = this._createBullets({ player });
-            console.log("shot");
 
             if (bullets) {
                 for (let bullet of bullets) {
                     game.enemyBullets.push(bullet);
                 }
             }
-
-            // console.log(game.enemyBullets);
         }
     }
 

@@ -18,7 +18,6 @@ export const updateAmmoUi = () => {
     const ammoElement = document.getElementById("ammo");
     const { elapsedFrames } = game.meta;
     const { activeWeapon } = player;
-    console.log(player, activeWeapon);
 
     if (!activeWeapon) return;
     if (activeWeapon.state.isReloading) {

@@ -123,8 +123,6 @@ class Sprayer extends Enemy {
                     game.enemyBullets.push(bullet);
                 }
             }
-
-            // console.log(game.enemyBullets);
         }
     }
 

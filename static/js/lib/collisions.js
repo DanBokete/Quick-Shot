@@ -51,8 +51,6 @@ const handleCollisions = () => {
             });
         }
 
-        // console.log(enemy instanceof Enemy);
-
         if (!enemy.killedAt && collision(enemy, player)) {
             handlePlayerDamage({ player, obj: enemy });
             enemy.repelFromPlayer({ player });
@@ -61,12 +59,10 @@ const handleCollisions = () => {
 
     game.enemies = game.enemies.map((enemy) => {
         if (enemy.health <= 0 && !enemy.killedAt) {
-            // enemy.health = 0;
             enemy.enableDeathState();
             updatePlayerScore({ player, score: 1 });
             updatePlayerCash({ player, cash: enemy.cash });
         }
-        // console.log(enemy);
 
         return enemy;
     });

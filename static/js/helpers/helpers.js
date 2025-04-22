@@ -28,8 +28,6 @@ export const handlePlayerDamage = ({ obj }) => {
         gameContainerElement.addEventListener("animationend", temp, false);
     }
 
-    console.log(obj);
-
     if (obj.blind) {
         player.blind = game.meta.elapsedFrames + obj.blind;
     }
@@ -52,9 +50,6 @@ export const updatePlayerCash = ({ cash }) => {
 };
 
 export const updateStoreData = ({ weapon }) => {
-    console.log(weapon);
-    console.log(weapon.ammoPrice);
-
     storeData.upgradesOnSale[1].price = weapon.ammoPrice;
     storeData.upgradesOnSale[2].price = weapon.fireRatePrice;
     storeData.upgradesOnSale[3].price = weapon.reloadTimePrice;

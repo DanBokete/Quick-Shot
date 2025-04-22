@@ -105,8 +105,6 @@ class Player {
             this.maxDashForce = 12;
         }
 
-        console.log(this.dashForce);
-
         if (weapon.state.isReloading) {
             if (
                 !this.autoReload &&

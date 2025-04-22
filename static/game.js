@@ -162,8 +162,6 @@ function endGame() {
 
     updateEndGameUi();
     document.exitPointerLock();
-    // document.querySelector("canvas").style.cursor = "default";
-    // resetGame();
 }
 
 export function continueGame() {
@@ -180,7 +178,6 @@ export function continueGame() {
 }
 
 export function playPauseGame() {
-    // const gameContainerElement = document.getElementById("gameContainer");
     game.state.isPaused = !game.state.isPaused;
 
     if (game.state.isPaused) {
@@ -213,7 +210,4 @@ export function resetGame() {
     if (!document.pointerLockElement) {
         document.querySelector("canvas").requestPointerLock();
     }
-    // startBtn.disabled = true;
 }
-
-console.log(window.location.pathname);

@@ -34,7 +34,6 @@ export const storeData = {
                     if (weapon instanceof AK47) return;
                 }
                 const weapon = new AK47({ image: game.assets.weapons.ak });
-                console.log("purchase weapon");
 
                 player.addWeapon({ weapon });
             },

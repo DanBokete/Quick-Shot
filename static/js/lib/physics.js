@@ -36,8 +36,6 @@ const physics = () => {
         player.dx = 0;
         player.y = player.lastPosition.y;
         player.dy = 0;
-
-        console.log("aesas");
     }
 
     player.dy *= 0.8;

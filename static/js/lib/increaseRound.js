@@ -26,8 +26,6 @@ const increaseRound = ({ game }) => {
     // game.bullets = [];
     // game.enemyBullets = [];
 
-    // console.log(roundNumber);
-
     sfx.playAchievement();
 
     if (roundNumber === 1) {
