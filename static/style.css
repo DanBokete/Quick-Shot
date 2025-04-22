@@ -311,6 +311,7 @@ canvas {
 
 #guide,
 section {
+    align-items: end;
     text-align: center;
     color: black;
     display: flex;
@@ -331,6 +332,20 @@ section {
     background-color: rgb(0, 0, 0, 0.8);
     color: white;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#pauseGameContainer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background-color: rgb(0, 0, 0, 0.8);
+    color: white;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;

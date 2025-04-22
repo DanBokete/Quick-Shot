@@ -63,14 +63,13 @@ export const updateStoreData = ({ weapon }) => {
 export const updatePlayerHealth = ({ health = null, maxHealth = null }) => {
     if (player.unlimitedHealth) return;
 
-    if (health) {
-        player.health += health;
-    }
-
     if (maxHealth) {
         const health = maxHealth;
         player.health += Math.min(health, maxHealth);
         player.maxHealth += health;
+    }
+    if (health) {
+        player.health = Math.min(health + player.health, player.maxHealth);
     }
 
     updateHealthUi();

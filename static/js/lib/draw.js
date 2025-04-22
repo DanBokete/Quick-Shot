@@ -3,7 +3,8 @@ import Glock from "../entities/Glock.js";
 import RPG from "../entities/RPG.js";
 import { background } from "./background.js";
 import { player, Pointer, game } from "../../game.js";
-import { drawMiniMap } from "../ui/uiElements.js";
+import Creeper from "../entities/Creeper.js";
+import Sprayer from "../entities/Sprayer.js";
 
 export const drawGame = () => {
     const gameContainerElement = document.getElementById("gameContainer");
@@ -242,5 +243,57 @@ const drawExplosions = () => {
             explosion.size * 5,
             explosion.size * 5
         );
+    }
+};
+
+export const drawMiniMap = () => {
+    const { canvas, context } = game;
+    const mapSize = 150;
+    const mapXPosition = canvas.width - mapSize;
+    const mapBuffer = 5;
+
+    game.context.fillStyle = "rgb(0,0,0,0.1)";
+    game.context.fillRect(mapXPosition, 0, mapSize, mapSize);
+
+    const playerMapXPosition =
+        mapBuffer + mapXPosition + player.x / (1600 / mapSize + 1);
+    const playerMapYPosition = mapBuffer + 4 + player.y / (1600 / mapSize + 1);
+
+    console.log(player.x);
+
+    game.context.beginPath();
+    game.context.arc(playerMapXPosition, playerMapYPosition, 1, 0, 2 * Math.PI);
+    game.context.fill();
+    game.context.lineWidth = 4;
+    game.context.strokeStyle = "blue";
+    game.context.stroke();
+
+    for (let enemy of game.enemies) {
+        if (enemy.x > 1600 || enemy.x < 0) continue;
+        if (enemy.y > 1600 || enemy.y < 0) continue;
+        const enemyMapXPosition =
+            mapBuffer + mapXPosition + enemy.x / (1600 / mapSize + 1);
+        const enemyMapYPosition =
+            mapBuffer + 4 + enemy.y / (1600 / mapSize + 1);
+
+        console.log(enemy.x);
+
+        game.context.beginPath();
+        game.context.arc(
+            enemyMapXPosition,
+            enemyMapYPosition,
+            1,
+            0,
+            2 * Math.PI
+        );
+        game.context.fill();
+        game.context.lineWidth = 2;
+
+        if (enemy instanceof Creeper) game.context.lineWidth = 3;
+        else if (enemy instanceof Sprayer) game.context.lineWidth = 4;
+
+        if (enemy.health <= 0) game.context.strokeStyle = "orange";
+        else game.context.strokeStyle = "red";
+        game.context.stroke();
     }
 };

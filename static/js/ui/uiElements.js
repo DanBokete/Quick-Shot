@@ -221,8 +221,30 @@ export const updateEndGameUi = () => {
     if (player.health > 0) {
         endGameElement.style.display = "none";
     } else {
-        endGameElement.innerHTML = `<p>Click "Enter" to play new game.</p> <p>You scored: ${player.score}</p>`;
+        endGameElement.innerHTML = `
+            <p>Click "Enter" to play new game.</p> 
+            <p>You scored: ${player.score}</p> 
+            <p>Click "y" to continue playing the game, but progress made will not be saved</p>`;
         endGameElement.style.display = "flex";
+    }
+};
+
+export const updatePauseGameUi = () => {
+    const pauseGameElement = document.getElementById("pauseGameContainer");
+
+    if (!game.state.isPaused) {
+        pauseGameElement.style.display = "none";
+    } else {
+        pauseGameElement.innerHTML = `
+            
+            <p>The game is currently paused.</p> 
+            <p>Current Score: ${player.score}</p> 
+            <p>Current Cash: ${player.cash}</p> 
+            <p>Click "p" to unpause the game</p>
+            <p>Cheated: ${player.cheated ? "Yes" : "No"}</p>
+            <p>Click "Enter" to play new game.</p> 
+            `;
+        pauseGameElement.style.display = "flex";
     }
 };
 
@@ -241,57 +263,5 @@ export const updateDashUi = () => {
 
     if (!player.unlimitedDash && player.dashForce === player.maxDashForce) {
         dashForceElement.style.backgroundColor = "purple";
-    }
-};
-
-export const drawMiniMap = () => {
-    const { canvas, context } = game;
-    const mapSize = 150;
-    const mapXPosition = canvas.width - mapSize;
-    const mapBuffer = 5;
-
-    game.context.fillStyle = "rgb(0,0,0,0.1)";
-    game.context.fillRect(mapXPosition, 0, mapSize, mapSize);
-
-    const playerMapXPosition =
-        mapBuffer + mapXPosition + player.x / (1600 / mapSize + 1);
-    const playerMapYPosition = mapBuffer + 4 + player.y / (1600 / mapSize + 1);
-
-    console.log(player.x);
-
-    game.context.beginPath();
-    game.context.arc(playerMapXPosition, playerMapYPosition, 1, 0, 2 * Math.PI);
-    game.context.fill();
-    game.context.lineWidth = 4;
-    game.context.strokeStyle = "blue";
-    game.context.stroke();
-
-    for (let enemy of game.enemies) {
-        if (enemy.x > 1600 || enemy.x < 0) continue;
-        if (enemy.y > 1600 || enemy.y < 0) continue;
-        const enemyMapXPosition =
-            mapBuffer + mapXPosition + enemy.x / (1600 / mapSize + 1);
-        const enemyMapYPosition =
-            mapBuffer + 4 + enemy.y / (1600 / mapSize + 1);
-
-        console.log(enemy.x);
-
-        game.context.beginPath();
-        game.context.arc(
-            enemyMapXPosition,
-            enemyMapYPosition,
-            1,
-            0,
-            2 * Math.PI
-        );
-        game.context.fill();
-        game.context.lineWidth = 2;
-
-        if (enemy instanceof Creeper) game.context.lineWidth = 3;
-        else if (enemy instanceof Sprayer) game.context.lineWidth = 4;
-
-        if (enemy.health <= 0) game.context.strokeStyle = "orange";
-        else game.context.strokeStyle = "red";
-        game.context.stroke();
     }
 };

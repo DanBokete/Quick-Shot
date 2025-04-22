@@ -1,5 +1,11 @@
 import Player from "../entities/Player.js";
-import { game, resetGame, sfx } from "../../game.js";
+import {
+    continueGame,
+    game,
+    playPauseGame,
+    resetGame,
+    sfx,
+} from "../../game.js";
 import AK47 from "../entities/ak47.js";
 import Glock from "../entities/Glock.js";
 import RPG from "../entities/RPG.js";
@@ -31,8 +37,6 @@ export const activate = ({ e, Keys, player }) => {
     ) {
         e.preventDefault();
     }
-
-    if (game.state.isPaused && game.state.onUpgradeMenu) return;
 
     if (key === "w") {
         Keys.moveUp = true;
@@ -82,8 +86,20 @@ export const activate = ({ e, Keys, player }) => {
         makePurchase({ upgradeId: 4 });
     }
 
-    if (key === "Enter") {
-        resetGame();
+    const isEndGameUiVisible =
+        document.getElementById("endGameContainer").style.display !== "none";
+
+    if (game.state.isPaused || isEndGameUiVisible)
+        if (key === "Enter") {
+            resetGame();
+        }
+
+    if (key === "y") {
+        continueGame();
+    }
+
+    if (game.requestId && key === "p") {
+        playPauseGame();
     }
 
     if (key === "0") {

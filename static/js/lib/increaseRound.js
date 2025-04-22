@@ -4,6 +4,7 @@ import Sprayer from "../entities/Sprayer.js";
 import { updateHealthUi, updateRoundUi } from "../ui/uiElements.js";
 import randomInt from "../utils/randomInt.js";
 import { player, sfx, game } from "../../game.js";
+import { updatePlayerHealth } from "../helpers/helpers.js";
 /**
  * Assigning parameter types
  * @param {Object} param
@@ -17,7 +18,7 @@ const increaseRound = ({ game }) => {
 
     game.round.number++;
 
-    player.health = Math.min(player.health + 0.5, player.maxHealth);
+    updatePlayerHealth({ health: 0.5 });
     updateHealthUi();
 
     const { round } = game;

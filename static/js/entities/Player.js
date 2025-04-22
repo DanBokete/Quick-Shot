@@ -27,11 +27,13 @@ class Player {
     dx = 0;
     speed = 1;
     safeZoneRadius = 50;
-    cheated = false;
     lastDashed = null;
 
+    cheated = false;
     unlimitedHealth = false;
     unlimitedDash = false;
+
+    continuedPlaying = false;
 
     blind = null;
 

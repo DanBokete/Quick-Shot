@@ -1,15 +1,15 @@
 import Player from "./js/entities/Player.js";
-import { drawGame } from "./js/lib/draw.js";
+import { drawGame, drawMiniMap } from "./js/lib/draw.js";
 import handleCollisions from "./js/lib/collisions.js";
 import handleActiveKeys from "./js/lib/activeKeys.js";
 import handleOutOfCanvas from "./js/lib/despawn.js";
 import physics from "./js/lib/physics.js";
 import increaseRound from "./js/lib/increaseRound.js";
 import {
-    drawMiniMap,
     updateAmmoUi,
     updateDashUi,
     updateEndGameUi,
+    updatePauseGameUi,
     updateRoundUpdateTimerUi,
 } from "./js/ui/uiElements.js";
 import updateBullets from "./js/lib/updateBullets.js";
@@ -21,6 +21,7 @@ import { init, initialiseEventListeners } from "./js/lib/initialise.js";
 import Sfx from "./js/entities/Sfx.js";
 import { sendData } from "./js/lib/backend.js";
 import { displayMenu } from "./js/ui/menuUI.js";
+import { updatePlayerHealth } from "./js/helpers/helpers.js";
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -155,16 +156,56 @@ function endGame() {
     gameContainerElement.classList.remove("blur");
 
     window.cancelAnimationFrame(game.requestId);
-    sendData();
+    game.requestId = null;
+
+    if (!player.continuedPlaying) sendData();
+
     updateEndGameUi();
     document.exitPointerLock();
     // document.querySelector("canvas").style.cursor = "default";
     // resetGame();
 }
 
+export function continueGame() {
+    if (document.getElementById("endGameContainer").style.display === "none") {
+        return;
+    }
+    player.continuedPlaying = true;
+    document.getElementById("endGameContainer").style.display = "none";
+    updatePlayerHealth({ health: 1 });
+    if (!document.pointerLockElement) {
+        document.querySelector("canvas").requestPointerLock();
+    }
+    game.requestId = window.requestAnimationFrame(gameLoop);
+}
+
+export function playPauseGame() {
+    // const gameContainerElement = document.getElementById("gameContainer");
+    game.state.isPaused = !game.state.isPaused;
+
+    if (game.state.isPaused) {
+        sfx.backgroundMusic.pause();
+        window.cancelAnimationFrame(game.requestId);
+        document.exitPointerLock();
+    } else {
+        sfx.backgroundMusic.play();
+        if (!document.pointerLockElement) {
+            document.querySelector("canvas").requestPointerLock();
+        }
+        if (!document.pointerLockElement) {
+            document.querySelector("canvas").requestPointerLock();
+        }
+        game.requestId = window.requestAnimationFrame(gameLoop);
+    }
+    updatePauseGameUi();
+}
+
 export function resetGame() {
     if (sfx.backgroundMusic) {
         sfx.backgroundMusic.pause();
+    }
+    if (game.state.isPaused) {
+        document.getElementById("pauseGameContainer").style.display = "none";
     }
     initPlayer();
     initGame();
