@@ -1,8 +1,3 @@
-import {
-    updateCashUi,
-    updateHealthUi,
-    updateScoreUi,
-} from "../ui/uiElements.js";
 import collision from "../utils/collision.js";
 import { game, Keys } from "../../game.js";
 import getDistance from "../utils/getDistance.js";
@@ -12,7 +7,6 @@ import {
     updatePlayerCash,
     updatePlayerScore,
 } from "../helpers/helpers.js";
-import { background } from "./background.js";
 
 const handleCollisions = () => {
     for (let enemy of game.enemies) {

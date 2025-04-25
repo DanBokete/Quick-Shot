@@ -23,8 +23,6 @@ const increaseRound = ({ game }) => {
 
     const { round } = game;
     const roundNumber = round.number;
-    // game.bullets = [];
-    // game.enemyBullets = [];
 
     sfx.playAchievement();
 

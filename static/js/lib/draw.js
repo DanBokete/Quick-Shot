@@ -156,6 +156,7 @@ const drawEnemies = () => {
 };
 
 // https://www.youtube.com/watch?v=cB6paLHebb4
+// initial source, but all can be found in credits
 // Code can be found at 05:00
 const drawLeftWeapon = () => {
     const { context } = game;

@@ -12,6 +12,7 @@ class Sfx {
         this.ak47Shot = null;
         this.rocketShot = null;
         this.backgroundMusic = null;
+        this.money = null;
     }
 
     playAchievement() {
@@ -74,6 +75,13 @@ class Sfx {
         this.backgroundMusic.currentTime = 0;
         this.backgroundMusic.play();
         this.backgroundMusic.loop = true;
+    }
+
+    playMoneySound() {
+        this.money.volume = 0.1;
+        this.money.pause();
+        this.money.currentTime = 0;
+        this.money.play();
     }
 }
 

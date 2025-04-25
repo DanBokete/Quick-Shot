@@ -47,6 +47,7 @@ export function init() {
     game.assets.enemies.batImage = new Image();
     game.assets.enemies.sprayerImage = new Image();
     game.assets.fx.explosion = new Image();
+    game.assets.fx.money = new Image();
 
     sfx.explosion = new Audio();
     sfx.achievement = new Audio();
@@ -56,6 +57,7 @@ export function init() {
     sfx.playerHit = new Audio();
     sfx.rocketShot = new Audio();
     sfx.backgroundMusic = new Audio();
+    sfx.money = new Audio();
 
     player.addWeapon({
         game,
@@ -148,6 +150,10 @@ export function init() {
             {
                 var: sfx.backgroundMusic,
                 url: "static/assets/music/background-music.mp3",
+            },
+            {
+                var: sfx.money,
+                url: "static/assets/music/money.mp3",
             },
         ],
         gameLoop
